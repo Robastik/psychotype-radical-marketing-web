@@ -1,0 +1,94 @@
+:root {
+  /* OKLCH Color Palette */
+  --cobalt-primary: oklch(25% 0.15 250);     /* Strict Cobalt Accent #002060 equivalent */
+  --bg-primary: oklch(100% 0 0);             /* Pure White */
+  --bg-secondary: oklch(97% 0.005 250);       /* Soft technical grey */
+  --text-primary: oklch(15% 0.01 250);       /* Deep Dark Slate for absolute readability */
+  --text-muted: oklch(50% 0.01 250);         /* Medium Slate Gray */
+  --border-color: oklch(90% 0.01 250);       /* Crisp thin borders */
+  
+  /* System status colors matching extension alerts */
+  --status-success: oklch(62% 0.17 145);     /* Scientific Green */
+  --status-warning: oklch(75% 0.15 75);      /* Muted Amber */
+  --status-error: oklch(55% 0.22 25);        /* Clinical Red */
+}
+
+/* Global Reset & Base Styling */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Strict Flat Layout Engine (Brand Bible Mandate) */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Typography Helpers */
+.technical-data {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Generic Layout Primitives */
+header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+}
+
+footer {
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: 32px 0;
+  margin-top: auto;
+}
+
+/* Shadowless Technical Cards */
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* ROUND_TWELVE standard from Design System */
+  padding: 24px;
+  box-shadow: none; /* Shadowless brand mandate */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Utilities for visual presentation of methodology */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+}
