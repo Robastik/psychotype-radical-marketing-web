@@ -32,9 +32,6 @@ export default function Home() {
             
             {/* Value Proposition */}
             <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-              <div className="badge technical-data" style={{ alignSelf: "flex-start", color: "var(--accent)", borderColor: "var(--accent)", backgroundColor: "rgba(255,100,0,0.05)" }}>
-                DECONSTRUCTION_ENGINE: ON
-              </div>
               <h1 style={{ fontSize: "52px", fontWeight: "800", lineHeight: "1.1", color: "#fff", letterSpacing: "-1px" }}>
                 Дешифровка <br /> <span style={{ color: "var(--accent)" }}>визуального кода</span> <br /> карточек товаров
               </h1>
@@ -49,11 +46,6 @@ export default function Home() {
                 <a href="https://t.me/your_eyecard_bot" target="_blank" rel="noopener noreferrer" className="btn-accent" style={{ padding: "16px 32px", backgroundColor: "transparent", border: "1px solid var(--accent)", color: "var(--accent)" }}>
                   Анализ в Telegram
                 </a>
-              </div>
-
-              <div className="technical-data" style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", borderLeft: "2px solid var(--accent)", paddingLeft: "16px" }}>
-                [SIGNAL_STATUS]: INTEGRAL_ICC_VALIDATION_ACTIVE <br />
-                [AUTH]: TELEGRAM_MESSENGER_HUB_CONNECTED
               </div>
             </div>
 
@@ -77,7 +69,7 @@ export default function Home() {
                 Научный метод анализа eyeCARD
               </h2>
               <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.6" }}>
-                Девятишаговый конвейер в GCP Workflows для деконструкции эстетического кода и зеркальной валидации дизайна.
+                Как ИИ анализирует психологию покупателя и находит ошибки в дизайне карточек.
               </p>
             </div>
 
@@ -86,16 +78,16 @@ export default function Home() {
               {/* STEP 1: INSTRUMENTAL MODULE */}
               <div className="card" style={{ padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: MEASUREMENT_PHASE</span>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: ФАКТ</span>
                   <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>STATUS: OK</span>
                 </div>
                 <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
                   <div>
                     <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "16px" }}>
-                      Деконструкция и маппинг <br /> визуального кода
+                      Как ИИ видит ваш дизайн <br /> (Деконструкция кода)
                     </h3>
                     <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                      Алгоритм раскладывает изображение на 6 объективных графических слоев: от хроматики до сюжетных триггеров. Каждая точка данных переводится в научно обоснованные психографические показатели.
+                      Наш алгоритм раскладывает изображение товара на 6 базовых элементов: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
                     </p>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -125,16 +117,16 @@ export default function Home() {
               {/* STEP 2: INSTRUMENTAL MODULE */}
               <div className="card" style={{ padding: "0", overflow: "hidden" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: TARGET_AUDIENCE_IDEAL</span>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: ИДЕАЛ</span>
                   <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>MODE: PREDICTIVE</span>
                 </div>
                 <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
                   <div>
                     <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
-                      Определение профиля Идеала ЦА (ИЦА)
+                      Профиль идеальной целевой аудитории
                     </h3>
                     <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                      На основе категории товара, ценового сегмента и семантики описания ИИ формирует "золотой стандарт" дизайна. Мы знаем, какой визуальный ритм ожидает мозг покупателя в данный момент.
+                      ИИ изучает категорию товара, его цену и описание, а затем воссоздает «ожидания» мозга покупателя. Мы рассчитываем идеальный визуальный ритм, который подсознательно привлечет именно вашего клиента.
                     </p>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -164,15 +156,15 @@ export default function Home() {
               {/* STEP 3: INSTRUMENTAL MODULE */}
               <div className="card" style={{ padding: "0", overflow: "hidden" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: THE_GAP_VALIDATION</span>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: СРАВНЕНИЕ</span>
                   <span className="technical-data" style={{ fontSize: "10px", color: "var(--accent)" }}>CRITICAL_PHASE</span>
                 </div>
                 <div style={{ padding: "32px" }}>
                   <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
-                    Зеркальная валидация и расчет GAP
+                    Анализ соответствия
                   </h3>
                   <p style={{ fontSize: "15px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "850px" }}>
-                    Финальное сопоставление "Факта" и "Идеала". Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума и дает четкий вектор для доработки CTR.
+                    Финальное сопоставление "Факта" и "Идеала" для выявления и оценки расхождений. Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума. Получаем четкий вектор для доработки CTR.
                   </p>
                 </div>
               </div>
