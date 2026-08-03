@@ -17,6 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "eyeCARD — Нейромаркетинговый аудит дизайна карточек товаров",
   description: "Аналитическая AI-платформа для Wildberries и Ozon. Дешифровка визуального кода через 4 семантические оси позиционирования, архетипы Юнга и 7 психологических радикалов.",
+  icons: {
+    icon: "/favicon.png",
+  }
 };
 
 export default function RootLayout({

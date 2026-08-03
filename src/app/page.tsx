@@ -3,20 +3,21 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={{ backgroundColor: "var(--bg-secondary)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       
       {/* HEADER */}
-      <header>
+      <header style={{ padding: "12px 0" }}>
         <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <span style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--cobalt-primary)", fontFamily: "var(--font-mono)" }}>
+            <img src="/logo.png" alt="eyeCARD Logo" style={{ height: "32px", width: "auto", display: "block" }} />
+            <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--primary)" }}>
               eyeCARD
             </span>
             <span className="badge technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>
               v19.4_RELEASE
             </span>
           </div>
-          <nav style={{ display: "flex", gap: "24px", fontSize: "14px", fontFamily: "var(--font-mono)", fontWeight: "500" }}>
+          <nav className="technical-data" style={{ display: "flex", gap: "24px", fontSize: "13px", fontWeight: "500" }}>
             <Link href="/methodology" style={{ color: "var(--text-primary)" }}>Методология</Link>
             <Link href="/terms" style={{ color: "var(--text-primary)" }}>Оферта</Link>
             <Link href="/privacy" style={{ color: "var(--text-primary)" }}>Конфиденциальность</Link>
@@ -24,210 +25,275 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION */}
-      <main style={{ flex: 1, padding: "60px 0" }}>
-        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "56px" }}>
-          
-          {/* Main Value Proposition */}
-          <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "20px" }}>
-            <h1 style={{ fontSize: "42px", fontWeight: "800", lineHeight: "1.2", color: "var(--cobalt-primary)", letterSpacing: "-0.5px" }}>
-              Дешифровка визуального кода карточек товаров
-            </h1>
-            <p style={{ fontSize: "18px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-              Автоматизированная AI-платформа нейромаркетингового и психографического аудита для Wildberries и Ozon. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
-            </p>
+      {/* HERO SECTION: THE NEURAL DECK */}
+      <main style={{ flex: 1 }}>
+        <section className="expert-terminal" style={{ margin: "24px", padding: "80px 0", overflow: "hidden" }}>
+          <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
             
-            {/* Core Delivery Frame */}
-            <div style={{ margin: "16px auto", padding: "16px 24px", border: "1px solid var(--cobalt-primary)", borderRadius: "8px", backgroundColor: "oklch(94% 0.02 250)", maxWidth: "600px" }}>
-              <p style={{ fontSize: "15px", fontWeight: "600", color: "var(--cobalt-primary)" }}>
-                📢 Результат анализа формируется в виде комплексного Визуального Паспорта и мгновенно отправляется в ваш Telegram или ВКонтакте чат-бот.
+            {/* Value Proposition */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+              <div className="badge technical-data" style={{ alignSelf: "flex-start", color: "var(--accent)", borderColor: "var(--accent)", backgroundColor: "rgba(255,100,0,0.05)" }}>
+                DECONSTRUCTION_ENGINE: ON
+              </div>
+              <h1 style={{ fontSize: "52px", fontWeight: "800", lineHeight: "1.1", color: "#fff", letterSpacing: "-1px" }}>
+                Дешифровка <br /> <span style={{ color: "var(--accent)" }}>визуального кода</span> <br /> карточек товаров
+              </h1>
+              <p style={{ fontSize: "19px", lineHeight: "1.6", color: "rgba(255,255,255,0.7)", maxWidth: "520px" }}>
+                Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
               </p>
+              
+              <div style={{ display: "flex", gap: "16px", marginTop: "12px" }}>
+                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px" }}>
+                  Установить расширение
+                </a>
+                <a href="https://t.me/your_eyecard_bot" target="_blank" rel="noopener noreferrer" className="btn-accent" style={{ padding: "16px 32px", backgroundColor: "transparent", border: "1px solid var(--accent)", color: "var(--accent)" }}>
+                  Анализ в Telegram
+                </a>
+              </div>
+
+              <div className="technical-data" style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", borderLeft: "2px solid var(--accent)", paddingLeft: "16px" }}>
+                [SIGNAL_STATUS]: INTEGRAL_ICC_VALIDATION_ACTIVE <br />
+                [AUTH]: TELEGRAM_MESSENGER_HUB_CONNECTED
+              </div>
             </div>
 
-            <div style={{ display: "flex", gap: "16px", justifyContent: "center", marginTop: "12px" }}>
-              <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="badge" style={{ padding: "14px 28px", fontSize: "15px", fontWeight: "bold", backgroundColor: "var(--cobalt-primary)", color: "var(--bg-primary)", borderRadius: "8px" }}>
-                Установить расширение
-              </a>
-              <a href="https://t.me/your_eyecard_bot" target="_blank" rel="noopener noreferrer" className="badge" style={{ padding: "14px 28px", fontSize: "15px", fontWeight: "bold", borderRadius: "8px" }}>
-                Анализ в Telegram
-              </a>
+            {/* Neural Deconstruction Illustration */}
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <div style={{ border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "8px", padding: "8px", backgroundColor: "rgba(255,255,255,0.02)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
+                <img src="/hero.png" alt="eyeCARD Neural Deconstruction" style={{ maxWidth: "100%", maxHeight: "420px", borderRadius: "6px", display: "block" }} />
+              </div>
             </div>
+
           </div>
+        </section>
+
+        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "80px", padding: "80px 0" }}>
 
           {/* MAIN SCIENTIFIC METHODOLOGY PIPELINE */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
-            <div style={{ textAlign: "center" }}>
-              <h2 style={{ fontSize: "28px", fontWeight: "700", color: "var(--cobalt-primary)" }}>
+          <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
+            <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
+              <div className="badge technical-data" style={{ color: "var(--primary)", marginBottom: "16px" }}>PIPELINE_ARCHITECTURE_V3</div>
+              <h2 style={{ fontSize: "36px", fontWeight: "700", color: "var(--primary)", letterSpacing: "-0.5px" }}>
                 Научный метод анализа eyeCARD
               </h2>
-              <p style={{ fontSize: "15px", color: "var(--text-muted)", marginTop: "8px" }}>
-                Три последовательных этапа автоматического сканирования и валидации коммерческой графики
+              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.6" }}>
+                Девятишаговый конвейер в GCP Workflows для деконструкции эстетического кода и зеркальной валидации дизайна.
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px" }}>
               
-              {/* STEP 1 */}
-              <div className="card" style={{ padding: "32px" }}>
-                <div className="badge technical-data" style={{ marginBottom: "16px", color: "var(--cobalt-primary)" }}>ЭТАП 1. ИЗМЕРЕНИЕ ПРОФИЛЯ МАРКЕТИНГОВОГО СООБЩЕНИЯ</div>
-                <h3 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "16px" }}>
-                  Деконструкция и маппинг визуально-текстового кода
-                </h3>
-                
-                <div style={{ display: "grid", gridTemplateColumns: "1fr md:1fr 1fr", gap: "24px", marginTop: "12px" }}>
-                  <div style={{ borderRight: "1px solid var(--border-color)", paddingRight: "16px" }}>
-                    <h4 style={{ fontSize: "15px", fontWeight: "600", marginBottom: "8px", color: "var(--cobalt-primary)" }}>
-                      1. Деконструкция кода (6 слоев изображения)
-                    </h4>
-                    <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--text-muted)" }}>
-                      Алгоритм раскладывает изображение карточки на 6 объективных графических слоев: хроматика (палитра), морфология (геометрия форм), типографика (шрифты), архитектоника (сетка и композиция), графика (плашки, пиктограммы) и сюжет (ракурсы, сюжетные триггеры).
+              {/* STEP 1: INSTRUMENTAL MODULE */}
+              <div className="card" style={{ padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: MEASUREMENT_PHASE</span>
+                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>STATUS: OK</span>
+                </div>
+                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+                  <div>
+                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "16px" }}>
+                      Деконструкция и маппинг <br /> визуального кода
+                    </h3>
+                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                      Алгоритм раскладывает изображение на 6 объективных графических слоев: от хроматики до сюжетных триггеров. Каждая точка данных переводится в научно обоснованные психографические показатели.
                     </p>
                   </div>
-                  <div>
-                    <h4 style={{ fontSize: "15px", fontWeight: "600", marginBottom: "8px", color: "var(--cobalt-primary)" }}>
-                      2. Когнитивный маппинг в психографику
-                    </h4>
-                    <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--text-muted)" }}>
-                      Полученные физические параметры графики переводятся в научно обоснованные психологические показатели маркетингового сообщения: выстраивается позиционирование по <strong>4 семантическим осям (вектор смысла)</strong>, определяются ключевые <strong>архетипы</strong> по Юнгу и доминирующие <strong>психологические радикалы</strong> по методу Пономаренко.
-                    </p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                    <div style={{ height: "140px", borderRadius: "6px", backgroundImage: "url('/visual-analytics.png')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
+                      <div className="technical-data" style={{ position: "absolute", bottom: "8px", left: "12px", fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "2px 8px", borderRadius: "3px" }}>
+                        SYS_VISUAL_LAYER_DECONSTRUCTION
+                      </div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
+                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>COGNITIVE_MAPPING</h4>
+                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
+                          <div style={{ height: "100%", width: "85%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
+                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>RADICAL_DETECTION</h4>
+                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
+                          <div style={{ height: "100%", width: "60%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* STEP 2 */}
-              <div className="card" style={{ padding: "32px" }}>
-                <div className="badge technical-data" style={{ marginBottom: "16px", color: "var(--cobalt-primary)" }}>ЭТАП 2. РАСЧЕТ ПРОФИЛЯ ИЦА</div>
-                <h3 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "12px" }}>
-                  Определение профиля Идеала Целевой Аудитории (ИЦА)
-                </h3>
-                <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "800px" }}>
-                  Алгоритм анализирует входящие текстовые данные товара: его наименование, ценовой сегмент, подробные характеристики и ключевые потребительские свойства. На основе этих параметров рассчитывается идеальный психологический портрет потенциального покупателя, определяя, какие радикалы, архетипы и семантические векторы дизайна обязаны преобладать в карточке для максимальной конверсии.
-                </p>
+              {/* STEP 2: INSTRUMENTAL MODULE */}
+              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
+                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: TARGET_AUDIENCE_IDEAL</span>
+                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>MODE: PREDICTIVE</span>
+                </div>
+                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+                  <div>
+                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                      Определение профиля Идеала ЦА (ИЦА)
+                    </h3>
+                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                      На основе категории товара, ценового сегмента и семантики описания ИИ формирует "золотой стандарт" дизайна. Мы знаем, какой визуальный ритм ожидает мозг покупателя в данный момент.
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                    <div style={{ height: "140px", borderRadius: "6px", backgroundImage: "url('/behavioral-analytics.png')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
+                      <div className="technical-data" style={{ position: "absolute", bottom: "8px", left: "12px", fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "2px 8px", borderRadius: "3px" }}>
+                        SYS_BEHAVIORAL_AUDIENCE_MODEL
+                      </div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
+                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>ICA_EXPECTATIONS</h4>
+                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
+                          <div style={{ height: "100%", width: "75%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
+                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>SEMANTIC_ALIGNMENT</h4>
+                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
+                          <div style={{ height: "100%", width: "90%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* STEP 3 */}
-              <div className="card" style={{ padding: "32px" }}>
-                <div className="badge technical-data" style={{ marginBottom: "16px", color: "var(--cobalt-primary)" }}>ЭТАП 3. СРАВНИТЕЛЬНЫЙ АНАЛИЗ (THE GAP)</div>
-                <h3 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "12px" }}>
-                  Зеркальная валидация и выявление разрывов
-                </h3>
-                <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "800px" }}>
-                  Финальный этап сопоставляет измеренный профиль дизайна (Этап 1) с идеальным профилем ИЦА (Этап 2). Сервис вычисляет разрыв (GAP) между ожиданиями аудитории и реальностью текущей графики. Выявляется избыточный визуальный шум и нехватка триггеров. Интегральный показатель <strong>Индекса Когнитивного Комфорта (ICC)</strong> оценивает общую когнитивную нагрузку на мозг покупателя, после чего AI формулирует текстовый экспертный вердикт.
-                </p>
+              {/* STEP 3: INSTRUMENTAL MODULE */}
+              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
+                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: THE_GAP_VALIDATION</span>
+                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--accent)" }}>CRITICAL_PHASE</span>
+                </div>
+                <div style={{ padding: "32px" }}>
+                  <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                    Зеркальная валидация и расчет GAP
+                  </h3>
+                  <p style={{ fontSize: "15px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "850px" }}>
+                    Финальное сопоставление "Факта" и "Идеала". Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума и дает четкий вектор для доработки CTR.
+                  </p>
+                </div>
               </div>
 
             </div>
           </section>
 
           {/* VISUAL PASSPORT PREVIEW (v19.4 SCHEMATICS) */}
-          <section className="card" style={{ padding: "40px", backgroundColor: "var(--bg-primary)" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px", alignItems: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                <div className="badge technical-data" style={{ alignSelf: "flex-start" }}>SAMPLE_VISUAL_PASSPORT</div>
-                <h2 style={{ fontSize: "28px", fontWeight: "700", color: "var(--cobalt-primary)" }}>
-                  Пример ИИ-вердикта и анализа векторов
+          <section className="expert-terminal" style={{ padding: "60px", position: "relative" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "60px", alignItems: "center" }}>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                <div className="badge technical-data" style={{ alignSelf: "flex-start", color: "var(--accent)", borderColor: "var(--accent)" }}>MODULE: VISUAL_PASSPORT_HUD</div>
+                <h2 style={{ fontSize: "32px", fontWeight: "800", color: "#fff" }}>
+                  Интерфейс Визуального Паспорта
                 </h2>
-                <p style={{ fontSize: "15px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                  Ниже приведен фрагмент реального анализа семантического вектора смысла, отображаемый в Визуальном Паспорте. eyeCARD наглядно демонстрирует отклонения фактического дизайна от идеала.
+                <p style={{ fontSize: "16px", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
+                  eyeCARD визуализирует сложные данные через систему инструментальных графиков. Вы видите не просто «красиво/некрасиво», а точную геометрию вашего маркетингового сообщения.
                 </p>
-              </div>
-
-              {/* Interactive Mock SVG/HTML Radar Chart */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", justifyContent: "center" }}>
                 
-                {/* SVG Mock Radar */}
-                <div style={{ border: "1px solid var(--border-color)", borderRadius: "8px", padding: "20px", backgroundColor: "var(--bg-secondary)", width: "320px", height: "320px", display: "flex", flexDirection: "column", justifySelf: "center", alignItems: "center", position: "relative" }}>
-                  <div className="technical-data" style={{ fontSize: "11px", fontWeight: "bold", marginBottom: "10px" }}>VECTOR_RADAR: SEMANTIC_AXES</div>
-                  
-                  {/* Simplistic Pure CSS/SVG representation of a radar */}
-                  <svg width="220" height="220" viewBox="0 0 100 100" style={{ overflow: "visible" }}>
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border-color)" strokeWidth="0.5" />
-                    <circle cx="50" cy="50" r="25" fill="none" stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="2,2" />
-                    <line x1="50" y1="10" x2="50" y2="90" stroke="var(--border-color)" strokeWidth="0.5" />
-                    <line x1="10" y1="50" x2="90" y2="50" stroke="var(--border-color)" strokeWidth="0.5" />
-                    
-                    {/* Ideal area path (Muted blue) */}
-                    <polygon points="50,15 75,50 50,80 20,50" fill="oklch(25% 0.15 250 / 15%)" stroke="var(--cobalt-primary)" strokeWidth="1" strokeDasharray="2,2" />
-                    
-                    {/* Actual design path (Solid Cobalt line) */}
-                    <polygon points="50,30 65,50 50,60 40,50" fill="none" stroke="var(--cobalt-primary)" strokeWidth="2" />
-                    
-                    {/* Labels */}
-                    <text x="50" y="6" textAnchor="middle" fontSize="4" fontFamily="var(--font-mono)">Рациональность</text>
-                    <text x="94" y="52" textAnchor="start" fontSize="4" fontFamily="var(--font-mono)">Статика</text>
-                    <text x="50" y="97" textAnchor="middle" fontSize="4" fontFamily="var(--font-mono)">Эмоциональность</text>
-                    <text x="6" y="52" textAnchor="end" fontSize="4" fontFamily="var(--font-mono)">Динамика</text>
-                  </svg>
-                  <div style={{ display: "flex", gap: "12px", fontSize: "10px", fontFamily: "var(--font-mono)", marginTop: "12px" }}>
-                    <span style={{ color: "var(--cobalt-primary)" }}>■ Факт Дизайна</span>
-                    <span style={{ color: "var(--text-muted)" }}>-- Идеал ЦА</span>
+                <div className="card" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "none" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
+                    <span className="technical-data" style={{ fontSize: "12px", color: "var(--accent)" }}>VERDICT_SUMMARY</span>
+                    <span className="technical-data" style={{ fontSize: "12px", color: "#fff" }}>ICC: 68% [MODERATE]</span>
                   </div>
+                  <p className="technical-data" style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5" }}>
+                    «Фактическая графика имеет избыточное смещение в Эмоциональность. Рекомендуется упорядочить плашки по вертикальной сетке (Архитектоника).»
+                  </p>
                 </div>
-
-                {/* Mock AI Verdict text card */}
-                <div className="card" style={{ flex: 1, minWidth: "280px", display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-color)", paddingBottom: "10px" }}>
-                    <span className="technical-data" style={{ fontWeight: "bold", fontSize: "12px" }}>VERDICT_METRIC_ANALYSIS</span>
-                    <span className="badge" style={{ fontSize: "10px", color: "var(--status-error)", borderColor: "var(--status-error)", backgroundColor: "oklch(55% 0.22 25 / 5%)" }}>ОТКЛОНЕНИЕ 42%</span>
-                  </div>
-                  <div className="technical-data" style={{ fontSize: "13px", lineHeight: "1.5" }}>
-                    <strong>Выдержка из ИИ-вердикта:</strong>
-                    <p style={{ marginTop: "6px", color: "var(--text-primary)" }}>
-                      «Фактическая графика карточки имеет избыточное смещение в сторону <i>Эмоциональности</i> за счет хаотичного использования пастельных оттенков. Однако, технические характеристики товара требуют доминирования вектора <i>Рациональности</i> для привлечения Прагматиков. Имеется критический дефицит структурированности (слой Архитектоники).»
-                    </p>
-                    <p style={{ marginTop: "10px", color: "var(--text-muted)" }}>
-                      <strong>Рекомендация:</strong> Увеличить размер шрифта УТП на 20%, упорядочить плашки характеристик по вертикальной сетке, снизить насыщенность фонового шума.
-                    </p>
-                  </div>
-                </div>
-
               </div>
+
+              {/* Advanced Radar Chart Simulation */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+                <div style={{ position: "relative", width: "360px", height: "360px", backgroundColor: "rgba(255,255,255,0.02)", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <div className="technical-data" style={{ position: "absolute", top: "10px", fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>RADAR_SCOPE_04_AXES</div>
+                  
+                  <svg width="280" height="280" viewBox="0 0 100 100" style={{ overflow: "visible" }}>
+                    {/* Grid Lines */}
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+                    <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                    <circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                    <line x1="50" y1="10" x2="50" y2="90" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+                    <line x1="10" y1="50" x2="90" y2="50" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+                    
+                    {/* IDEAL AREA (Hollow Dashed) */}
+                    <polygon points="50,10 85,50 50,85 15,50" fill="none" stroke="var(--primary)" strokeWidth="1" strokeDasharray="2,2" opacity="0.6" />
+                    
+                    {/* ACTUAL AREA (Solid Cobalt) */}
+                    <polygon points="50,25 70,50 50,65 35,50" fill="rgba(52, 92, 252, 0.2)" stroke="var(--primary)" strokeWidth="2" />
+                    
+                    {/* AXIS LABELS (Expert Style) */}
+                    <text x="50" y="5" textAnchor="middle" fill="#fff" fontSize="3.5" className="technical-data">РАЦИОНАЛЬНОСТЬ</text>
+                    <text x="94" y="52" textAnchor="start" fill="#fff" fontSize="3.5" className="technical-data">СТАТИКА</text>
+                    <text x="50" y="98" textAnchor="middle" fill="#fff" fontSize="3.5" className="technical-data">ЭМОЦИОНАЛЬНОСТЬ</text>
+                    <text x="6" y="52" textAnchor="end" fill="#fff" fontSize="3.5" className="technical-data">ДИНАМИКА</text>
+                  </svg>
+                  
+                  {/* Legend Overlay */}
+                  <div style={{ position: "absolute", bottom: "20px", display: "flex", gap: "16px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <div style={{ width: "8px", height: "8px", backgroundColor: "var(--primary)" }} />
+                      <span className="technical-data" style={{ fontSize: "9px", color: "#fff" }}>ACTUAL_FACT</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <div style={{ width: "8px", height: "8px", border: "1px dashed var(--primary)" }} />
+                      <span className="technical-data" style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>TARGET_IDEAL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </section>
 
           {/* INSTALLATION GUIDE SECTION */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+          <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
             <div style={{ textAlign: "center" }}>
-              <h2 style={{ fontSize: "28px", fontWeight: "700", color: "var(--cobalt-primary)" }}>
-                Быстрая установка расширения eyeCARD
+              <div className="badge technical-data" style={{ color: "var(--primary)", marginBottom: "16px" }}>DEPLOYMENT_GUIDE_V1</div>
+              <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
+                Быстрая установка eyeCARD
               </h2>
-              <p style={{ fontSize: "15px", color: "var(--text-muted)", marginTop: "8px" }}>
-                3 простых шага для интеграции нейромаркетинга прямо в ваш браузер
+              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px" }}>
+                Три шага до запуска нейромаркетингового аудита в вашем браузере.
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
               
               {/* Card 1 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center", textAlign: "center" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "oklch(92% 0.02 250)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "bold", color: "var(--cobalt-primary)", fontFamily: "var(--font-mono)" }}>
-                  01
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
+                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>01</div>
+                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 </div>
-                <h3 style={{ fontSize: "16px", fontWeight: "700" }}>Скачайте расширение</h3>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                  Перейдите в Chrome Web Store по официальной кнопке установки и нажмите «Установить в Chrome». Процесс полностью безопасен.
+                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Скачайте расширение</h3>
+                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+                  Официальный Chrome Web Store. Установка в один клик. Система автоматически интегрируется в интерфейс WB и Ozon.
                 </p>
               </div>
 
               {/* Card 2 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center", textAlign: "center" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "oklch(92% 0.02 250)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "bold", color: "var(--cobalt-primary)", fontFamily: "var(--font-mono)" }}>
-                  02
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
+                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>02</div>
+                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                 </div>
-                <h3 style={{ fontSize: "16px", fontWeight: "700" }}>Закрепите на панели</h3>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                  Кликните по иконке пазла «Расширения» в правом верхнем углу браузера и закрепите (pin) значок eyeCARD для быстрого доступа.
+                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Закрепите на панели</h3>
+                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+                  Для мгновенного доступа закрепите иконку eyeCARD в меню расширений. Панель управления анализом всегда будет под рукой.
                 </p>
               </div>
 
               {/* Card 3 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center", textAlign: "center" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "oklch(92% 0.02 250)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "bold", color: "var(--cobalt-primary)", fontFamily: "var(--font-mono)" }}>
-                  03
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
+                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>03</div>
+                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
                 </div>
-                <h3 style={{ fontSize: "16px", fontWeight: "700" }}>Запустите аудит</h3>
-                <p style={{ fontSize: "13px", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                  Откройте любую карточку товара на WB или Ozon. На панели расширения мгновенно появится плашка eyeCARD. Нажмите «Запустить анализ».
+                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Запустите аудит</h3>
+                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+                  Нажмите кнопку «Анализировать» прямо на странице товара. ИИ мгновенно сформирует отчет и отправит его в Telegram.
                 </p>
               </div>
 
@@ -238,31 +304,30 @@ export default function Home() {
       </main>
 
       {/* FOOTER WITH COMPLIANCE FOOTNOTE */}
-      <footer>
-        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <footer style={{ backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", padding: "48px 0" }}>
+        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
           
-          {/* Navigation & Legal Links */}
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "16px", borderBottom: "1px solid var(--border-color)", paddingBottom: "20px" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ fontWeight: "800", color: "var(--cobalt-primary)", fontFamily: "var(--font-mono)" }}>eyeCARD</span>
-              <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>Автоматизированный нейромаркетинговый анализ.</span>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "24px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", color: "var(--primary)" }}>eyeCARD</span>
+              <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>Нейромаркетинговая AI-лаборатория для бизнеса.</span>
             </div>
-            <div style={{ display: "flex", gap: "24px", fontSize: "13px", fontFamily: "var(--font-mono)" }}>
-              <Link href="/methodology" style={{ color: "var(--text-muted)" }}>Методология</Link>
-              <Link href="/terms" style={{ color: "var(--text-muted)" }}>Договор оферты</Link>
-              <Link href="/privacy" style={{ color: "var(--text-muted)" }}>Конфиденциальность</Link>
+            <div className="technical-data" style={{ display: "flex", gap: "32px", fontSize: "13px" }}>
+              <Link href="/methodology" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Методология</Link>
+              <Link href="/terms" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Оферта</Link>
+              <Link href="/privacy" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Privacy</Link>
             </div>
           </div>
 
-          {/* STRICT MANDATED FINANCIAL FOOTNOTE */}
-          <div style={{ fontSize: "11px", lineHeight: "1.5", color: "var(--text-muted)", fontStyle: "italic" }}>
-            * Стоимость проведения анализов указывается в интерфейсе браузерного расширения eyeCARD в условных единицах (Coins/Монеты) и приводится в российских рублях (RUB) при формировании счета на оплату внутри авторизованного мессенджер-бота (Telegram/ВКонтакте).
-          </div>
+          <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ fontSize: "11px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "800px" }}>
+              * Стоимость проведения анализов указывается в интерфейсе браузерного расширения eyeCARD в условных единицах (Coins/Монеты) и приводится в российских рублях (RUB) при формировании счета на оплату внутри авторизованного мессенджер-бота (Telegram/ВКонтакте).
+            </div>
 
-          {/* Legal Copyright Line */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "var(--text-muted)", fontFamily: "var(--font-mono)", flexWrap: "wrap", gap: "8px" }}>
-            <span>© {new Date().getFullYear()} eyeCARD. Все права защищены.</span>
-            <span>ИП / Организация: [Реквизиты организации]</span>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "var(--text-muted)", flexWrap: "wrap", gap: "12px" }}>
+              <span className="technical-data">© {new Date().getFullYear()} eyeCARD. NEURAL_DECK_V19.4</span>
+              <span className="technical-data">[SYSTEM_STATUS]: OPERATIONAL</span>
+            </div>
           </div>
 
         </div>
