@@ -43,9 +43,6 @@ export default function Home() {
                 <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px" }}>
                   Установить расширение
                 </a>
-                <a href="https://t.me/your_eyecard_bot" target="_blank" rel="noopener noreferrer" className="btn-accent" style={{ padding: "16px 32px", backgroundColor: "transparent", border: "1px solid var(--accent)", color: "var(--accent)" }}>
-                  Анализ в Telegram
-                </a>
               </div>
             </div>
 
@@ -64,12 +61,11 @@ export default function Home() {
           {/* MAIN SCIENTIFIC METHODOLOGY PIPELINE */}
           <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
             <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
-              <div className="badge technical-data" style={{ color: "var(--primary)", marginBottom: "16px" }}>PIPELINE_ARCHITECTURE_V3</div>
               <h2 style={{ fontSize: "36px", fontWeight: "700", color: "var(--primary)", letterSpacing: "-0.5px" }}>
-                Научный метод анализа eyeCARD
+                Научный метод
               </h2>
               <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.6" }}>
-                Как ИИ анализирует психологию покупателя и находит ошибки в дизайне карточек.
+                Анализ психологии покупателя и выявление отклонений в дизайне карточек
               </p>
             </div>
 
@@ -79,36 +75,18 @@ export default function Home() {
               <div className="card" style={{ padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: ФАКТ</span>
-                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>STATUS: OK</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
                   <div>
                     <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "16px" }}>
-                      Как ИИ видит ваш дизайн <br /> (Деконструкция кода)
+                      Расшифровка визуального кода
                     </h3>
                     <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                      Наш алгоритм раскладывает изображение товара на 6 базовых элементов: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
+                      Алгоритм раскладывает изображение товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
                     </p>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "140px", borderRadius: "6px", backgroundImage: "url('/visual-analytics.png')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                      <div className="technical-data" style={{ position: "absolute", bottom: "8px", left: "12px", fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "2px 8px", borderRadius: "3px" }}>
-                        SYS_VISUAL_LAYER_DECONSTRUCTION
-                      </div>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
-                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>COGNITIVE_MAPPING</h4>
-                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
-                          <div style={{ height: "100%", width: "85%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
-                        </div>
-                      </div>
-                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
-                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>RADICAL_DETECTION</h4>
-                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
-                          <div style={{ height: "100%", width: "60%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
-                        </div>
-                      </div>
+                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
                     </div>
                   </div>
                 </div>
@@ -118,9 +96,8 @@ export default function Home() {
               <div className="card" style={{ padding: "0", overflow: "hidden" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: ИДЕАЛ</span>
-                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>MODE: PREDICTIVE</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
                   <div>
                     <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
                       Профиль идеальной целевой аудитории
@@ -130,24 +107,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "140px", borderRadius: "6px", backgroundImage: "url('/behavioral-analytics.png')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                      <div className="technical-data" style={{ position: "absolute", bottom: "8px", left: "12px", fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", color: "#fff", padding: "2px 8px", borderRadius: "3px" }}>
-                        SYS_BEHAVIORAL_AUDIENCE_MODEL
-                      </div>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
-                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>ICA_EXPECTATIONS</h4>
-                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
-                          <div style={{ height: "100%", width: "75%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
-                        </div>
-                      </div>
-                      <div style={{ padding: "12px", backgroundColor: "var(--surface-low)", borderRadius: "4px", border: "1px dashed var(--border-color)" }}>
-                        <h4 className="technical-data" style={{ fontSize: "10px", color: "var(--primary)", marginBottom: "6px" }}>SEMANTIC_ALIGNMENT</h4>
-                        <div style={{ height: "4px", width: "100%", backgroundColor: "var(--border-color)", borderRadius: "2px" }}>
-                          <div style={{ height: "100%", width: "90%", backgroundColor: "var(--primary)", borderRadius: "2px" }} />
-                        </div>
-                      </div>
+                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase2-1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
                     </div>
                   </div>
                 </div>
@@ -157,7 +117,6 @@ export default function Home() {
               <div className="card" style={{ padding: "0", overflow: "hidden" }}>
                 <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: СРАВНЕНИЕ</span>
-                  <span className="technical-data" style={{ fontSize: "10px", color: "var(--accent)" }}>CRITICAL_PHASE</span>
                 </div>
                 <div style={{ padding: "32px" }}>
                   <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
@@ -177,60 +136,108 @@ export default function Home() {
             <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "60px", alignItems: "center" }}>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                <div className="badge technical-data" style={{ alignSelf: "flex-start", color: "var(--accent)", borderColor: "var(--accent)" }}>MODULE: VISUAL_PASSPORT_HUD</div>
                 <h2 style={{ fontSize: "32px", fontWeight: "800", color: "#fff" }}>
-                  Интерфейс Визуального Паспорта
+                  Визуальный Паспорт
                 </h2>
                 <p style={{ fontSize: "16px", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
-                  eyeCARD визуализирует сложные данные через систему инструментальных графиков. Вы видите не просто «красиво/некрасиво», а точную геометрию вашего маркетингового сообщения.
+                  eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
                 </p>
-                
-                <div className="card" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "none" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
-                    <span className="technical-data" style={{ fontSize: "12px", color: "var(--accent)" }}>VERDICT_SUMMARY</span>
-                    <span className="technical-data" style={{ fontSize: "12px", color: "#fff" }}>ICC: 68% [MODERATE]</span>
-                  </div>
-                  <p className="technical-data" style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)", lineHeight: "1.5" }}>
-                    «Фактическая графика имеет избыточное смещение в Эмоциональность. Рекомендуется упорядочить плашки по вертикальной сетке (Архитектоника).»
-                  </p>
-                </div>
               </div>
 
-              {/* Advanced Radar Chart Simulation */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-                <div style={{ position: "relative", width: "360px", height: "360px", backgroundColor: "rgba(255,255,255,0.02)", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <div className="technical-data" style={{ position: "absolute", top: "10px", fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>RADAR_SCOPE_04_AXES</div>
-                  
-                  <svg width="280" height="280" viewBox="0 0 100 100" style={{ overflow: "visible" }}>
-                    {/* Grid Lines */}
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                    <circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                    <line x1="50" y1="10" x2="50" y2="90" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-                    <line x1="10" y1="50" x2="90" y2="50" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+              {/* Exact Replica of Archetype Radar from Preliminary Design with MOCK_DATA */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ position: "relative", width: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <svg width="400" height="400" viewBox="0 0 360 360" style={{ overflow: "visible" }}>
+                    <defs>
+                      <linearGradient id="vp-arch-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="oklch(64.13% 0.17 48.74)" stopOpacity="0.4" />
+                        <stop offset="100%" stopColor="oklch(64.13% 0.17 48.74)" stopOpacity="0.1" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Quadrant Background Shading - Rotated 45 degrees */}
+                    {/* Individualism: -45 to 45 (Top) */}
+                    <path d="M180,180 L109.3,109.3 A100,100 0 0,1 250.7,109.3 Z" fill="oklch(85% 0.08 90)" opacity="0.12" />
+                    {/* Stability: 45 to 135 (Right) */}
+                    <path d="M180,180 L250.7,109.3 A100,100 0 0,1 250.7,250.7 Z" fill="oklch(45% 0.06 252)" opacity="0.12" />
+                    {/* Change: 135 to 225 (Bottom) */}
+                    <path d="M180,180 L250.7,250.7 A100,100 0 0,1 109.3,250.7 Z" fill="oklch(60% 0.15 30)" opacity="0.12" />
+                    {/* Belonging: 225 to 315 (Left) */}
+                    <path d="M180,180 L109.3,250.7 A100,100 0 0,1 109.3,109.3 Z" fill="oklch(75% 0.15 65)" opacity="0.12" />
+
+                    {/* Quadrant Labels - Re-positioned closer to edge */}
+                    <text x="180" y="70" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontWeight="900" letterSpacing="0.1em" opacity="0.6" style={{ fill: "oklch(85% 0.08 90)" }}>ИНДИВИДУАЛИЗМ</text>
+                    <text x="290" y="180" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontWeight="900" letterSpacing="0.1em" opacity="0.6" transform="rotate(90, 290, 180)" style={{ fill: "oklch(45% 0.06 252)" }}>СТАБИЛЬНОСТЬ</text>
+                    <text x="180" y="290" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontWeight="900" letterSpacing="0.1em" opacity="0.6" style={{ fill: "oklch(60% 0.15 30)" }}>ИЗМЕНЕНИЯ</text>
+                    <text x="70" y="180" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontWeight="900" letterSpacing="0.1em" opacity="0.6" transform="rotate(270, 70, 180)" style={{ fill: "oklch(75% 0.15 65)" }}>ПРИНАДЛЕЖНОСТЬ</text>
+
+                    {/* Grid Lines - Enhanced Contrast */}
+                    <circle cx="180" cy="180" r="100" fill="none" stroke="oklch(55% 0.1 252)" strokeOpacity="0.4" strokeWidth="1" />
+                    <circle cx="180" cy="180" r="75" fill="none" stroke="oklch(55% 0.1 252)" strokeOpacity="0.2" strokeWidth="1" />
+                    <circle cx="180" cy="180" r="50" fill="none" stroke="oklch(55% 0.1 252)" strokeOpacity="0.2" strokeWidth="1" />
+                    <circle cx="180" cy="180" r="25" fill="none" stroke="oklch(55% 0.1 252)" strokeOpacity="0.2" strokeWidth="1" />
                     
-                    {/* IDEAL AREA (Hollow Dashed) */}
-                    <polygon points="50,10 85,50 50,85 15,50" fill="none" stroke="var(--primary)" strokeWidth="1" strokeDasharray="2,2" opacity="0.6" />
+                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(a => {
+                      const angle = (a - 90) * (Math.PI / 180);
+                      return (
+                        <line 
+                          key={a}
+                          x1="180" y1="180" 
+                          x2={180 + 100 * Math.cos(angle)} 
+                          y2={180 + 100 * Math.sin(angle)} 
+                          stroke="oklch(55% 0.1 252)" strokeOpacity="0.3" strokeWidth="1"
+                        />
+                      );
+                    })}
+
+                    {/* Ideal Area (Dashed lines between calculated points from MOCK_DATA) */}
+                    {/* Sage(0) -> Caregiver(100) */}
+                    <line x1="180" y1="180" x2="280" y2="180" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+                    {/* Caregiver(100) -> Ruler(0) */}
+                    <line x1="280" y1="180" x2="180" y2="180" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+                    {/* Creator(0) -> Hero(45) */}
+                    <line x1="180" y1="180" x2="180" y2="225" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+                    {/* Hero(45) -> Outlaw(0) */}
+                    <line x1="180" y1="225" x2="180" y2="180" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+                    {/* Outlaw(0) -> Magician(45) */}
+                    <line x1="180" y1="180" x2="141" y2="202.5" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+                    {/* Magician(45) -> Everyman(0) */}
+                    <line x1="141" y1="202.5" x2="180" y2="180" stroke="oklch(60% 0.15 252)" strokeWidth="2" strokeOpacity="0.6" strokeDasharray="4,2" />
+
+                    {/* Actual Area (Solid Polygon from MOCK_DATA) */}
+                    <polygon 
+                      points="180,107 182,175 193,172 252,180 206,195 190,197 180,280 175,188 141,202 116,180 175,177 152,132" 
+                      fill="url(#vp-arch-grad)" stroke="oklch(64.13% 0.17 48.74)" strokeWidth="1.5" 
+                    />
                     
-                    {/* ACTUAL AREA (Solid Cobalt) */}
-                    <polygon points="50,25 70,50 50,65 35,50" fill="rgba(52, 92, 252, 0.2)" stroke="var(--primary)" strokeWidth="2" />
+                    {/* Archetype Labels - Luminous Cobalt for Contrast */}
+                    <text x="180" y="55" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ПРОСТОДУШНЫЙ</text>
+                    <text x="255" y="65" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ИСКАТЕЛЬ</text>
+                    <text x="300" y="115" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">МУДРЕЦ</text>
+                    <text x="335" y="180" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ЗАБОТЛИВЫЙ</text>
+                    <text x="300" y="245" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ПРАВИТЕЛЬ</text>
+                    <text x="250" y="290" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ТВОРЕЦ</text>
+                    <text x="180" y="305" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ГЕРОЙ</text>
+                    <text x="110" y="290" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">БУНТАРЬ</text>
+                    <text x="60" y="245" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">МАГ</text>
                     
-                    {/* AXIS LABELS (Expert Style) */}
-                    <text x="50" y="5" textAnchor="middle" fill="#fff" fontSize="3.5" className="technical-data">РАЦИОНАЛЬНОСТЬ</text>
-                    <text x="94" y="52" textAnchor="start" fill="#fff" fontSize="3.5" className="technical-data">СТАТИКА</text>
-                    <text x="50" y="98" textAnchor="middle" fill="#fff" fontSize="3.5" className="technical-data">ЭМОЦИОНАЛЬНОСТЬ</text>
-                    <text x="6" y="52" textAnchor="end" fill="#fff" fontSize="3.5" className="technical-data">ДИНАМИКА</text>
+                    {/* СЛАВНЫЙ МАЛЫЙ in two lines */}
+                    <text x="30" y="175" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">СЛАВНЫЙ</text>
+                    <text x="30" y="185" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">МАЛЫЙ</text>
+                    
+                    <text x="60" y="115" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ЭСТЕТ</text>
+                    <text x="110" y="70" textAnchor="middle" dominantBaseline="middle" fill="oklch(85% 0.05 252)" fontSize="9" fontWeight="800">ШУТ</text>
                   </svg>
                   
                   {/* Legend Overlay */}
-                  <div style={{ position: "absolute", bottom: "20px", display: "flex", gap: "16px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <div style={{ width: "8px", height: "8px", backgroundColor: "var(--primary)" }} />
-                      <span className="technical-data" style={{ fontSize: "9px", color: "#fff" }}>ACTUAL_FACT</span>
+                  <div style={{ position: "absolute", bottom: "-30px", display: "flex", gap: "24px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "oklch(64.13% 0.17 48.74)" }} />
+                      <span className="technical-data" style={{ fontSize: "11px", fontWeight: "700", color: "oklch(85% 0.05 252)" }}>ФАКТ</span>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <div style={{ width: "8px", height: "8px", border: "1px dashed var(--primary)" }} />
-                      <span className="technical-data" style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>TARGET_IDEAL</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ width: "10px", height: "10px", borderRadius: "50%", border: "1px dashed oklch(60% 0.15 252)", backgroundColor: "rgba(28, 62, 97, 0.1)" }} />
+                      <span className="technical-data" style={{ fontSize: "11px", fontWeight: "700", color: "oklch(85% 0.05 252)" }}>ИДЕАЛ</span>
                     </div>
                   </div>
                 </div>
