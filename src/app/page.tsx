@@ -13,9 +13,6 @@ export default function Home() {
             <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--primary)" }}>
               eyeCARD
             </span>
-            <span className="badge technical-data" style={{ fontSize: "10px", color: "var(--text-muted)" }}>
-              v19.4_RELEASE
-            </span>
           </div>
           <nav className="technical-data" style={{ display: "flex", gap: "24px", fontSize: "13px", fontWeight: "500" }}>
             <Link href="/methodology" style={{ color: "var(--text-primary)" }}>Методология</Link>
@@ -246,56 +243,90 @@ export default function Home() {
             </div>
           </section>
 
-          {/* INSTALLATION GUIDE SECTION */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
-            <div style={{ textAlign: "center" }}>
-              <div className="badge technical-data" style={{ color: "var(--primary)", marginBottom: "16px" }}>DEPLOYMENT_GUIDE_V1</div>
-              <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
-                Быстрая установка eyeCARD
-              </h2>
-              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px" }}>
-                Три шага до запуска нейромаркетингового аудита в вашем браузере.
-              </p>
+          {/* WORKFLOW & INSTALLATION SECTION */}
+          <section style={{ display: "flex", flexDirection: "column", gap: "64px" }}>
+            
+            {/* Part 1: How it Works */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "60px", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
+                  Как работает eyeCARD
+                </h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                  <div style={{ display: "flex", gap: "16px" }}>
+                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>1</div>
+                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                      Открыть карточку товара на <strong>Wildberries или Ozon</strong> в браузере Chrome.
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", gap: "16px" }}>
+                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>2</div>
+                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                      Запустить анализ через <strong>боковую панель расширения</strong>.
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", gap: "16px" }}>
+                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>3</div>
+                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                      Готовый <strong>Визуальный Паспорт</strong> с аналитикой приходит в выбранный мессенджер Telegram/ВКонтакте.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Workflow Illustration */}
+              <div style={{ backgroundColor: "var(--surface-low)", borderRadius: "12px", border: "1px solid var(--border-color)", height: "340px", width: "492px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "inset 0 0 40px rgba(0,0,0,0.05)" }}>
+                <img src="/extension-ui.png" alt="eyeCARD Extension Interface" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div style={{ position: "absolute", inset: "0", background: "linear-gradient(45deg, rgba(52, 92, 252, 0.05) 0%, transparent 100%)", pointerEvents: "none" }} />
+              </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
-              
-              {/* Card 1 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
-                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>01</div>
-                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            {/* Part 2: Chrome Extension Installation */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+                
+                {/* Step 01 Card */}
+                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                  <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>01</div>
+                  <div style={{ padding: "0 24px 0 0" }}>
+                    <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <h4 style={{ fontSize: "18px", fontWeight: "700" }}>Скачайте расширение</h4>
+                    <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", minHeight: "68px" }}>
+                      Официальный Chrome Web Store. Установка в один клик. Система автоматически интегрируется в интерфейс WB и Ozon.
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", margin: "0 -24px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", padding: "20px" }}>
+                    <img src="/chrome-store.png" alt="Google Chrome Web Store" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                  </div>
                 </div>
-                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Скачайте расширение</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
-                  Официальный Chrome Web Store. Установка в один клик. Система автоматически интегрируется в интерфейс WB и Ozon.
-                </p>
+
+                {/* Step 02 Card */}
+                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                  <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>02</div>
+                  <div style={{ padding: "0 24px 0 0" }}>
+                    <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <h4 style={{ fontSize: "18px", fontWeight: "700" }}>Закрепите на панели</h4>
+                    <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6", minHeight: "68px" }}>
+                      Для мгновенного доступа закрепите иконку eyeCARD в меню расширений. Панель управления анализом всегда будет под рукой.
+                    </p>
+                  </div>
+                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "#fff", borderTop: "1px solid var(--border-color)", margin: "0 -24px", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
+                    <img src="/pin-instruction.png" alt="How to pin extension" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                  </div>
+                </div>
+
               </div>
 
-              {/* Card 2 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
-                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>02</div>
-                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                </div>
-                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Закрепите на панели</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
-                  Для мгновенного доступа закрепите иконку eyeCARD в меню расширений. Панель управления анализом всегда будет под рукой.
-                </p>
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
+                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 48px" }}>
+                  Установить расширение
+                </a>
               </div>
-
-              {/* Card 3 */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative" }}>
-                <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>03</div>
-                <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
-                </div>
-                <h3 style={{ fontSize: "18px", fontWeight: "700" }}>Запустите аудит</h3>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", lineHeight: "1.6" }}>
-                  Нажмите кнопку «Анализировать» прямо на странице товара. ИИ мгновенно сформирует отчет и отправит его в Telegram.
-                </p>
-              </div>
-
             </div>
           </section>
 
@@ -324,8 +355,7 @@ export default function Home() {
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "var(--text-muted)", flexWrap: "wrap", gap: "12px" }}>
-              <span className="technical-data">© {new Date().getFullYear()} eyeCARD. NEURAL_DECK_V19.4</span>
-              <span className="technical-data">[SYSTEM_STATUS]: OPERATIONAL</span>
+              <span className="technical-data">© {new Date().getFullYear()} eyeCARD</span>
             </div>
           </div>
 
