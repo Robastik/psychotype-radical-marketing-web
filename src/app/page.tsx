@@ -32,12 +32,23 @@ export default function Home() {
               <h1 style={{ fontSize: "52px", fontWeight: "800", lineHeight: "1.1", color: "#fff", letterSpacing: "-1px" }}>
                 Дешифровка <br /> <span style={{ color: "var(--accent)" }}>визуального кода</span> <br /> карточек товаров
               </h1>
-              <p style={{ fontSize: "19px", lineHeight: "1.6", color: "rgba(255,255,255,0.7)", maxWidth: "520px" }}>
-                Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
-              </p>
               
-              <div style={{ display: "flex", gap: "16px", marginTop: "12px" }}>
-                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <p style={{ fontSize: "19px", lineHeight: "1.6", color: "rgba(255,255,255,0.7)", maxWidth: "520px", margin: 0 }}>
+                  Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
+                </p>
+                <div className="technical-data" style={{ 
+                  fontSize: "12px", 
+                  color: "rgba(255,255,255,0.4)", 
+                  borderLeft: "2px solid var(--accent)", 
+                  paddingLeft: "16px", 
+                  lineHeight: "1.5",
+                  textTransform: "uppercase"
+                }}>
+                  ОЗОН <br />
+                  ВАЙЛДБЕРРИЗ
+                </div>
+                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px", width: "fit-content" }}>
                   Установить расширение
                 </a>
               </div>
