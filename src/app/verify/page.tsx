@@ -4,7 +4,8 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "./passport.module.css";
 
-const BACKEND_URL = "https://eyecard-api-634368981577.us-central1.run.app/api/v1";
+const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
+const BACKEND_URL = `${BASE_URL}/api/v1`;
 
 interface AnalysisData {
   status: string;
@@ -84,12 +85,11 @@ const vpEngines = {
 
                 if (typeof normalizedVals[kL] === 'number') val = normalizedVals[kL];
                 else if (isIdeal && vals) {
-                    const leadElement = (vals.leading_radical || vals.basic_archetype || "").toLowerCase();
-                    const auxData = JSON.stringify(vals.auxiliary_radicals || vals.auxiliary_archetype || []).toLowerCase();
+                    const lead = (vals.leading_radical || vals.basic_archetype || "").toLowerCase();
+                    const aux = JSON.stringify(vals.auxiliary_radicals || vals.auxiliary_archetype || []).toLowerCase();
                     
-                    const isLead = leadElement.includes(label) || leadElement.includes(kL);
-                    if (isLead) val = 100;
-                    else if (auxData.includes(label) || auxData.includes(kL)) val = 45;
+                    if (lead.includes(label) || lead.includes(kL)) val = 100;
+                    else if (aux.includes(label) || aux.includes(kL)) val = 45;
                 }
                 const r = (val / 100) * radius;
                 const angle = (i * (360 / N) - 90) * (Math.PI / 180);
@@ -128,7 +128,6 @@ const vpEngines = {
         iPoints.forEach((p, i) => {
             const next = iPoints[(i + 1) % N];
             idealPath += `<line x1="${p.x}" y1="${p.y}" x2="${next.x}" y2="${next.y}" stroke="oklch(34.25% 0.057 252.12)" stroke-width="3" stroke-opacity="0.7" stroke-dasharray="4,2" />`;
-            // Add visible dots for ideal points
             idealPath += `<circle cx="${p.x}" cy="${p.y}" r="3" fill="oklch(34.25% 0.057 252.12)" fill-opacity="0.7" />`;
         });
 
@@ -186,9 +185,9 @@ const vpEngines = {
             grid += `<line x1="${center + radius * Math.cos(angle)}" y1="${center + radius * Math.sin(angle)}" x2="${center - radius * Math.cos(angle)}" y2="${center - radius * Math.sin(angle)}" stroke="rgba(0,0,0,0.4)" stroke-width="1.2" />`;
         });
 
-        // Robust data access
-        const actualAxes = vectors.vectors?.actual || vectors.actual?.axes || {};
-        const idealAxes = vectors.vectors?.ideal || vectors.ideal?.axes || {};
+        // Use direct actual scores from vectors.actual
+        const actualAxes = vectors.vectors?.actual || {};
+        const idealAxes = vectors.vectors?.ideal || {};
 
         let idealArrow = '';
         let idealDir = null;
@@ -268,13 +267,20 @@ function VerifyContent() {
   const iccColor = vpEngines.icc.getColor(analysis.icc);
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
   const sStr = analysis.vectors.strength || 0;
+  
+  // Construct absolute image URL
+  const productImageUrl = product.image_url.startsWith('http') 
+    ? product.image_url 
+    : `${BASE_URL}${product.image_url}`;
 
   return (
     <div className={styles.container}>
       <div className={styles.stripe}></div>
       <div className={styles.headerPanel}>
         <div className={styles.headerTop}>
-          <div className={styles.logoWrap}><img src="/logo.png" className={styles.logoImg} alt="eyeCARD Logo" style={{ height: "60px", width: "auto" }} /></div>
+          <div className={styles.logoWrap}>
+            <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
+          </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
           <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
         </div>
@@ -297,7 +303,7 @@ function VerifyContent() {
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>Карточка товара</h3>
             <div className={styles.propsList}>{product.features.map((f, i) => <div key={i} className={styles.propItem}>{typeof f === 'string' ? f : <><span className={styles.propK}>{f.label || f.name || f.key}:</span>{f.value}</>}</div>)}</div>
-            <div className={styles.imgWrap}><img src={product.image_url} alt="Product" /></div>
+            <div className={styles.imgWrap}><img src={productImageUrl} alt="Product" /></div>
           </div>
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>РАДИКАЛЫ</h3>
