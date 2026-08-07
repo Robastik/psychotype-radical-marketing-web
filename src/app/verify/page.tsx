@@ -104,14 +104,37 @@ const vpEngines = {
         let quadrants = '';
         if (type === 'archetypes') {
             const qLabels = ['ИНДИВИДУАЛИЗМ', 'СТАБИЛЬНОСТЬ', 'ИЗМЕНЕНИЯ', 'ПРИНАДЛЕЖНОСТЬ'];
-            const qColors = ['oklch(85% 0.08 90)', 'oklch(45% 0.06 252)', 'oklch(60% 0.15 30)', 'oklch(75% 0.15 65)'];
+            const qColors = [
+                'oklch(80% 0.12 90)',  // Individualism (Yellow)
+                'oklch(45% 0.06 252)', // Stability (Blue)
+                'oklch(60% 0.15 30)',  // Change (Red)
+                'oklch(55% 0.12 60)'   // Belonging (Brown)
+            ];
+            const qPaths = [
+                "M180,180 L109.3,109.3 A100,100 0 0,1 250.7,109.3 Z", // Top
+                "M180,180 L250.7,109.3 A100,100 0 0,1 250.7,250.7 Z", // Right
+                "M180,180 L250.7,250.7 A100,100 0 0,1 109.3,250.7 Z", // Bottom
+                "M180,180 L109.3,250.7 A100,100 0 0,1 109.3,109.3 Z"  // Left
+            ];
+
+            qPaths.forEach((path, idx) => {
+                const opacity = (idx === 0 || idx === 3) ? "0.25" : "0.2";
+                quadrants += `<path d="${path}" fill="${qColors[idx]}" opacity="${opacity}" />`;
+            });
+
             [270, 0, 90, 180].forEach((ang, idx) => {
                 const dist = radius * 1.08;
                 const lx = center + dist * Math.cos(ang * Math.PI / 180);
                 const ly = center + dist * Math.sin(ang * Math.PI / 180);
                 let rot = (ang === 0 || ang === 180) ? 90 : 0;
                 if (ang === 180) rot = 270;
-                quadrants += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" style="font-size: 8px; font-weight: 900; letter-spacing: 0.1em; opacity: 0.6; fill: ${qColors[idx]}" transform="rotate(${rot}, ${lx}, ${ly})">${qLabels[idx]}</text>`;
+                
+                // Specific high-contrast colors for labels
+                let textColor = qColors[idx];
+                if (idx === 0) textColor = 'oklch(70% 0.15 90)'; // Denser Yellow
+                if (idx === 3) textColor = 'oklch(50% 0.1 60)';  // Denser Brown
+
+                quadrants += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" style="font-size: 8px; font-weight: 900; letter-spacing: 0.1em; opacity: 0.9; fill: ${textColor}" transform="rotate(${rot}, ${lx}, ${ly})">${qLabels[idx]}</text>`;
             });
         }
 
