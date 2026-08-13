@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       <header style={{ padding: "12px 0" }}>
         <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <img src="/logo.png" alt="eyeCARD Logo" style={{ height: "32px", width: "auto", display: "block" }} />
+            <Image src="/logo.png" alt="eyeCARD Logo" height={32} width={32} priority style={{ display: "block" }} />
             <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--primary)" }}>
               eyeCARD
             </span>
@@ -52,7 +53,7 @@ export default function Home() {
             {/* Neural Deconstruction Illustration */}
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <div style={{ border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "8px", padding: "8px", backgroundColor: "rgba(255,255,255,0.02)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-                <img src="/hero.png" alt="eyeCARD Neural Deconstruction" style={{ maxWidth: "100%", maxHeight: "420px", borderRadius: "6px", display: "block" }} />
+                <Image src="/hero.png" alt="eyeCARD Neural Deconstruction" width={420} height={420} priority style={{ maxWidth: "100%", height: "auto", borderRadius: "6px", display: "block" }} />
               </div>
             </div>
 
