@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // Removed 'output: export' to support server-side rendering
+  // This enables proper routing on Firebase Hosting
 };
 
 export default nextConfig;

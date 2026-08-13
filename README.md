@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# eyeCARD — Нейромаркетинговый аудит дизайна карточек товаров
 
-## Getting Started
+**eyeCARD** — это аналитическая AI-платформа для аудита визуального дизайна товаров на маркетплейсах (Wildberries, Ozon и др.). Платформа использует нейромаркетинговый подход, анализируя визуальный код через 4 семантические оси позиционирования, архетипы Юнга и 7 психологических радикалов.
 
-First, run the development server:
+**Сайт для eyecard.ru**
 
+## 🚀 Быстрый старт
+
+### Требования
+- Node.js 18.17+ 
+- npm 9+
+
+### Установка
+
+1. Клонируйте репозиторий:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Robastik/psychotype-radical-marketing-web.git
+cd psychotype-radical-marketing-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Установите зависимости:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Создайте файл `.env.local` (см. `.env.example`):
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Запустите сервер разработки:
+```bash
+npm run dev
+```
 
-## Learn More
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Структура проекта
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+psychotype-radical-marketing-web/
+├── src/app/
+│   ├── layout.tsx          # Главный layout с метаданными
+│   ├── page.tsx            # Главная страница
+│   ├── globals.css         # Глобальные стили (CSS переменные)
+│   ├── page.module.css     # Стили для главной страницы
+│   ├── methodology/        # Страница методологии
+│   ├── privacy/            # Политика конфиденциальности
+│   └── terms/              # Условия использования
+├── public/                 # Статические файлы (изображения, иконки)
+├── firebase.json           # Конфигурация Firebase Hosting
+├── .firebaserc             # Firebase проекты
+├── next.config.ts          # Конфигурация Next.js
+├── tsconfig.json           # TypeScript конфигурация
+├── eslint.config.mjs       # ESLint конфигурация
+└── package.json            # Зависимости и скрипты
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Доступные скрипты
 
-## Deploy on Vercel
+- `npm run dev` — Запуск сервера разработки
+- `npm run build` — Сборка для production
+- `npm start` — Запуск production сервера
+- `npm run lint` — Проверка кода ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Дизайн и стили
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Проект использует современный CSS с переменными (CSS Custom Properties). Все цвета определены в формате OKLCH для лучшей читаемости и консистентности.
+
+**Основные CSS переменные** (см. `src/app/globals.css`):
+- `--primary` — основной цвет (Cobalt Blue)
+- `--accent` — цвет акцента (Focus Orange)
+- `--bg-primary` — фон
+- `--text-primary` — основной текст
+- `--text-muted` — приглушённый текст
+
+## 🔥 Firebase Hosting
+
+Проект готов к развертыванию на Firebase Hosting.
+
+### Развертывание:
+```bash
+npm run build
+firebase deploy
+```
+
+## 🧪 Тестирование
+
+```bash
+npm test
+```
+
+## 📝 Документация
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [Firebase Hosting Docs](https://firebase.google.com/docs/hosting)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+
+## 🤝 Как участвовать
+
+1. Fork репозиторий
+2. Создайте ветку для вашей фичи (`git checkout -b feature/AmazingFeature`)
+3. Коммитьте изменения (`git commit -m 'Add AmazingFeature'`)
+4. Push в ветку (`git push origin feature/AmazingFeature`)
+5. Откройте Pull Request
+
+## 📄 Лицензия
+
+Проприетарное ПО. Все права защищены © 2026 eyeCARD.
+
+## ❓ Поддержка
+
+При возникновении вопросов создавайте Issues в репозитории GitHub.
