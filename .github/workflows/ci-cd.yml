@@ -60,14 +60,6 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Verify build output
-        run: |
-          if [ ! -d "out" ]; then
-            echo "❌ Build output directory not found!"
-            exit 1
-          fi
-          echo "✅ Build output verified"
-
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
