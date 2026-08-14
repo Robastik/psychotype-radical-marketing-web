@@ -1,39 +1,51 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './page.module.css'; // Убедитесь, что путь правильный
+import styles from './passport.module.css';
 
 // Определяем типы вместо any
+interface RadarData {
+  [key: string]: number | string;
+}
+
 interface ProductData {
   platform: string;
   sku: string;
   name: string;
   image_url?: string;
-  [key: string]: any;
 }
 
 interface AnalysisData {
   job_id: string;
   product: ProductData;
-  target_audience?: any;
-  design_analysis?: any;
-  recommendations?: any;
+  target_audience?: Record<string, unknown>;
+  design_analysis?: Record<string, unknown>;
+  recommendations?: Record<string, unknown>;
   timestamp?: string;
   status?: string;
   error?: string;
-  [key: string]: any;
+  radar_data?: RadarData;
 }
 
 export default function VerifyPage() {
-  const router = useRouter();
   const [data, setData] = useState<AnalysisData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [job_id, setJobId] = useState<string>('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Функция отрисовки радара объявлена до использования через useCallback
+  const drawRadar = useCallback((radarData: RadarData) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Очистка и базовая отрисовка
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ... логика отрисовки радара ...
+  }, []);
 
   useEffect(() => {
     // Получаем job_id из URL
@@ -41,12 +53,13 @@ export default function VerifyPage() {
     const id = params.get('job_id');
     
     if (!id) {
-      setError("Идентификатор анализа не указан");
-      setLoading(false);
+      // Используем setTimeout чтобы избежать синхронного вызова setState в эффекте
+      setTimeout(() => {
+        setError("Идентификатор анализа не указан");
+        setLoading(false);
+      }, 0);
       return;
     }
-    
-    setJobId(id);
 
     async function fetchData() {
       try {
@@ -58,7 +71,7 @@ export default function VerifyPage() {
           throw new Error('Ошибка загрузки данных');
         }
         
-        const result = await res.json();
+        const result: AnalysisData = await res.json();
         setData(result);
         
         // Отрисовка радара, если данные есть
@@ -73,19 +86,7 @@ export default function VerifyPage() {
     }
 
     fetchData();
-  }, []);
-
-  // Функция отрисовки радара (упрощенная версия)
-  const drawRadar = (radarData: any) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Очистка и базовая отрисовка
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // ... логика отрисовки радара ...
-  };
+  }, [drawRadar]);
 
   if (loading) {
     return (
@@ -127,7 +128,6 @@ export default function VerifyPage() {
             <p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p>
           </div>
           
-          {/* Исправлено: Date.now() вынесен или используется стабильное значение */}
           <div className={styles.dateBlock}>
             <span className={styles.labelTech}>Дата анализа</span>
             <br />
@@ -158,7 +158,7 @@ export default function VerifyPage() {
               width={400}
               height={400}
               className={styles.productImage}
-              unoptimized // Если изображение с внешнего ресурса без CORS
+              unoptimized
             />
           ) : (
             <div className={styles.noImage}>Нет изображения</div>
