@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,10 +17,15 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "eyeCARD — Нейромаркетинговый аудит дизайна карточек товаров",
   description: "Аналитическая AI-платформа для Wildberries и Ozon. Дешифровка визуального кода через 4 семантические оси позиционирования, архетипы Юнга и 7 психологических радикалов.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   icons: {
     icon: "/favicon.png",
   }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
