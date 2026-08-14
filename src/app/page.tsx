@@ -288,7 +288,7 @@ export default function Home() {
               
               {/* Workflow Illustration */}
               <div style={{ backgroundColor: "var(--surface-low)", borderRadius: "12px", border: "1px solid var(--border-color)", height: "340px", width: "492px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "inset 0 0 40px rgba(0,0,0,0.05)" }}>
-                <img src="/extension-ui.png" alt="eyeCARD Extension Interface" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <Image src="/extension-ui.png" alt="eyeCARD Extension Interface" fill style={{ objectFit: "cover" }} />
                 <div style={{ position: "absolute", inset: "0", background: "linear-gradient(45deg, rgba(52, 92, 252, 0.05) 0%, transparent 100%)", pointerEvents: "none" }} />
               </div>
             </div>
@@ -311,7 +311,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div style={{ marginTop: "auto", height: "180px", backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", margin: "0 -24px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", padding: "20px" }}>
-                    <img src="/chrome-store.png" alt="Google Chrome Web Store" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    <Image src="/chrome-store.png" alt="Google Chrome Web Store" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
 
@@ -328,7 +328,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div style={{ marginTop: "auto", height: "180px", backgroundColor: "#fff", borderTop: "1px solid var(--border-color)", margin: "0 -24px", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
-                    <img src="/pin-instruction.png" alt="How to pin extension" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    <Image src="/pin-instruction.png" alt="How to pin extension" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
 
