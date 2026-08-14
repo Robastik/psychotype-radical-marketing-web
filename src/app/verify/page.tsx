@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./passport.module.css";
 
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
@@ -15,14 +17,14 @@ interface AnalysisData {
     platform: string;
     sku: string;
     image_url: string;
-    features: any[];
+    features: unknown[];
   };
   analysis: {
     icc: number;
-    actual: any;
-    ideal: any;
-    vectors: any;
-    verdict: any;
+    actual: Record<string, unknown>;
+    ideal: Record<string, unknown>;
+    vectors: Record<string, unknown>;
+    verdict: Record<string, unknown>;
   };
   timestamp: string;
 }
@@ -71,21 +73,21 @@ const vpEngines = {
         }[type];
         const size = 360, center = size / 2, radius = 100, N = config.keys.length;
         
-        const getPoints = (vals: any, isIdeal: boolean) => {
+        const getPoints = (vals: Record<string, unknown>, isIdeal: boolean) => {
             return config.keys.map((key, i) => {
                 let val = 0;
-                const labelsMap = config.labels as any;
+                const labelsMap = config.labels as Record<string, string>;
                 const label = labelsMap[key].toLowerCase();
                 const kL = key.toLowerCase();
 
-                const normalizedVals = Object.keys(vals || {}).reduce((acc: any, k) => {
+                const normalizedVals = Object.keys(vals || {}).reduce((acc: Record<string, unknown>, k) => {
                     acc[k.toLowerCase()] = vals[k];
                     return acc;
                 }, {});
 
-                if (typeof normalizedVals[kL] === 'number') val = normalizedVals[kL];
+                if (typeof normalizedVals[kL] === 'number') val = normalizedVals[kL] as number;
                 else if (isIdeal && vals) {
-                    const lead = (vals.leading_radical || vals.basic_archetype || "").toLowerCase();
+                    const lead = ((vals.leading_radical as string) || (vals.basic_archetype as string) || "").toLowerCase();
                     const aux = JSON.stringify(vals.auxiliary_radicals || vals.auxiliary_archetype || []).toLowerCase();
                     
                     if (lead.includes(label) || lead.includes(kL)) val = 100;
@@ -158,8 +160,8 @@ const vpEngines = {
         config.keys.forEach((key, i) => {
             const angle = (i * (360 / N) - 90) * (Math.PI / 180);
             let lx = center + (radius + 40) * Math.cos(angle);
-            let ly = center + (radius + 40) * Math.sin(angle);
-            const label = (config.labels as any)[key];
+            const ly = center + (radius + 40) * Math.sin(angle);
+            const label = (config.labels as Record<string, string>)[key];
             if (label === 'СЛАВНЫЙ МАЛЫЙ') {
                 labels += `<g><text x="${lx - 15}" y="${ly - 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">СЛАВНЫЙ</text><text x="${lx - 15}" y="${ly + 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">МАЛЫЙ</text></g>`;
             } else {
@@ -184,7 +186,7 @@ const vpEngines = {
             </svg>
         `;
     },
-    createVector(vectors: any) {
+    createVector(vectors: Record<string, unknown>) {
         const size = 360, center = size / 2, radius = 100;
         const axes = [
             { a: 'rationality', b: 'emotionality', lA: 'РАЦИОНАЛЬНОСТЬ', lB: 'ЭМОЦИОНАЛЬНОСТЬ' },
@@ -266,24 +268,41 @@ function VerifyContent() {
   const [data, setData] = useState<AnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [renderDate, setRenderDate] = useState<string>("");
 
   useEffect(() => {
-    if (!job_id) { setError("Идентификатор анализа не указан"); setLoading(false); return; }
+    setRenderDate(new Date(data?.timestamp || Date.now()).toLocaleDateString('ru-RU'));
+  }, [data?.timestamp]);
+
+  useEffect(() => {
+    if (!job_id) { 
+      setError("Идентификатор анализа не указан"); 
+      setLoading(false); 
+      return; 
+    }
     async function fetchData() {
       try {
         const res = await fetch(`${BACKEND_URL}/analysis/public/${job_id}`);
         if (!res.ok) throw new Error("Анализ не найден или произошла ошибка сервера");
         const json = await res.json();
-        if (json.status === "processing") setError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
-        else if (json.status === "completed") setData(json);
-        else setError(json.message || "Произошла ошибка при загрузке данных");
-      } catch (err: any) { setError(err.message); } finally { setLoading(false); }
+        if (json.status === "processing") {
+          setError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
+        } else if (json.status === "completed") {
+          setData(json);
+        } else {
+          setError(json.message || "Произошла ошибка при загрузке данных");
+        }
+      } catch (err: unknown) { 
+        setError(err instanceof Error ? err.message : "Неизвестная ошибка"); 
+      } finally { 
+        setLoading(false); 
+      }
     }
     fetchData();
   }, [job_id]);
 
   if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
-  if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><a href="/" className="btn-primary">На главную</a></div>;
+  if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><Link href="/" className="btn-primary">На главную</Link></div>;
   if (!data) return null;
 
   const { product, analysis } = data;
@@ -302,10 +321,10 @@ function VerifyContent() {
       <div className={styles.headerPanel}>
         <div className={styles.headerTop}>
           <div className={styles.logoWrap}>
-            <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
+            <Image src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" width={120} height={60} />
           </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
-          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
+          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{renderDate}</span></div>
         </div>
         <div className={styles.metaRow}><div className={styles.metaItem}><span className={styles.valueTech}>{product.platform}</span></div><div className={styles.metaItem}><span className={styles.valueTech}>{product.sku}</span></div></div>
         <h1 className={styles.productName}>{product.name}</h1>
@@ -326,7 +345,7 @@ function VerifyContent() {
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>Карточка товара</h3>
             <div className={styles.propsList}>{product.features.map((f, i) => <div key={i} className={styles.propItem}>{typeof f === 'string' ? f : <><span className={styles.propK}>{f.label || f.name || f.key}:</span>{f.value}</>}</div>)}</div>
-            <div className={styles.imgWrap}><img src={productImageUrl} alt="Product" /></div>
+            <div className={styles.imgWrap}><Image src={productImageUrl} alt="Product" width={300} height={300} style={{ objectFit: 'contain' }} /></div>
           </div>
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>РАДИКАЛЫ</h3>
