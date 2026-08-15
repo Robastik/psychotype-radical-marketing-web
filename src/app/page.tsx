@@ -274,10 +274,10 @@ export default function Home() {
             {/* Part 2: Chrome Extension Installation */}
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center" }}>
               <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+              <div className="installation-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
                 
                 {/* Step 01 Card */}
-                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                <div className="card installation-card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
                   <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>01</div>
                   <div style={{ padding: "0 24px 0 0" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
@@ -294,7 +294,7 @@ export default function Home() {
                 </div>
 
                 {/* Step 02 Card */}
-                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                <div className="card installation-card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
                   <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>02</div>
                   <div style={{ padding: "0 24px 0 0" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
