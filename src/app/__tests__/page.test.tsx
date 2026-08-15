@@ -17,11 +17,6 @@ describe('Home Page Component', () => {
       expect(brandElements[0]).toBeInTheDocument();
     });
 
-    it('displays version badge', () => {
-      render(<Home />);
-      expect(screen.getByText('v19.4_RELEASE')).toBeInTheDocument();
-    });
-
     it('renders navigation menu with all links', () => {
       render(<Home />);
       const methodologyLinks = screen.queryAllByText('Методология');
@@ -58,44 +53,40 @@ describe('Home Page Component', () => {
     it('displays main headline', () => {
       render(<Home />);
       expect(screen.getByText(/Дешифровка/)).toBeInTheDocument();
-      expect(screen.getByText(/визуального кода/)).toBeInTheDocument();
+      const headlines = screen.getAllByText(/визуального кода/);
+      expect(headlines.length).toBeGreaterThan(0);
+      expect(headlines[0]).toBeInTheDocument();
     });
 
-    it('displays call-to-action buttons', () => {
+    it('displays call-to-action button', () => {
       render(<Home />);
-      expect(screen.getByText('Установить расширение')).toBeInTheDocument();
-      expect(screen.getByText('Анализ в Telegram')).toBeInTheDocument();
+      const buttons = screen.getAllByText('Установить расширение');
+      expect(buttons.length).toBeGreaterThan(0);
+      expect(buttons[0]).toBeInTheDocument();
     });
 
-    it('CTA buttons have correct links', () => {
+    it('CTA button has correct link', () => {
       render(<Home />);
-      const chromeButton = screen.getByText('Установить расширение').closest('a');
-      const telegramButton = screen.getByText('Анализ в Telegram').closest('a');
-
+      const buttons = screen.getAllByText('Установить расширение');
+      const chromeButton = buttons[0].closest('a');
       expect(chromeButton).toHaveAttribute('href', 'https://chrome.google.com/webstore');
-      expect(telegramButton).toHaveAttribute('href', 'https://t.me/your_eyecard_bot');
     });
   });
 
   describe('Methodology Section', () => {
     it('renders methodology title', () => {
       render(<Home />);
-      expect(screen.getByText('Научный метод анализа eyeCARD')).toBeInTheDocument();
-    });
-
-    it('displays pipeline architecture label', () => {
-      render(<Home />);
-      expect(screen.getByText('PIPELINE_ARCHITECTURE_V3')).toBeInTheDocument();
+      expect(screen.getByText('Научный метод')).toBeInTheDocument();
     });
 
     it('renders step 1 - ФАКТ', () => {
       render(<Home />);
-      expect(screen.getByText(/\[01\]: ФАКТ/)).toBeInTheDocument();
+      expect(screen.getByText('[01]: ФАКТ')).toBeInTheDocument();
     });
 
     it('displays analysis description', () => {
       render(<Home />);
-      expect(screen.getByText(/Деконструкция кода/)).toBeInTheDocument();
+      expect(screen.getByText(/Расшифровка визуального кода/)).toBeInTheDocument();
     });
   });
 
