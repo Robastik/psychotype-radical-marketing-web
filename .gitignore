@@ -1,3 +1,37 @@
-```css
+```
+# Next.js build outputs
+.next/
+out/
 
+# Turbopack cache
+.next/cache/
+
+# Build manifests and server references
+.next/build-manifest.json
+.next/fallback-build-manifest.json
+.next/server/build-manifest.json
+.next/server/react-loadable-manifest.json
+.next/server/reference-build-manifest.json
+.next/server/server-reference-manifest.js
+.next/server/server-reference-manifest.json
+.next/server/middleware-build-manifest.js
+
+# Prerender and trace files
+.next/prerender-manifest.json
+.next/trace
+.next/trace-build
+
+# Static chunk files
+.next/static/chunks/
+.next/static/nNpoKoqM_9S8pZktWBi8E/
+
+# Server-side rendered pages
+.next/server/pages/
+.next/server/app/
+
+# Build ID
+.next/BUILD_ID
+
+# Cache info
+.next/cache/.tsbuildinfo
 ```
