@@ -133,8 +133,8 @@ export default function Home() {
 
               {/* Exact Replica of Archetype Radar from Preliminary Design with MOCK_DATA */}
               <div className="radar-chart-wrapper">
-                <div style={{ position: "relative", width: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <svg width="400" height="400" viewBox="0 0 360 360" style={{ overflow: "visible" }}>
+                <div style={{ position: "relative", width: "100%", maxWidth: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <svg width="100%" height="100%" viewBox="0 0 360 360" style={{ overflow: "visible", maxWidth: "100%", height: "auto" }}>
                     <defs>
                       <linearGradient id="vp-arch-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="oklch(64.13% 0.17 48.74)" stopOpacity="0.4" />
