@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Header from "../components/Header";
 
 export default function MethodologyHub() {
   return (
     <div style={{ backgroundColor: "var(--bg-secondary)", minHeight: "100vh", padding: "40px 0" }}>
+      <Header />
       <div className="container" style={{ maxWidth: "900px" }}>
         {/* Navigation & Status Header */}
         <div style={{ marginBottom: "32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
