@@ -4,134 +4,125 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div className="page-wrapper">
       
       {/* HEADER */}
-      <header style={{ padding: "12px 0" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <Image src="/logo.png" alt="eyeCARD Logo" height={32} width={32} priority style={{ display: "block" }} />
-            <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--primary)" }}>
+      <header className="header">
+        <div className="container header-content">
+          <div className="logo-section">
+            <Image src="/logo.png" alt="eyeCARD Logo" height={32} width={32} priority className="logo-image" />
+            <span className="technical-data logo-text">
               eyeCARD
             </span>
           </div>
-          <nav className="technical-data" style={{ display: "flex", gap: "24px", fontSize: "13px", fontWeight: "500" }}>
-            <Link href="/methodology" style={{ color: "var(--text-primary)" }}>Методология</Link>
-            <Link href="/terms" style={{ color: "var(--text-primary)" }}>Оферта</Link>
-            <Link href="/privacy" style={{ color: "var(--text-primary)" }}>Конфиденциальность</Link>
+          <nav className="technical-data nav-menu">
+            <Link href="/methodology">Методология</Link>
+            <Link href="/terms">Оферта</Link>
+            <Link href="/privacy">Конфиденциальность</Link>
           </nav>
         </div>
       </header>
 
       {/* HERO SECTION: THE NEURAL DECK */}
-      <main style={{ flex: 1 }}>
-        <section className="expert-terminal" style={{ margin: "24px", padding: "80px 0", overflow: "hidden" }}>
-          <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+      <main className="main-content">
+        <section className="expert-terminal hero-section">
+          <div className="container hero-grid">
             
             {/* Value Proposition */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-              <h1 style={{ fontSize: "52px", fontWeight: "800", lineHeight: "1.1", color: "#fff", letterSpacing: "-1px" }}>
-                Дешифровка <br /> <span style={{ color: "var(--accent)" }}>визуального кода</span> <br /> карточек товаров
+            <div className="hero-content">
+              <h1 className="hero-title">
+                Дешифровка <br /> <span className="accent-text">визуального кода</span> <br /> карточек товаров
               </h1>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <p style={{ fontSize: "19px", lineHeight: "1.6", color: "rgba(255,255,255,0.7)", maxWidth: "520px", margin: 0 }}>
+              <div className="hero-description">
+                <p className="hero-text">
                   Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
                 </p>
-                <div className="technical-data" style={{ 
-                  fontSize: "12px", 
-                  color: "rgba(255,255,255,0.4)", 
-                  borderLeft: "2px solid var(--accent)", 
-                  paddingLeft: "16px", 
-                  lineHeight: "1.5",
-                  textTransform: "uppercase"
-                }}>
+                <div className="technical-data platforms-badge">
                   ОЗОН <br />
                   ВАЙЛДБЕРРИЗ
                 </div>
-                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px", width: "fit-content" }}>
+                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary">
                   Установить расширение
                 </a>
               </div>
             </div>
 
             {/* Neural Deconstruction Illustration */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <div style={{ border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "8px", padding: "8px", backgroundColor: "rgba(255,255,255,0.02)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-                <Image src="/hero.png" alt="eyeCARD Neural Deconstruction" width={420} height={420} priority style={{ maxWidth: "100%", height: "auto", borderRadius: "6px", display: "block" }} />
+            <div className="hero-image-wrapper">
+              <div className="image-frame">
+                <Image src="/hero.png" alt="eyeCARD Neural Deconstruction" width={420} height={420} priority className="hero-image" />
               </div>
             </div>
 
           </div>
         </section>
 
-        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "80px", padding: "80px 0" }}>
+        <div className="container methodology-section">
 
           {/* MAIN SCIENTIFIC METHODOLOGY PIPELINE */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
-            <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
-              <h2 style={{ fontSize: "36px", fontWeight: "700", color: "var(--primary)", letterSpacing: "-0.5px" }}>
+          <section className="methodology-pipeline">
+            <div className="section-header">
+              <h2 className="section-title">
                 Научный метод
               </h2>
-              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.6" }}>
+              <p className="section-subtitle">
                 Анализ психологии покупателя и выявление отклонений в дизайне карточек
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px" }}>
+            <div className="steps-grid">
               
               {/* STEP 1: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: ФАКТ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[01]: ФАКТ</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+                <div className="card-body step-grid">
                   <div>
-                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "16px" }}>
+                    <h3 className="step-title">
                       Расшифровка визуального кода
                     </h3>
-                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                    <p className="step-description">
                       Алгоритм раскладывает изображение товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                    </div>
+                  <div className="step-image-container">
+                    <div className="step-image" style={{ backgroundImage: "url('/Phase1.jpg')" }}></div>
                   </div>
                 </div>
               </div>
 
               {/* STEP 2: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: ИДЕАЛ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[02]: ИДЕАЛ</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+                <div className="card-body step-grid">
                   <div>
-                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                    <h3 className="step-title">
                       Профиль идеальной целевой аудитории
                     </h3>
-                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                    <p className="step-description">
                       ИИ изучает категорию товара, его цену и описание, а затем воссоздает «ожидания» мозга покупателя. Мы рассчитываем идеальный визуальный ритм, который подсознательно привлечет именно вашего клиента.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase2-1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                    </div>
+                  <div className="step-image-container">
+                    <div className="step-image" style={{ backgroundImage: "url('/Phase2-1.jpg')" }}></div>
                   </div>
                 </div>
               </div>
 
               {/* STEP 3: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: СРАВНЕНИЕ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[03]: СРАВНЕНИЕ</span>
                 </div>
-                <div style={{ padding: "32px" }}>
-                  <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                <div className="card-body">
+                  <h3 className="step-title">
                     Анализ соответствия
                   </h3>
-                  <p style={{ fontSize: "15px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "850px" }}>
+                  <p className="step-description step-description-wide">
                     Финальное сопоставление &quot;Факта&quot; и &quot;Идеала&quot; для выявления и оценки расхождений. Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума. Получаем четкий вектор для доработки CTR.
                   </p>
                 </div>
