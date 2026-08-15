@@ -120,9 +120,9 @@ export default function Home() {
 
           {/* VISUAL PASSPORT PREVIEW (v19.4 SCHEMATICS) */}
           <section className="expert-terminal" style={{ padding: "60px", position: "relative" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "60px", alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "60px", alignItems: "center" }}>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "800px" }}>
                 <h2 style={{ fontSize: "32px", fontWeight: "800", color: "#fff" }}>
                   Визуальный Паспорт
                 </h2>
@@ -237,8 +237,8 @@ export default function Home() {
           <section style={{ display: "flex", flexDirection: "column", gap: "64px" }}>
             
             {/* Part 1: How it Works */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "60px", alignItems: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "60px", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "800px" }}>
                 <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
                   Как работает eyeCARD
                 </h2>
@@ -272,7 +272,7 @@ export default function Home() {
             </div>
 
             {/* Part 2: Chrome Extension Installation */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center" }}>
               <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
                 
