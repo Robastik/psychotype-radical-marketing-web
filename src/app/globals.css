@@ -609,6 +609,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+}
+
+.radar-chart-wrapper svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .radar-chart-container {
@@ -622,6 +628,8 @@ a:hover {
 
 .radar-chart {
   overflow: visible;
+  max-width: 100%;
+  height: auto;
 }
 
 .radar-legend {
@@ -714,6 +722,7 @@ a:hover {
   border: 1px solid var(--border-color);
   height: 340px;
   width: 492px;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -723,7 +732,9 @@ a:hover {
 }
 
 .workflow-image {
-  object-fit: cover;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
 .workflow-image-overlay {

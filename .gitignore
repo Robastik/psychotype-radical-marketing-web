@@ -13,7 +13,10 @@ node_modules/
 
 # Cache directories
 .cache/
-**/.cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Logs
 *.log
@@ -22,39 +25,27 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# IDE files
+# IDE specific
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# Build outputs
+dist/
+build/
+target/
+bin/
+lib/
+tmp/
+temp/
 
 # Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg-info/
-.eggs/
-
-# Build artifacts
-dist/
-build/
-*.exe
-*.dll
-*.so
-*.a
-*.o
-*.obj
-*.out
-
-# Compressed files
+# Compression files
 *.zip
 *.gz
 *.tar
@@ -77,9 +68,4 @@ build/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
-# Temporary files
-*.tmp
-*.temp
-*~
 ```
