@@ -119,20 +119,20 @@ export default function Home() {
           </section>
 
           {/* VISUAL PASSPORT PREVIEW (v19.4 SCHEMATICS) */}
-          <section className="expert-terminal" style={{ padding: "60px", position: "relative" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "60px", alignItems: "center" }}>
+          <section className="expert-terminal visual-passport-section">
+            <div className="visual-passport-grid">
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "800px" }}>
-                <h2 style={{ fontSize: "32px", fontWeight: "800", color: "#fff" }}>
+              <div className="visual-passport-content">
+                <h2 className="visual-passport-title">
                   Визуальный Паспорт
                 </h2>
-                <p style={{ fontSize: "16px", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
+                <p className="visual-passport-description">
                   eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
                 </p>
               </div>
 
               {/* Exact Replica of Archetype Radar from Preliminary Design with MOCK_DATA */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div className="radar-chart-wrapper">
                 <div style={{ position: "relative", width: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <svg width="400" height="400" viewBox="0 0 360 360" style={{ overflow: "visible" }}>
                     <defs>
@@ -234,30 +234,30 @@ export default function Home() {
           </section>
 
           {/* WORKFLOW & INSTALLATION SECTION */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "64px" }}>
+          <section className="workflow-section">
             
             {/* Part 1: How it Works */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "60px", alignItems: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "800px" }}>
-                <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
+            <div className="workflow-grid">
+              <div className="workflow-content">
+                <h2 className="workflow-title">
                   Как работает eyeCARD
                 </h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>1</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                <div className="workflow-steps">
+                  <div className="workflow-step">
+                    <div className="step-number">1</div>
+                    <p className="step-text">
                       Открыть карточку товара на <strong>Wildberries или Ozon</strong> в браузере Chrome.
                     </p>
                   </div>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>2</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                  <div className="workflow-step">
+                    <div className="step-number">2</div>
+                    <p className="step-text">
                       Запустить анализ через <strong>боковую панель расширения</strong>.
                     </p>
                   </div>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>3</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                  <div className="workflow-step">
+                    <div className="step-number">3</div>
+                    <p className="step-text">
                       Готовый <strong>Визуальный Паспорт</strong> с аналитикой приходит в выбранный мессенджер Telegram/ВКонтакте.
                     </p>
                   </div>
@@ -265,9 +265,9 @@ export default function Home() {
               </div>
               
               {/* Workflow Illustration */}
-              <div style={{ backgroundColor: "var(--surface-low)", borderRadius: "12px", border: "1px solid var(--border-color)", height: "340px", width: "492px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "inset 0 0 40px rgba(0,0,0,0.05)" }}>
-                <Image src="/extension-ui.png" alt="eyeCARD Extension Interface" fill style={{ objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: "0", background: "linear-gradient(45deg, rgba(52, 92, 252, 0.05) 0%, transparent 100%)", pointerEvents: "none" }} />
+              <div className="workflow-image-wrapper">
+                <Image src="/extension-ui.png" alt="eyeCARD Extension Interface" fill className="workflow-image" />
+                <div className="workflow-image-overlay" />
               </div>
             </div>
 
