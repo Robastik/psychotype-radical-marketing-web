@@ -274,7 +274,7 @@ export default function Home() {
             {/* Part 2: Chrome Extension Installation */}
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center" }}>
               <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
-              <div className="installation-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+              <div className="installation-grid">
                 
                 {/* Step 01 Card */}
                 <div className="card installation-card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
