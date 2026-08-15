@@ -967,6 +967,10 @@ a:hover {
   .logo-text {
     font-size: 18px;
   }
+
+  .workflow-title {
+    padding-left: 24px;
+  }
 }
 
 @media (max-width: 480px) {
