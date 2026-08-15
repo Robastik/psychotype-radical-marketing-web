@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './passport.module.css';
+import Header from '../components/Header';
 
 // Определяем типы вместо any
 interface RadarData {
@@ -112,6 +113,7 @@ export default function VerifyPage() {
 
   return (
     <div className={styles.container}>
+      <Header />
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>
           Radical Marketing

@@ -1,27 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Header from "./components/Header";
 
 export default function Home() {
   return (
     <div className="page-wrapper">
       
       {/* HEADER */}
-      <header className="header">
-        <div className="container header-content">
-          <div className="logo-section">
-            <Image src="/logo.png" alt="eyeCARD Logo" height={32} width={32} priority className="logo-image" />
-            <span className="technical-data logo-text">
-              eyeCARD
-            </span>
-          </div>
-          <nav className="technical-data nav-menu">
-            <Link href="/methodology">Методология</Link>
-            <Link href="/terms">Оферта</Link>
-            <Link href="/privacy">Конфиденциальность</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* HERO SECTION: THE NEURAL DECK */}
       <main className="main-content">
