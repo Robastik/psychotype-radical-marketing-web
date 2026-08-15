@@ -288,13 +288,9 @@ a:hover {
   z-index: 1001;
 }
 
-.mobile-only {
-  display: none; /* Hidden by default */
-}
-
 @media (max-width: 768px) {
   /* Show hamburger button on mobile */
-  .hamburger-btn.mobile-only {
+  .hamburger-btn {
     display: flex;
   }
 }

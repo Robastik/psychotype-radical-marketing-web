@@ -30,7 +30,7 @@ export default function Header() {
 
         {/* Hamburger Button - Mobile Only */}
         <button 
-          className="hamburger-btn mobile-only"
+          className="hamburger-btn"
           onClick={toggleMenu}
           aria-label="Открыть меню"
           aria-expanded={isMenuOpen}
