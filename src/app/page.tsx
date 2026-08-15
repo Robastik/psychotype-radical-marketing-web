@@ -305,7 +305,7 @@ export default function Home() {
                       Для мгновенного доступа закрепите иконку eyeCARD в меню расширений. Панель управления анализом всегда будет под рукой.
                     </p>
                   </div>
-                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "#fff", borderTop: "1px solid var(--border-color)", margin: "0 -24px", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
+                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", margin: "0 -24px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", padding: "20px" }}>
                     <Image src="/pin-instruction.png" alt="How to pin extension" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
