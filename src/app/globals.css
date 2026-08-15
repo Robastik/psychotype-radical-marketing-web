@@ -684,6 +684,8 @@ a:hover {
   font-size: 32px;
   font-weight: 700;
   color: var(--primary);
+  margin-bottom: 24px;
+  padding-left: 48px;
 }
 
 .workflow-steps {
