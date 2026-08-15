@@ -127,3 +127,94 @@ a:hover {
   90% { opacity: 1; }
   100% { top: 100%; opacity: 0; }
 }
+
+/* Mobile Adaptation - Media Queries */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  h1 {
+    font-size: 32px !important;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 20px !important;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .expert-terminal {
+    padding: 20px;
+  }
+
+  header {
+    padding: 12px 0;
+  }
+
+  footer {
+    padding: 24px 0;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px 20px;
+    min-height: 48px;
+  }
+
+  .badge {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  h1 {
+    font-size: 26px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 18px !important;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .expert-terminal {
+    padding: 16px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary,
+  a,
+  button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
