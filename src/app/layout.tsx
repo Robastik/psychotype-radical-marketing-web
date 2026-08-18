@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import AnalyticsScripts from "@/app/components/AnalyticsScripts";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,6 +23,12 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className={inter.className}>
+        <AnalyticsScripts />
         {children}
       </body>
     </html>

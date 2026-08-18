@@ -1,137 +1,116 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Header from "./components/Header";
 
 export default function Home() {
   return (
-    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div className="page-wrapper">
       
       {/* HEADER */}
-      <header style={{ padding: "12px 0" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <img src="/logo.png" alt="eyeCARD Logo" style={{ height: "32px", width: "auto", display: "block" }} />
-            <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", letterSpacing: "1px", color: "var(--primary)" }}>
-              eyeCARD
-            </span>
-          </div>
-          <nav className="technical-data" style={{ display: "flex", gap: "24px", fontSize: "13px", fontWeight: "500" }}>
-            <Link href="/methodology" style={{ color: "var(--text-primary)" }}>Методология</Link>
-            <Link href="/terms" style={{ color: "var(--text-primary)" }}>Оферта</Link>
-            <Link href="/privacy" style={{ color: "var(--text-primary)" }}>Конфиденциальность</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* HERO SECTION: THE NEURAL DECK */}
-      <main style={{ flex: 1 }}>
-        <section className="expert-terminal" style={{ margin: "24px", padding: "80px 0", overflow: "hidden" }}>
-          <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+      <main className="main-content">
+        <section className="expert-terminal hero-section">
+          <div className="container hero-grid">
             
             {/* Value Proposition */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-              <h1 style={{ fontSize: "52px", fontWeight: "800", lineHeight: "1.1", color: "#fff", letterSpacing: "-1px" }}>
-                Дешифровка <br /> <span style={{ color: "var(--accent)" }}>визуального кода</span> <br /> карточек товаров
+            <div className="hero-content">
+              <h1 className="hero-title">
+                Дешифровка <br /> <span className="accent-text">визуального кода</span> <br /> карточек товаров
               </h1>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <p style={{ fontSize: "19px", lineHeight: "1.6", color: "rgba(255,255,255,0.7)", maxWidth: "520px", margin: 0 }}>
+              <div className="hero-description">
+                <p className="hero-text">
                   Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
                 </p>
-                <div className="technical-data" style={{ 
-                  fontSize: "12px", 
-                  color: "rgba(255,255,255,0.4)", 
-                  borderLeft: "2px solid var(--accent)", 
-                  paddingLeft: "16px", 
-                  lineHeight: "1.5",
-                  textTransform: "uppercase"
-                }}>
+                <div className="technical-data platforms-badge">
                   ОЗОН <br />
                   ВАЙЛДБЕРРИЗ
                 </div>
-                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 32px", width: "fit-content" }}>
+                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary">
                   Установить расширение
                 </a>
               </div>
             </div>
 
             {/* Neural Deconstruction Illustration */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <div style={{ border: "1px solid rgba(255, 255, 255, 0.15)", borderRadius: "8px", padding: "8px", backgroundColor: "rgba(255,255,255,0.02)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-                <img src="/hero.png" alt="eyeCARD Neural Deconstruction" style={{ maxWidth: "100%", maxHeight: "420px", borderRadius: "6px", display: "block" }} />
+            <div className="hero-image-wrapper">
+              <div className="image-frame">
+                <Image src="/hero.png" alt="eyeCARD Neural Deconstruction" width={420} height={420} priority className="hero-image" />
               </div>
             </div>
 
           </div>
         </section>
 
-        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "80px", padding: "80px 0" }}>
+        <div className="container methodology-section">
 
           {/* MAIN SCIENTIFIC METHODOLOGY PIPELINE */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
-            <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
-              <h2 style={{ fontSize: "36px", fontWeight: "700", color: "var(--primary)", letterSpacing: "-0.5px" }}>
+          <section className="methodology-pipeline">
+            <div className="section-header">
+              <h2 className="section-title">
                 Научный метод
               </h2>
-              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.6" }}>
+              <p className="section-subtitle">
                 Анализ психологии покупателя и выявление отклонений в дизайне карточек
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px" }}>
+            <div className="steps-grid">
               
               {/* STEP 1: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[01]: ФАКТ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[01]: ФАКТ</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+                <div className="card-body step-grid">
                   <div>
-                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "16px" }}>
+                    <h3 className="step-title">
                       Расшифровка визуального кода
                     </h3>
-                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                    <p className="step-description">
                       Алгоритм раскладывает изображение товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                    </div>
+                  <div className="step-image-container">
+                    <div className="step-image" style={{ backgroundImage: "url('/Phase1.jpg')" }}></div>
                   </div>
                 </div>
               </div>
 
               {/* STEP 2: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--primary)" }}>[02]: ИДЕАЛ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[02]: ИДЕАЛ</span>
                 </div>
-                <div style={{ padding: "32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+                <div className="card-body step-grid">
                   <div>
-                    <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                    <h3 className="step-title">
                       Профиль идеальной целевой аудитории
                     </h3>
-                    <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
+                    <p className="step-description">
                       ИИ изучает категорию товара, его цену и описание, а затем воссоздает «ожидания» мозга покупателя. Мы рассчитываем идеальный визуальный ритм, который подсознательно привлечет именно вашего клиента.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ height: "300px", borderRadius: "6px", backgroundImage: "url('/Phase2-1.jpg')", backgroundSize: "cover", backgroundPosition: "center", border: "1px solid var(--border-color)", position: "relative" }}>
-                    </div>
+                  <div className="step-image-container">
+                    <div className="step-image" style={{ backgroundImage: "url('/Phase2-1.jpg')" }}></div>
                   </div>
                 </div>
               </div>
 
               {/* STEP 3: INSTRUMENTAL MODULE */}
-              <div className="card" style={{ padding: "0", overflow: "hidden" }}>
-                <div style={{ padding: "12px 24px", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--surface-low)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span className="technical-data" style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)" }}>[03]: СРАВНЕНИЕ</span>
+              <div className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[03]: СРАВНЕНИЕ</span>
                 </div>
-                <div style={{ padding: "32px" }}>
-                  <h3 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px" }}>
+                <div className="card-body">
+                  <h3 className="step-title">
                     Анализ соответствия
                   </h3>
-                  <p style={{ fontSize: "15px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "850px" }}>
-                    Финальное сопоставление "Факта" и "Идеала" для выявления и оценки расхождений. Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума. Получаем четкий вектор для доработки CTR.
+                  <p className="step-description step-description-wide">
+                    Финальное сопоставление &quot;Факта&quot; и &quot;Идеала&quot; для выявления и оценки расхождений. Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума. Получаем четкий вектор для доработки CTR.
                   </p>
                 </div>
               </div>
@@ -140,22 +119,22 @@ export default function Home() {
           </section>
 
           {/* VISUAL PASSPORT PREVIEW (v19.4 SCHEMATICS) */}
-          <section className="expert-terminal" style={{ padding: "60px", position: "relative" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "60px", alignItems: "center" }}>
+          <section className="expert-terminal visual-passport-section">
+            <div className="visual-passport-grid">
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                <h2 style={{ fontSize: "32px", fontWeight: "800", color: "#fff" }}>
+              <div className="visual-passport-content">
+                <h2 className="visual-passport-title">
                   Визуальный Паспорт
                 </h2>
-                <p style={{ fontSize: "16px", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
+                <p className="visual-passport-description">
                   eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
                 </p>
               </div>
 
               {/* Exact Replica of Archetype Radar from Preliminary Design with MOCK_DATA */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={{ position: "relative", width: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <svg width="400" height="400" viewBox="0 0 360 360" style={{ overflow: "visible" }}>
+              <div className="radar-chart-wrapper">
+                <div style={{ position: "relative", width: "100%", maxWidth: "400px", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <svg width="100%" height="100%" viewBox="0 0 360 360" style={{ overflow: "visible", maxWidth: "100%", height: "auto" }}>
                     <defs>
                       <linearGradient id="vp-arch-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="oklch(64.13% 0.17 48.74)" stopOpacity="0.4" />
@@ -255,30 +234,30 @@ export default function Home() {
           </section>
 
           {/* WORKFLOW & INSTALLATION SECTION */}
-          <section style={{ display: "flex", flexDirection: "column", gap: "64px" }}>
+          <section className="workflow-section">
             
             {/* Part 1: How it Works */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "60px", alignItems: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                <h2 style={{ fontSize: "32px", fontWeight: "700", color: "var(--primary)" }}>
+            <div className="workflow-grid">
+              <div className="workflow-content">
+                <h2 className="workflow-title">
                   Как работает eyeCARD
                 </h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>1</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                <div className="workflow-steps">
+                  <div className="workflow-step">
+                    <div className="step-number">1</div>
+                    <p className="step-text">
                       Открыть карточку товара на <strong>Wildberries или Ozon</strong> в браузере Chrome.
                     </p>
                   </div>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>2</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                  <div className="workflow-step">
+                    <div className="step-number">2</div>
+                    <p className="step-text">
                       Запустить анализ через <strong>боковую панель расширения</strong>.
                     </p>
                   </div>
-                  <div style={{ display: "flex", gap: "16px" }}>
-                    <div style={{ minWidth: "32px", height: "32px", borderRadius: "50%", backgroundColor: "rgba(52, 92, 252, 0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "700", fontSize: "14px" }}>3</div>
-                    <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: "1.5" }}>
+                  <div className="workflow-step">
+                    <div className="step-number">3</div>
+                    <p className="step-text">
                       Готовый <strong>Визуальный Паспорт</strong> с аналитикой приходит в выбранный мессенджер Telegram/ВКонтакте.
                     </p>
                   </div>
@@ -286,19 +265,19 @@ export default function Home() {
               </div>
               
               {/* Workflow Illustration */}
-              <div style={{ backgroundColor: "var(--surface-low)", borderRadius: "12px", border: "1px solid var(--border-color)", height: "340px", width: "492px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "inset 0 0 40px rgba(0,0,0,0.05)" }}>
-                <img src="/extension-ui.png" alt="eyeCARD Extension Interface" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: "0", background: "linear-gradient(45deg, rgba(52, 92, 252, 0.05) 0%, transparent 100%)", pointerEvents: "none" }} />
+              <div className="workflow-image-wrapper">
+                <Image src="/extension-ui.png" alt="eyeCARD Extension Interface" fill className="workflow-image" />
+                <div className="workflow-image-overlay" />
               </div>
             </div>
 
             {/* Part 2: Chrome Extension Installation */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center" }}>
               <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+              <div className="installation-grid">
                 
                 {/* Step 01 Card */}
-                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                <div className="card installation-card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
                   <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>01</div>
                   <div style={{ padding: "0 24px 0 0" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
@@ -310,12 +289,12 @@ export default function Home() {
                     </p>
                   </div>
                   <div style={{ marginTop: "auto", height: "180px", backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", margin: "0 -24px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", padding: "20px" }}>
-                    <img src="/chrome-store.png" alt="Google Chrome Web Store" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    <Image src="/chrome-store.png" alt="Google Chrome Web Store" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
 
                 {/* Step 02 Card */}
-                <div className="card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
+                <div className="card installation-card" style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", paddingBottom: "0" }}>
                   <div className="technical-data" style={{ fontSize: "48px", fontWeight: "800", color: "rgba(52, 92, 252, 0.05)", position: "absolute", top: "10px", right: "20px" }}>02</div>
                   <div style={{ padding: "0 24px 0 0" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "4px", border: "2px solid var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
@@ -326,8 +305,8 @@ export default function Home() {
                       Для мгновенного доступа закрепите иконку eyeCARD в меню расширений. Панель управления анализом всегда будет под рукой.
                     </p>
                   </div>
-                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "#fff", borderTop: "1px solid var(--border-color)", margin: "0 -24px", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
-                    <img src="/pin-instruction.png" alt="How to pin extension" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                  <div style={{ marginTop: "auto", height: "180px", backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", margin: "0 -24px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", padding: "20px" }}>
+                    <Image src="/pin-instruction.png" alt="How to pin extension" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
 

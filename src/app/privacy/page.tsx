@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Header from "../components/Header";
 
 export default function PrivacyPolicy() {
   return (
     <div style={{ backgroundColor: "var(--bg-secondary)", minHeight: "100vh", padding: "40px 0" }}>
+      <Header />
       <div className="container" style={{ maxWidth: "800px" }}>
         {/* Simple Technical Header */}
         <div style={{ marginBottom: "32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
