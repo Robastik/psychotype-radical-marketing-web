@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
           </h1>
 
           <p style={{ fontSize: "14px", color: "var(--text-muted)", fontFamily: "var(--font-mono)", marginTop: "-12px" }}>
-            Последнее обновление: 30 июля 2026 г.
+            Последнее обновление: {new Date().toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })}
           </p>
 
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -70,9 +70,23 @@ export default function PrivacyPolicy() {
           </section>
 
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Изменения политики</h2>
+            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Защита данных детей</h2>
+            <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
+              Сервис eyeCARD не предназначен для лиц младше 13 лет. Мы не собираем осознанно персональные данные от детей младше 13 лет. Если нам станет известно, что мы получили такую информацию, мы немедленно удалим её из нашей базы данных.
+            </p>
+          </section>
+
+          <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>7. Изменения политики</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
               Сервис оставляет за собой право вносить изменения в настоящую Политику конфиденциальности в любое время. Изменения вступают в силу с момента их публикации на данной странице.
+            </p>
+          </section>
+
+          <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>8. Контактная информация</h2>
+            <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
+              Если у вас возникли вопросы или предложения по поводу настоящей Политики конфиденциальности, пожалуйста, свяжитесь с нами по электронной почте: <a href="mailto:support@eyecard.ru" style={{ color: "var(--cobalt-primary)" }}>support@eyecard.ru</a>.
             </p>
           </section>
         </article>
