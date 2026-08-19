@@ -1,5 +1,6 @@
-The input shows only a modification to the `.gitignore` file itself, with no other file changes provided in the added or deleted lists. Since there are no actual project files being changed that would suggest what should be ignored, and the current `.gitignore` content is not provided in the example, I cannot determine what specific patterns should be added.
+# CI/CD
+.github/
 
-However, looking at the instruction pattern where only the `.gitignore` file is being modified (which typically happens when setting up initial gitignore rules), and considering this appears to be a general case without specific project artifacts mentioned, no specific rules can be determined from the change list.
+Wait, that would ignore the workflow file that was modified. Since only a GitHub Actions workflow file was modified and this is a standard part of version control, nothing should be ignored.
 
-(nothing)
+(empty)
