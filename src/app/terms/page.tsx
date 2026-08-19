@@ -12,9 +12,6 @@ export default function TermsOfService() {
           <Link href="/" style={{ fontSize: "14px", fontFamily: "var(--font-mono)", color: "var(--cobalt-primary)", fontWeight: "bold" }}>
             ← eyeCARD
           </Link>
-          <span style={{ fontSize: "12px", fontFamily: "var(--font-mono)", color: "var(--text-muted)" }}>
-            CONTRACT_OFFER: v1.0
-          </span>
         </div>
 
         <article className="card" style={{ padding: "40px", display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -86,15 +83,11 @@ export default function TermsOfService() {
             <div className="technical-data" style={{ display: "flex", gap: "32px", fontSize: "13px" }}>
               <Link href="/methodology" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Методология</Link>
               <Link href="/terms" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Оферта</Link>
-              <Link href="/privacy" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Privacy</Link>
+              <Link href="/privacy" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Конфиденциальность</Link>
             </div>
           </div>
 
           <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
-            <div style={{ fontSize: "11px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "800px" }}>
-              * Стоимость проведения анализов указывается в интерфейсе браузерного расширения eyeCARD в условных единицах (Coins/Монеты) и приводится в российских рублях (RUB) при формировании счета на оплату внутри авторизованного мессенджер-бота (Telegram/ВКонтакте).
-            </div>
-
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "var(--text-muted)", flexWrap: "wrap", gap: "12px" }}>
               <span className="technical-data">© {new Date().getFullYear()} eyeCARD</span>
             </div>
