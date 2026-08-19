@@ -1,6 +1,7 @@
 {
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/en/privacy/page": "app/en/privacy/page.js",
   "/methodology/page": "app/methodology/page.js",
   "/page": "app/page.js",
   "/privacy/page": "app/privacy/page.js",

@@ -1,90 +1,48 @@
-```gitignore
+```
+# Next.js build outputs
+.next/
+out/
+
 # Dependencies
 node_modules/
 
-# Build outputs
+# Environment variables
+.env
+.env.local
+.env.
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
 dist/
 build/
 target/
 
-# Python
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-.ENV
-.venv.bak/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-*.pot
-*.pyc
-*.pyo
-*.pyd
-.MF
-.TemporaryItems
-.trash
-ehthumbs.db
-.Spotlight-V100
-# Environment variables
-.env
-.env.local
-.env.dev
-.env.prod
-.env.test
-.env.backup
-.env.save
-.env~
-.env.local~
-.env.dev~
-.env.prod~
-.env.test~
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-
-# Logs
-*.log
-*.out
-
-# Coverage
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
-.coverage.*
 
-# MyPy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# PyTest
-.pytest_cache/
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
 
 # Compressed files
 *.zip
