@@ -65,7 +65,7 @@ export default function PrivacyPolicyEn() {
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>5. Data Security and Protection</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
-              Technical identifiers (`chatId` and `userId`) are stored in a secure Google Firestore cloud database and protected by strict security protocols. Access to this data is restricted and used exclusively by automated Service modules for sending completed analysis results.
+              Technical identifiers (&apos;chatId&apos; and &apos;userId&apos;) are stored in a secure Google Firestore cloud database and protected by strict security protocols. Access to this data is restricted and used exclusively by automated Service modules for sending completed analysis results.
             </p>
           </section>
 
