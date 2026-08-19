@@ -64,9 +64,8 @@ export default function TermsOfService() {
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Реквизиты и контакты Исполнителя</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6", fontFamily: "var(--font-mono)" }}>
-              Сервис: eyeCARD (Индивидуальный предприниматель / Организация)<br />
-              ИНН / ОГРН: [Укажите Ваши реквизиты]<br />
-              Служба поддержки: t.me/eyecard_support_bot<br />
+              ИП Мамаев Д.Л.<br />
+              ОГРНИП 306143519900087<br />
               Email: support@eyecard.ru
             </p>
           </section>
