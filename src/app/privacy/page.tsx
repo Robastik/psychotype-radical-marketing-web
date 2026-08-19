@@ -91,10 +91,33 @@ export default function PrivacyPolicy() {
           </section>
         </article>
 
-        {/* Footer info */}
-        <div style={{ marginTop: "24px", textAlign: "center", fontSize: "12px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          © {new Date().getFullYear()} eyeCARD. All rights reserved.
+      <footer style={{ backgroundColor: "var(--surface-low)", borderTop: "1px solid var(--border-color)", padding: "48px 0", marginTop: "24px" }}>
+        <div className="container" style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+          
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "24px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <span className="technical-data" style={{ fontSize: "20px", fontWeight: "800", color: "var(--primary)" }}>eyeCARD</span>
+              <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>Нейромаркетинговая AI-лаборатория для бизнеса.</span>
+            </div>
+            <div className="technical-data" style={{ display: "flex", gap: "32px", fontSize: "13px" }}>
+              <Link href="/methodology" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Методология</Link>
+              <Link href="/terms" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Оферта</Link>
+              <Link href="/privacy" style={{ color: "var(--text-primary)", fontWeight: "600" }}>Privacy</Link>
+            </div>
+          </div>
+
+          <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ fontSize: "11px", lineHeight: "1.6", color: "var(--text-muted)", maxWidth: "800px" }}>
+              * Стоимость проведения анализов указывается в интерфейсе браузерного расширения eyeCARD в условных единицах (Coins/Монеты) и приводится в российских рублях (RUB) при формировании счета на оплату внутри авторизованного мессенджер-бота (Telegram/ВКонтакте).
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "var(--text-muted)", flexWrap: "wrap", gap: "12px" }}>
+              <span className="technical-data">© {new Date().getFullYear()} eyeCARD</span>
+            </div>
+          </div>
+
         </div>
+      </footer>
       </div>
     </div>
   );
