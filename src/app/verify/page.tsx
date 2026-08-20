@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import styles from "./passport.module.css";
 
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
@@ -15,14 +16,17 @@ interface AnalysisData {
     platform: string;
     sku: string;
     image_url: string;
-    features: any[];
+    features: string[];
   };
   analysis: {
     icc: number;
-    actual: any;
-    ideal: any;
-    vectors: any;
-    verdict: any;
+    actual: Record<string, unknown>;
+    ideal: Record<string, unknown>;
+    vectors: Record<string, unknown>;
+    verdict: {
+      compliance: number;
+      [key: string]: unknown;
+    };
   };
   timestamp: string;
 }
@@ -58,7 +62,7 @@ const vpEngines = {
             return "СМЕШАННЫЙ";
         }
     },
-    createRadar(type: 'radicals' | 'archetypes', ideal: any, actual: any) {
+    createRadar(type: 'radicals' | 'archetypes', ideal: Record<string, unknown>, actual: Record<string, unknown>) {
         const config = {
             radicals: {
                 keys: ['paranoid', 'epileptoid', 'hysteroid', 'schizoid', 'hyperthymic', 'emotive', 'anxious'],
@@ -71,14 +75,14 @@ const vpEngines = {
         }[type];
         const size = 360, center = size / 2, radius = 100, N = config.keys.length;
         
-        const getPoints = (vals: any, isIdeal: boolean) => {
+        const getPoints = (vals: Record<string, unknown>, isIdeal: boolean) => {
             return config.keys.map((key, i) => {
                 let val = 0;
-                const labelsMap = config.labels as any;
+                const labelsMap = config.labels as Record<string, string>;
                 const label = labelsMap[key].toLowerCase();
                 const kL = key.toLowerCase();
 
-                const normalizedVals = Object.keys(vals || {}).reduce((acc: any, k) => {
+                const normalizedVals = Object.keys(vals || {}).reduce((acc: Record<string, unknown>, k) => {
                     acc[k.toLowerCase()] = vals[k];
                     return acc;
                 }, {});
@@ -157,9 +161,9 @@ const vpEngines = {
         let labels = '';
         config.keys.forEach((key, i) => {
             const angle = (i * (360 / N) - 90) * (Math.PI / 180);
-            let lx = center + (radius + 40) * Math.cos(angle);
-            let ly = center + (radius + 40) * Math.sin(angle);
-            const label = (config.labels as any)[key];
+            const lx = center + (radius + 40) * Math.cos(angle);
+            const ly = center + (radius + 40) * Math.sin(angle);
+            const label = (config.labels as Record<string, string>)[key];
             if (label === 'СЛАВНЫЙ МАЛЫЙ') {
                 labels += `<g><text x="${lx - 15}" y="${ly - 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">СЛАВНЫЙ</text><text x="${lx - 15}" y="${ly + 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">МАЛЫЙ</text></g>`;
             } else {
@@ -184,7 +188,7 @@ const vpEngines = {
             </svg>
         `;
     },
-    createVector(vectors: any) {
+    createVector(vectors: Record<string, unknown>) {
         const size = 360, center = size / 2, radius = 100;
         const axes = [
             { a: 'rationality', b: 'emotionality', lA: 'РАЦИОНАЛЬНОСТЬ', lB: 'ЭМОЦИОНАЛЬНОСТЬ' },
@@ -277,13 +281,13 @@ function VerifyContent() {
         if (json.status === "processing") setError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
         else if (json.status === "completed") setData(json);
         else setError(json.message || "Произошла ошибка при загрузке данных");
-      } catch (err: any) { setError(err.message); } finally { setLoading(false); }
+      } catch (err: unknown) { setError((err as Error).message); } finally { setLoading(false); }
     }
     fetchData();
   }, [job_id]);
 
   if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
-  if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><a href="/" className="btn-primary">На главную</a></div>;
+  if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><Link href="/" className="btn-primary">На главную</Link></div>;
   if (!data) return null;
 
   const { product, analysis } = data;
