@@ -1,10 +1,11 @@
 [
   {
     "route": "/verify",
-    "firstLoadUncompressedJsBytes": 491014,
+    "firstLoadUncompressedJsBytes": 511290,
     "firstLoadChunkPaths": [
       ".next/static/chunks/2k19u64wq8hnh.js",
-      ".next/static/chunks/36bxxpvwhv0d7.js",
+      ".next/static/chunks/0axdrs6tow-4n.js",
+      ".next/static/chunks/3xjs3dh84q93k.js",
       ".next/static/chunks/0jvhpaew_uadu.js",
       ".next/static/chunks/24uyhvvmdi5sa.js",
       ".next/static/chunks/36lm--m0zwqtj.js",

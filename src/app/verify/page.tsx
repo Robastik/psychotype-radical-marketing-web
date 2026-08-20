@@ -4,6 +4,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import styles from "./passport.module.css";
+import QRCode from "qrcode";
 
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const BACKEND_URL = `${BASE_URL}/api/v1`;
@@ -12,6 +13,7 @@ type FeatureItem = string | { label?: string; name?: string; key?: string; value
 
 /* =========================================================================
    ФИРМЕННЫЙ QR-ГЕНЕРАТОР eyeCARD (Segno Style: Cobalt + Orange)
+   На основе стандартизированной библиотеки qrcode для 100% соответствия ISO/IEC 18004
    ========================================================================= */
 const BRAND_COLORS = {
   cobalt: "#1C3E61", // --dark & --finder-dark
@@ -19,293 +21,69 @@ const BRAND_COLORS = {
   white: "#FFFFFF",  // --light
 };
 
-const QR_GF_EXP = new Array(512);
-const QR_GF_LOG = new Array(256);
-let _gx = 1;
-for (let i = 0; i < 255; i++) {
-  QR_GF_EXP[i] = _gx;
-  QR_GF_EXP[i + 255] = _gx;
-  QR_GF_LOG[_gx] = i;
-  _gx = (_gx << 1) ^ (_gx >= 128 ? 0x11d : 0);
-}
-QR_GF_LOG[0] = 0;
+// Таблица центров Alignment Patterns по стандарту ISO/IEC 18004
+const ALIGNMENT_COORDS: Record<number, number[]> = {
+  2: [6, 18], 3: [6, 22], 4: [6, 26], 5: [6, 30], 6: [6, 34],
+  7: [6, 22, 38], 8: [6, 24, 42], 9: [6, 26, 46], 10: [6, 28, 50],
+  11: [6, 30, 54], 12: [6, 32, 58], 13: [6, 34, 62], 14: [6, 26, 46, 66],
+  15: [6, 26, 48, 70], 16: [6, 26, 50, 74], 17: [6, 30, 54, 78], 18: [6, 30, 56, 82],
+  19: [6, 30, 58, 86], 20: [6, 34, 62, 90], 21: [6, 28, 50, 72, 94], 22: [6, 26, 50, 74, 98],
+  23: [6, 30, 54, 78, 102], 24: [6, 28, 54, 80, 106], 25: [6, 32, 58, 84, 110], 26: [6, 30, 58, 86, 114],
+  27: [6, 34, 62, 90, 118], 28: [6, 26, 50, 74, 98, 122], 29: [6, 30, 54, 78, 102, 126],
+  30: [6, 26, 52, 78, 104, 130], 31: [6, 30, 56, 82, 108, 134], 32: [6, 34, 60, 86, 112, 138],
+  33: [6, 30, 58, 86, 114, 142], 34: [6, 34, 62, 90, 118, 146], 35: [6, 30, 54, 78, 102, 126, 150],
+  36: [6, 24, 50, 76, 102, 128, 154], 37: [6, 28, 54, 80, 106, 132, 158], 38: [6, 32, 58, 84, 110, 136, 162],
+  39: [6, 26, 54, 82, 110, 138, 166], 40: [6, 30, 58, 86, 114, 142, 170],
+};
 
-function gfMult(a: number, b: number): number {
-  if (a === 0 || b === 0) return 0;
-  return QR_GF_EXP[QR_GF_LOG[a] + QR_GF_LOG[b]];
-}
+export function createBrandQRCodeSVG(text: string): string {
+  // Генерация 100% валидной ISO-матрицы с уровнем коррекции H
+  const qr = QRCode.create(text, {
+    errorCorrectionLevel: "H",
+  });
 
-function getRsGeneratorPoly(ecLen: number): number[] {
-  let poly = [1];
-  for (let i = 0; i < ecLen; i++) {
-    const next = [1, QR_GF_EXP[i]];
-    const res = new Array(poly.length + 1).fill(0);
-    for (let j = 0; j < poly.length; j++) {
-      for (let k = 0; k < next.length; k++) {
-        res[j + k] ^= gfMult(poly[j], next[k]);
-      }
-    }
-    poly = res;
-  }
-  return poly;
-}
-
-function calculateReedSolomon(data: number[], ecLen: number): number[] {
-  const gen = getRsGeneratorPoly(ecLen);
-  const info = [...data, ...new Array(ecLen).fill(0)];
-  for (let i = 0; i < data.length; i++) {
-    const coef = info[i];
-    if (coef !== 0) {
-      for (let j = 0; j < gen.length; j++) {
-        info[i + j] ^= gfMult(gen[j], coef);
-      }
-    }
-  }
-  return info.slice(data.length);
-}
-
-interface QRVersionSpec {
-  version: number;
-  dataCapacity: number;
-  blocks: { count: number; dataCount: number; ecCount: number }[];
-  align: number[];
-}
-
-// Таблица версий для Error Correction Level H (высокая надежность)
-const QR_VERSIONS_H: QRVersionSpec[] = [
-  { version: 1, dataCapacity: 9, blocks: [{ count: 1, dataCount: 9, ecCount: 17 }], align: [] },
-  { version: 2, dataCapacity: 16, blocks: [{ count: 1, dataCount: 16, ecCount: 28 }], align: [6, 18] },
-  { version: 3, dataCapacity: 26, blocks: [{ count: 2, dataCount: 13, ecCount: 22 }], align: [6, 22] },
-  { version: 4, dataCapacity: 36, blocks: [{ count: 4, dataCount: 9, ecCount: 16 }], align: [6, 26] },
-  { version: 5, dataCapacity: 46, blocks: [{ count: 2, dataCount: 11, ecCount: 22 }, { count: 2, dataCount: 12, ecCount: 22 }], align: [6, 30] },
-  { version: 6, dataCapacity: 60, blocks: [{ count: 4, dataCount: 15, ecCount: 28 }], align: [6, 34] },
-  { version: 7, dataCapacity: 66, blocks: [{ count: 4, dataCount: 13, ecCount: 26 }, { count: 1, dataCount: 14, ecCount: 26 }], align: [6, 22, 38] },
-  { version: 8, dataCapacity: 86, blocks: [{ count: 4, dataCount: 14, ecCount: 26 }, { count: 2, dataCount: 15, ecCount: 26 }], align: [6, 24, 42] },
-  { version: 9, dataCapacity: 100, blocks: [{ count: 4, dataCount: 12, ecCount: 24 }, { count: 4, dataCount: 13, ecCount: 24 }], align: [6, 26, 46] },
-  { version: 10, dataCapacity: 122, blocks: [{ count: 6, dataCount: 15, ecCount: 28 }, { count: 2, dataCount: 16, ecCount: 28 }], align: [6, 28, 50] }
-];
-
-function generateBrandQRCodeSvg(text: string): string {
-  const utf8Bytes: number[] = [];
-  for (let i = 0; i < text.length; i++) {
-    let code = text.charCodeAt(i);
-    if (code < 0x80) utf8Bytes.push(code);
-    else if (code < 0x800) utf8Bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
-    else utf8Bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
-  }
-
-  // Подбор версии (минимум v9 для точного соответствия скрипту или автоподбор при длинном URL)
-  let verSpec = QR_VERSIONS_H.find(v => v.version === 9) || QR_VERSIONS_H[QR_VERSIONS_H.length - 1];
-  for (const v of QR_VERSIONS_H) {
-    const charLenBits = v.version < 10 ? 8 : 16;
-    const maxBytes = Math.floor((v.dataCapacity * 8 - 4 - charLenBits) / 8);
-    if (utf8Bytes.length <= maxBytes && v.version >= 9) {
-      verSpec = v;
-      break;
-    }
-  }
-
-  const bitBuffer: boolean[] = [];
-  const putBits = (val: number, len: number) => {
-    for (let i = len - 1; i >= 0; i--) bitBuffer.push(((val >>> i) & 1) === 1);
-  };
-
-  putBits(0b0100, 4); // Byte mode
-  putBits(utf8Bytes.length, verSpec.version < 10 ? 8 : 16);
-  for (const b of utf8Bytes) putBits(b, 8);
-
-  const totalDataBits = verSpec.dataCapacity * 8;
-  const rem = totalDataBits - bitBuffer.length;
-  if (rem > 0) putBits(0, Math.min(4, rem));
-  while (bitBuffer.length % 8 !== 0) bitBuffer.push(false);
-
-  const rawCodewords: number[] = [];
-  for (let i = 0; i < bitBuffer.length; i += 8) {
-    let byte = 0;
-    for (let b = 0; b < 8; b++) if (bitBuffer[i + b]) byte |= 0x80 >>> b;
-    rawCodewords.push(byte);
-  }
-
-  let pad = 0xec;
-  while (rawCodewords.length < verSpec.dataCapacity) {
-    rawCodewords.push(pad);
-    pad = pad === 0xec ? 0x11 : 0xec;
-  }
-
-  const dataBlocks: number[][] = [];
-  const ecBlocks: number[][] = [];
-  let offset = 0;
-  for (const block of verSpec.blocks) {
-    for (let b = 0; b < block.count; b++) {
-      const d = rawCodewords.slice(offset, offset + block.dataCount);
-      offset += block.dataCount;
-      dataBlocks.push(d);
-      ecBlocks.push(calculateReedSolomon(d, block.ecCount));
-    }
-  }
-
-  const finalStream: number[] = [];
-  const maxD = Math.max(...dataBlocks.map(d => d.length));
-  for (let i = 0; i < maxD; i++) {
-    for (const d of dataBlocks) if (i < d.length) finalStream.push(d[i]);
-  }
-  const maxEC = Math.max(...ecBlocks.map(e => e.length));
-  for (let i = 0; i < maxEC; i++) {
-    for (const e of ecBlocks) if (i < e.length) finalStream.push(e[i]);
-  }
-
-  const allBits: boolean[] = [];
-  for (const byte of finalStream) {
-    for (let i = 7; i >= 0; i--) allBits.push(((byte >>> i) & 1) === 1);
-  }
-
-  const size = verSpec.version * 4 + 17;
-  const matrix: (boolean | null)[][] = Array.from({ length: size }, () => new Array(size).fill(null));
-  const reserved: boolean[][] = Array.from({ length: size }, () => new Array(size).fill(false));
-  
-  // Типизация модулей для раздельной раскраски
-  const moduleTypes: ("finder" | "timing" | "align" | "data")[][] = Array.from(
-    { length: size },
-    () => new Array(size).fill("data")
-  );
-
-  const setFinder = (r0: number, c0: number) => {
-    for (let r = -1; r <= 7; r++) {
-      for (let c = -1; c <= 7; c++) {
-        const mr = r0 + r, mc = c0 + c;
-        if (mr >= 0 && mr < size && mc >= 0 && mc < size) {
-          if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
-            matrix[mr][mc] = (r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4));
-            moduleTypes[mr][mc] = "finder";
-          } else {
-            matrix[mr][mc] = false;
-          }
-          reserved[mr][mc] = true;
-        }
-      }
-    }
-  };
-
-  setFinder(0, 0);
-  setFinder(0, size - 7);
-  setFinder(size - 7, 0);
-
-  // Timing lines
-  for (let i = 8; i < size - 8; i++) {
-    if (!reserved[6][i]) { matrix[6][i] = i % 2 === 0; reserved[6][i] = true; moduleTypes[6][i] = "timing"; }
-    if (!reserved[i][6]) { matrix[i][6] = i % 2 === 0; reserved[i][6] = true; moduleTypes[i][6] = "timing"; }
-  }
-
-  // Alignment patterns
-  for (const ar of verSpec.align) {
-    for (const ac of verSpec.align) {
-      if ((ar <= 8 && ac <= 8) || (ar <= 8 && ac >= size - 9) || (ar >= size - 9 && ac <= 8)) continue;
-      for (let r = -2; r <= 2; r++) {
-        for (let c = -2; c <= 2; c++) {
-          matrix[ar + r][ac + c] = (Math.abs(r) === 2 || Math.abs(c) === 2 || (r === 0 && c === 0));
-          reserved[ar + r][ac + c] = true;
-          moduleTypes[ar + r][ac + c] = "align";
-        }
-      }
-    }
-  }
-
-  matrix[size - 8][8] = true;
-  reserved[size - 8][8] = true;
-
-  for (let i = 0; i < 9; i++) {
-    reserved[8][i] = true; reserved[i][8] = true;
-    reserved[8][size - 1 - i] = true; reserved[size - 1 - i][8] = true;
-  }
-
-  let bitIdx = 0;
-  let up = true;
-  for (let right = size - 1; right > 0; right -= 2) {
-    const col1 = right <= 6 ? right - 1 : right;
-    const cols = [col1, col1 - 1];
-    const rowList = up ? Array.from({ length: size }, (_, i) => size - 1 - i) : Array.from({ length: size }, (_, i) => i);
-    for (const r of rowList) {
-      for (const c of cols) {
-        if (!reserved[r][c]) {
-          matrix[r][c] = bitIdx < allBits.length ? allBits[bitIdx++] : false;
-        }
-      }
-    }
-    up = !up;
-  }
-
-  const maskFn = (mask: number, r: number, c: number) => {
-    switch (mask) {
-      case 0: return (r + c) % 2 === 0;
-      case 1: return r % 2 === 0;
-      case 2: return c % 3 === 0;
-      case 3: return (r + c) % 3 === 0;
-      case 4: return (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0;
-      case 5: return ((r * c) % 2) + ((r * c) % 3) === 0;
-      case 6: return (((r * c) % 2) + ((r * c) % 3)) % 2 === 0;
-      case 7: return (((r + c) % 2) + ((r * c) % 3)) % 2 === 0;
-      default: return false;
-    }
-  };
-
-  const getFormatBits = (mask: number) => {
-    const data = (0b10 << 3) | mask; // EC Level H = 0b10
-    let r = data << 10;
-    for (let i = 4; i >= 0; i--) {
-      if ((r >> (i + 10)) & 1) r ^= (0x537 << i);
-    }
-    return ((data << 10) | r) ^ 0x5412;
-  };
-
-  let minPenalty = Infinity;
-  let bestGrid: boolean[][] = [];
-
-  for (let mask = 0; mask < 8; mask++) {
-    const grid: boolean[][] = matrix.map((row, r) =>
-      row.map((val, c) => (reserved[r][c] ? Boolean(val) : (maskFn(mask, r, c) ? !val : Boolean(val))))
-    );
-
-    const fBits = getFormatBits(mask);
-    const getB = (idx: number) => ((fBits >> idx) & 1) === 1;
-
-    for (let i = 0; i <= 5; i++) grid[8][i] = getB(i);
-    grid[8][7] = getB(6); grid[8][8] = getB(7); grid[7][8] = getB(8);
-    for (let i = 9; i <= 14; i++) grid[14 - i][8] = getB(i);
-    for (let i = 0; i <= 6; i++) grid[size - 1 - i][8] = getB(i);
-    for (let i = 7; i <= 14; i++) grid[8][size - 15 + i] = getB(i);
-
-    let penalty = 0;
-    for (let r = 0; r < size; r++) {
-      let count = 0, last = null;
-      for (let c = 0; c < size; c++) {
-        if (grid[r][c] === last) count++;
-        else { if (count >= 5) penalty += 3 + (count - 5); last = grid[r][c]; count = 1; }
-      }
-      if (count >= 5) penalty += 3 + (count - 5);
-    }
-    if (penalty < minPenalty) {
-      minPenalty = penalty;
-      bestGrid = grid;
-    }
-  }
-
-  // Граница 4 модуля (-b 4)
-  const margin = 4;
+  const size = qr.modules.size;
+  const version = (size - 17) / 4;
+  const alignCenters = ALIGNMENT_COORDS[version] || [];
+  const margin = 4; // -b 4
   const totalSize = size + margin * 2;
-  
+  const data = qr.modules.data; // Uint8Array битов матрицы
+
   let pathCobalt = "";
   let pathOrange = "";
 
   for (let r = 0; r < size; r++) {
     for (let c = 0; c < size; c++) {
-      if (bestGrid[r][c]) {
-        const d = `M${c + margin},${r + margin}h1v1h-1z `;
-        const type = moduleTypes[r][c];
-        if (type === "align" || type === "timing") {
-          pathOrange += d;
-        } else {
-          pathCobalt += d;
+      // Проверяем, темный ли модуль (1 - закрашен, 0 - пустой)
+      if (data[r * size + c] !== 1) continue;
+
+      const d = `M${c + margin},${r + margin}h1v1h-1z `;
+
+      // 1. Проверка на принадлежность к Alignment Pattern (5x5 вокруг центров)
+      let isAlign = false;
+      for (const ar of alignCenters) {
+        for (const ac of alignCenters) {
+          // Пропускаем углы, где находятся Finder patterns
+          if ((ar <= 8 && ac <= 8) || (ar <= 8 && ac >= size - 9) || (ar >= size - 9 && ac <= 8)) continue;
+          if (Math.abs(r - ar) <= 2 && Math.abs(c - ac) <= 2) {
+            isAlign = true;
+            break;
+          }
         }
+        if (isAlign) break;
+      }
+
+      // 2. Проверка на принадлежность к Timing Pattern (линии на 6 строке и 6 колонке)
+      const isTiming = !isAlign && (
+        (r === 6 && c >= 8 && c <= size - 9) ||
+        (c === 6 && r >= 8 && r <= size - 9)
+      );
+
+      // Распределение цветов в соответствии с параметрами Segno
+      if (isAlign || isTiming) {
+        pathOrange += d;
+      } else {
+        pathCobalt += d;
       }
     }
   }
@@ -395,7 +173,7 @@ const vpEngines = {
         }
     },
     createQRCodeSVG(data: string) {
-        return generateBrandQRCodeSvg(data);
+        return createBrandQRCodeSVG(data);
     },
     createRadar(type: 'radicals' | 'archetypes', ideal: Record<string, unknown> = {}, actual: Record<string, unknown> = {}) {
         const config: { keys: string[]; labels: Record<string, string> } = {
