@@ -88,7 +88,7 @@ const QR_VERSIONS_H: QRVersionSpec[] = [
 function generateBrandQRCodeSvg(text: string): string {
   const utf8Bytes: number[] = [];
   for (let i = 0; i < text.length; i++) {
-    let code = text.charCodeAt(i);
+    const code = text.charCodeAt(i);
     if (code < 0x80) utf8Bytes.push(code);
     else if (code < 0x800) utf8Bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
     else utf8Bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
