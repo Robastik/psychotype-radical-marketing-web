@@ -11,8 +11,14 @@ const BACKEND_URL = `${BASE_URL}/api/v1`;
 type FeatureItem = string | { label?: string; name?: string; key?: string; value?: string | number };
 
 /* =========================================================================
-   QR CODE GENERATOR ENGINE (Segno svg_inline spec)
+   ФИРМЕННЫЙ QR-ГЕНЕРАТОР eyeCARD (Segno Style: Cobalt + Orange)
    ========================================================================= */
+const BRAND_COLORS = {
+  cobalt: "#1C3E61", // --dark & --finder-dark
+  orange: "#F27318", // --align-dark & --timing-dark
+  white: "#FFFFFF",  // --light
+};
+
 const QR_GF_EXP = new Array(512);
 const QR_GF_LOG = new Array(256);
 let _gx = 1;
@@ -65,37 +71,35 @@ interface QRVersionSpec {
   align: number[];
 }
 
-const QR_VERSIONS: QRVersionSpec[] = [
-  { version: 1, dataCapacity: 16, blocks: [{ count: 1, dataCount: 16, ecCount: 10 }], align: [] },
-  { version: 2, dataCapacity: 28, blocks: [{ count: 1, dataCount: 28, ecCount: 16 }], align: [6, 18] },
-  { version: 3, dataCapacity: 44, blocks: [{ count: 1, dataCount: 44, ecCount: 26 }], align: [6, 22] },
-  { version: 4, dataCapacity: 64, blocks: [{ count: 2, dataCount: 32, ecCount: 18 }], align: [6, 26] },
-  { version: 5, dataCapacity: 86, blocks: [{ count: 2, dataCount: 43, ecCount: 24 }], align: [6, 30] },
-  { version: 6, dataCapacity: 108, blocks: [{ count: 4, dataCount: 27, ecCount: 16 }], align: [6, 34] },
-  { version: 7, dataCapacity: 124, blocks: [{ count: 4, dataCount: 31, ecCount: 18 }], align: [6, 22, 38] },
-  { version: 8, dataCapacity: 154, blocks: [{ count: 2, dataCount: 38, ecCount: 22 }, { count: 2, dataCount: 39, ecCount: 22 }], align: [6, 24, 42] },
-  { version: 9, dataCapacity: 182, blocks: [{ count: 3, dataCount: 36, ecCount: 22 }, { count: 2, dataCount: 37, ecCount: 22 }], align: [6, 26, 46] },
-  { version: 10, dataCapacity: 216, blocks: [{ count: 4, dataCount: 43, ecCount: 26 }, { count: 1, dataCount: 44, ecCount: 26 }], align: [6, 28, 50] }
+// Таблица версий для Error Correction Level H (высокая надежность)
+const QR_VERSIONS_H: QRVersionSpec[] = [
+  { version: 1, dataCapacity: 9, blocks: [{ count: 1, dataCount: 9, ecCount: 17 }], align: [] },
+  { version: 2, dataCapacity: 16, blocks: [{ count: 1, dataCount: 16, ecCount: 28 }], align: [6, 18] },
+  { version: 3, dataCapacity: 26, blocks: [{ count: 2, dataCount: 13, ecCount: 22 }], align: [6, 22] },
+  { version: 4, dataCapacity: 36, blocks: [{ count: 4, dataCount: 9, ecCount: 16 }], align: [6, 26] },
+  { version: 5, dataCapacity: 46, blocks: [{ count: 2, dataCount: 11, ecCount: 22 }, { count: 2, dataCount: 12, ecCount: 22 }], align: [6, 30] },
+  { version: 6, dataCapacity: 60, blocks: [{ count: 4, dataCount: 15, ecCount: 28 }], align: [6, 34] },
+  { version: 7, dataCapacity: 66, blocks: [{ count: 4, dataCount: 13, ecCount: 26 }, { count: 1, dataCount: 14, ecCount: 26 }], align: [6, 22, 38] },
+  { version: 8, dataCapacity: 86, blocks: [{ count: 4, dataCount: 14, ecCount: 26 }, { count: 2, dataCount: 15, ecCount: 26 }], align: [6, 24, 42] },
+  { version: 9, dataCapacity: 100, blocks: [{ count: 4, dataCount: 12, ecCount: 24 }, { count: 4, dataCount: 13, ecCount: 24 }], align: [6, 26, 46] },
+  { version: 10, dataCapacity: 122, blocks: [{ count: 6, dataCount: 15, ecCount: 28 }, { count: 2, dataCount: 16, ecCount: 28 }], align: [6, 28, 50] }
 ];
 
-function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.12)"): string {
+function generateBrandQRCodeSvg(text: string): string {
   const utf8Bytes: number[] = [];
   for (let i = 0; i < text.length; i++) {
-    const code = text.charCodeAt(i);
-    if (code < 0x80) {
-      utf8Bytes.push(code);
-    } else if (code < 0x800) {
-      utf8Bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
-    } else {
-      utf8Bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
-    }
+    let code = text.charCodeAt(i);
+    if (code < 0x80) utf8Bytes.push(code);
+    else if (code < 0x800) utf8Bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
+    else utf8Bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
   }
 
-  let verSpec = QR_VERSIONS[QR_VERSIONS.length - 1];
-  for (const v of QR_VERSIONS) {
+  // Подбор версии (минимум v9 для точного соответствия скрипту или автоподбор при длинном URL)
+  let verSpec = QR_VERSIONS_H.find(v => v.version === 9) || QR_VERSIONS_H[QR_VERSIONS_H.length - 1];
+  for (const v of QR_VERSIONS_H) {
     const charLenBits = v.version < 10 ? 8 : 16;
     const maxBytes = Math.floor((v.dataCapacity * 8 - 4 - charLenBits) / 8);
-    if (utf8Bytes.length <= maxBytes) {
+    if (utf8Bytes.length <= maxBytes && v.version >= 9) {
       verSpec = v;
       break;
     }
@@ -103,9 +107,7 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
 
   const bitBuffer: boolean[] = [];
   const putBits = (val: number, len: number) => {
-    for (let i = len - 1; i >= 0; i--) {
-      bitBuffer.push(((val >>> i) & 1) === 1);
-    }
+    for (let i = len - 1; i >= 0; i--) bitBuffer.push(((val >>> i) & 1) === 1);
   };
 
   putBits(0b0100, 4); // Byte mode
@@ -120,9 +122,7 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
   const rawCodewords: number[] = [];
   for (let i = 0; i < bitBuffer.length; i += 8) {
     let byte = 0;
-    for (let b = 0; b < 8; b++) {
-      if (bitBuffer[i + b]) byte |= 0x80 >>> b;
-    }
+    for (let b = 0; b < 8; b++) if (bitBuffer[i + b]) byte |= 0x80 >>> b;
     rawCodewords.push(byte);
   }
 
@@ -162,6 +162,12 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
   const size = verSpec.version * 4 + 17;
   const matrix: (boolean | null)[][] = Array.from({ length: size }, () => new Array(size).fill(null));
   const reserved: boolean[][] = Array.from({ length: size }, () => new Array(size).fill(false));
+  
+  // Типизация модулей для раздельной раскраски
+  const moduleTypes: ("finder" | "timing" | "align" | "data")[][] = Array.from(
+    { length: size },
+    () => new Array(size).fill("data")
+  );
 
   const setFinder = (r0: number, c0: number) => {
     for (let r = -1; r <= 7; r++) {
@@ -170,6 +176,7 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
         if (mr >= 0 && mr < size && mc >= 0 && mc < size) {
           if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
             matrix[mr][mc] = (r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4));
+            moduleTypes[mr][mc] = "finder";
           } else {
             matrix[mr][mc] = false;
           }
@@ -183,11 +190,13 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
   setFinder(0, size - 7);
   setFinder(size - 7, 0);
 
+  // Timing lines
   for (let i = 8; i < size - 8; i++) {
-    if (!reserved[6][i]) { matrix[6][i] = i % 2 === 0; reserved[6][i] = true; }
-    if (!reserved[i][6]) { matrix[i][6] = i % 2 === 0; reserved[i][6] = true; }
+    if (!reserved[6][i]) { matrix[6][i] = i % 2 === 0; reserved[6][i] = true; moduleTypes[6][i] = "timing"; }
+    if (!reserved[i][6]) { matrix[i][6] = i % 2 === 0; reserved[i][6] = true; moduleTypes[i][6] = "timing"; }
   }
 
+  // Alignment patterns
   for (const ar of verSpec.align) {
     for (const ac of verSpec.align) {
       if ((ar <= 8 && ac <= 8) || (ar <= 8 && ac >= size - 9) || (ar >= size - 9 && ac <= 8)) continue;
@@ -195,6 +204,7 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
         for (let c = -2; c <= 2; c++) {
           matrix[ar + r][ac + c] = (Math.abs(r) === 2 || Math.abs(c) === 2 || (r === 0 && c === 0));
           reserved[ar + r][ac + c] = true;
+          moduleTypes[ar + r][ac + c] = "align";
         }
       }
     }
@@ -239,7 +249,7 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
   };
 
   const getFormatBits = (mask: number) => {
-    const data = (0 << 3) | mask; // EC Level M = 0
+    const data = (0b10 << 3) | mask; // EC Level H = 0b10
     let r = data << 10;
     for (let i = 4; i >= 0; i--) {
       if ((r >> (i + 10)) & 1) r ^= (0x537 << i);
@@ -247,7 +257,6 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
     return ((data << 10) | r) ^ 0x5412;
   };
 
-  let bestMask = 0;
   let minPenalty = Infinity;
   let bestGrid: boolean[][] = [];
 
@@ -260,11 +269,8 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
     const getB = (idx: number) => ((fBits >> idx) & 1) === 1;
 
     for (let i = 0; i <= 5; i++) grid[8][i] = getB(i);
-    grid[8][7] = getB(6);
-    grid[8][8] = getB(7);
-    grid[7][8] = getB(8);
+    grid[8][7] = getB(6); grid[8][8] = getB(7); grid[7][8] = getB(8);
     for (let i = 9; i <= 14; i++) grid[14 - i][8] = getB(i);
-
     for (let i = 0; i <= 6; i++) grid[size - 1 - i][8] = getB(i);
     for (let i = 7; i <= 14; i++) grid[8][size - 15 + i] = getB(i);
 
@@ -277,34 +283,40 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
       }
       if (count >= 5) penalty += 3 + (count - 5);
     }
-    for (let c = 0; c < size; c++) {
-      let count = 0, last = null;
-      for (let r = 0; r < size; r++) {
-        if (grid[r][c] === last) count++;
-        else { if (count >= 5) penalty += 3 + (count - 5); last = grid[r][c]; count = 1; }
-      }
-      if (count >= 5) penalty += 3 + (count - 5);
-    }
-
     if (penalty < minPenalty) {
       minPenalty = penalty;
-      bestMask = mask;
       bestGrid = grid;
     }
   }
 
-  const margin = 2;
+  // Граница 4 модуля (-b 4)
+  const margin = 4;
   const totalSize = size + margin * 2;
-  let pathD = "";
+  
+  let pathCobalt = "";
+  let pathOrange = "";
+
   for (let r = 0; r < size; r++) {
     for (let c = 0; c < size; c++) {
       if (bestGrid[r][c]) {
-        pathD += `M${c + margin},${r + margin}h1v1h-1z `;
+        const d = `M${c + margin},${r + margin}h1v1h-1z `;
+        const type = moduleTypes[r][c];
+        if (type === "align" || type === "timing") {
+          pathOrange += d;
+        } else {
+          pathCobalt += d;
+        }
       }
     }
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalSize} ${totalSize}" shape-rendering="crispEdges" style="width: 100%; height: 100%; display: block;" class="qr-svg-inline"><path d="${pathD.trim()}" fill="${color}" /></svg>`;
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalSize} ${totalSize}" shape-rendering="crispEdges" style="width: 100%; height: 100%; display: block;" class="qr-svg-inline">
+      <rect width="${totalSize}" height="${totalSize}" fill="${BRAND_COLORS.white}" />
+      ${pathCobalt ? `<path d="${pathCobalt.trim()}" fill="${BRAND_COLORS.cobalt}" />` : ""}
+      ${pathOrange ? `<path d="${pathOrange.trim()}" fill="${BRAND_COLORS.orange}" />` : ""}
+    </svg>
+  `.trim();
 }
 
 interface AnalysisData {
@@ -382,8 +394,8 @@ const vpEngines = {
             return "СМЕШАННЫЙ";
         }
     },
-    createQRCodeSVG(data: string, color?: string) {
-        return generateQRCodeSvgString(data, color);
+    createQRCodeSVG(data: string) {
+        return generateBrandQRCodeSvg(data);
     },
     createRadar(type: 'radicals' | 'archetypes', ideal: Record<string, unknown> = {}, actual: Record<string, unknown> = {}) {
         const config: { keys: string[]; labels: Record<string, string> } = {
