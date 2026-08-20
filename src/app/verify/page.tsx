@@ -267,23 +267,52 @@ const vpEngines = {
 function VerifyContent() {
   const searchParams = useSearchParams();
   const job_id = searchParams.get("id");
+
   const [data, setData] = useState<AnalysisData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(Boolean(job_id));
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  // Вычисляем ошибку: если нет job_id — ошибка известна сразу, иначе берем ошибку запроса
+  const error = !job_id ? "Идентификатор анализа не указан" : fetchError;
 
   useEffect(() => {
-    if (!job_id) { setError("Идентификатор анализа не указан"); setLoading(false); return; }
+    // Если job_id нет, просто выходим без вызова setState
+    if (!job_id) return;
+
+    let isMounted = true;
+
     async function fetchData() {
       try {
+        setLoading(true);
         const res = await fetch(`${BACKEND_URL}/analysis/public/${job_id}`);
         if (!res.ok) throw new Error("Анализ не найден или произошла ошибка сервера");
         const json = await res.json();
-        if (json.status === "processing") setError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
-        else if (json.status === "completed") setData(json);
-        else setError(json.message || "Произошла ошибка при загрузке данных");
-      } catch (err: unknown) { setError((err as Error).message); } finally { setLoading(false); }
+        
+        if (!isMounted) return;
+
+        if (json.status === "processing") {
+          setFetchError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
+        } else if (json.status === "completed") {
+          setData(json);
+        } else {
+          setFetchError(json.message || "Произошла ошибка при загрузке данных");
+        }
+      } catch (err: unknown) {
+        if (isMounted) {
+          setFetchError((err as Error).message);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     }
+
     fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [job_id]);
 
   if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
