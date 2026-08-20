@@ -81,7 +81,7 @@ const QR_VERSIONS: QRVersionSpec[] = [
 function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.12)"): string {
   const utf8Bytes: number[] = [];
   for (let i = 0; i < text.length; i++) {
-    let code = text.charCodeAt(i);
+    const code = text.charCodeAt(i);
     if (code < 0x80) {
       utf8Bytes.push(code);
     } else if (code < 0x800) {
@@ -145,11 +145,11 @@ function generateQRCodeSvgString(text: string, color = "oklch(34.25% 0.057 252.1
   }
 
   const finalStream: number[] = [];
-  let maxD = Math.max(...dataBlocks.map(d => d.length));
+  const maxD = Math.max(...dataBlocks.map(d => d.length));
   for (let i = 0; i < maxD; i++) {
     for (const d of dataBlocks) if (i < d.length) finalStream.push(d[i]);
   }
-  let maxEC = Math.max(...ecBlocks.map(e => e.length));
+  const maxEC = Math.max(...ecBlocks.map(e => e.length));
   for (let i = 0; i < maxEC; i++) {
     for (const e of ecBlocks) if (i < e.length) finalStream.push(e[i]);
   }
