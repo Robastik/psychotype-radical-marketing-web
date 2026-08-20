@@ -36,7 +36,7 @@ export default function VerifyPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Функция отрисовки радара объявлена до использования через useCallback
-  const drawRadar = useCallback((_radarData: RadarData) => {
+  const drawRadar = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
