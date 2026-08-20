@@ -8,6 +8,8 @@ import styles from "./passport.module.css";
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const BACKEND_URL = `${BASE_URL}/api/v1`;
 
+type FeatureItem = string | { label?: string; name?: string; key?: string; value?: string | number };
+
 interface AnalysisData {
   status: string;
   job_id: string;
@@ -16,15 +18,36 @@ interface AnalysisData {
     platform: string;
     sku: string;
     image_url: string;
-    features: string[];
+    features: FeatureItem[];
   };
   analysis: {
     icc: number;
-    actual: Record<string, unknown>;
-    ideal: Record<string, unknown>;
-    vectors: Record<string, unknown>;
+    actual: {
+      radicals?: Record<string, unknown>;
+      archetypes?: Record<string, unknown>;
+      [key: string]: unknown;
+    };
+    ideal: {
+      radicals?: Record<string, unknown> & { radical_evidence?: string };
+      archetypes?: Record<string, unknown> & { archetype_evidence?: string };
+      axis_evidence?: string;
+      archetype_evidence?: string;
+      [key: string]: unknown;
+    };
+    vectors: {
+      strength?: number;
+      actual?: Record<string, number>;
+      ideal?: Record<string, number>;
+      vectors?: {
+        actual?: Record<string, number>;
+        ideal?: Record<string, number>;
+      };
+      [key: string]: unknown;
+    };
     verdict: {
       compliance: number;
+      justification?: string;
+      efficiency?: string;
       [key: string]: unknown;
     };
   };
@@ -62,8 +85,8 @@ const vpEngines = {
             return "СМЕШАННЫЙ";
         }
     },
-    createRadar(type: 'radicals' | 'archetypes', ideal: Record<string, unknown>, actual: Record<string, unknown>) {
-        const config = {
+    createRadar(type: 'radicals' | 'archetypes', ideal: Record<string, unknown> = {}, actual: Record<string, unknown> = {}) {
+        const config: { keys: string[]; labels: Record<string, string> } = {
             radicals: {
                 keys: ['paranoid', 'epileptoid', 'hysteroid', 'schizoid', 'hyperthymic', 'emotive', 'anxious'],
                 labels: { paranoid: 'ПАРАНОЙЯЛЬНЫЙ', epileptoid: 'ЭПИЛЕПТОИД', hysteroid: 'ИСТЕРОИД', schizoid: 'ШИЗОИД', hyperthymic: 'ГИПЕРТИМ', emotive: 'ЭМОТИВ', anxious: 'ТРЕВОЖНЫЙ' }
@@ -78,8 +101,7 @@ const vpEngines = {
         const getPoints = (vals: Record<string, unknown>, isIdeal: boolean) => {
             return config.keys.map((key, i) => {
                 let val = 0;
-                const labelsMap = config.labels as Record<string, string>;
-                const label = labelsMap[key].toLowerCase();
+                const label = config.labels[key]?.toLowerCase() || '';
                 const kL = key.toLowerCase();
 
                 const normalizedVals = Object.keys(vals || {}).reduce((acc: Record<string, unknown>, k) => {
@@ -87,9 +109,10 @@ const vpEngines = {
                     return acc;
                 }, {});
 
-                if (typeof normalizedVals[kL] === 'number') val = normalizedVals[kL];
-                else if (isIdeal && vals) {
-                    const lead = (vals.leading_radical || vals.basic_archetype || "").toLowerCase();
+                if (typeof normalizedVals[kL] === 'number') {
+                    val = normalizedVals[kL] as number;
+                } else if (isIdeal && vals) {
+                    const lead = String(vals.leading_radical || vals.basic_archetype || "").toLowerCase();
                     const aux = JSON.stringify(vals.auxiliary_radicals || vals.auxiliary_archetype || []).toLowerCase();
                     
                     if (lead.includes(label) || lead.includes(kL)) val = 100;
@@ -133,10 +156,9 @@ const vpEngines = {
                 let rot = (ang === 0 || ang === 180) ? 90 : 0;
                 if (ang === 180) rot = 270;
                 
-                // Specific high-contrast colors for labels
                 let textColor = qColors[idx];
-                if (idx === 0) textColor = 'oklch(70% 0.15 90)'; // Denser Yellow
-                if (idx === 3) textColor = 'oklch(50% 0.1 60)';  // Denser Brown
+                if (idx === 0) textColor = 'oklch(70% 0.15 90)';
+                if (idx === 3) textColor = 'oklch(50% 0.1 60)';
 
                 quadrants += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" style="font-size: 8px; font-weight: 900; letter-spacing: 0.1em; opacity: 0.9; fill: ${textColor}" transform="rotate(${rot}, ${lx}, ${ly})">${qLabels[idx]}</text>`;
             });
@@ -163,7 +185,7 @@ const vpEngines = {
             const angle = (i * (360 / N) - 90) * (Math.PI / 180);
             let lx = center + (radius + 40) * Math.cos(angle);
             const ly = center + (radius + 40) * Math.sin(angle);
-            const label = (config.labels as Record<string, string>)[key];
+            const label = config.labels[key];
             if (label === 'СЛАВНЫЙ МАЛЫЙ') {
                 labels += `<g><text x="${lx - 15}" y="${ly - 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">СЛАВНЫЙ</text><text x="${lx - 15}" y="${ly + 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">МАЛЫЙ</text></g>`;
             } else {
@@ -188,7 +210,7 @@ const vpEngines = {
             </svg>
         `;
     },
-    createVector(vectors: Record<string, unknown>) {
+    createVector(vectorsData: AnalysisData['analysis']) {
         const size = 360, center = size / 2, radius = 100;
         const axes = [
             { a: 'rationality', b: 'emotionality', lA: 'РАЦИОНАЛЬНОСТЬ', lB: 'ЭМОЦИОНАЛЬНОСТЬ' },
@@ -212,13 +234,17 @@ const vpEngines = {
             grid += `<line x1="${center + radius * Math.cos(angle)}" y1="${center + radius * Math.sin(angle)}" x2="${center - radius * Math.cos(angle)}" y2="${center - radius * Math.sin(angle)}" stroke="rgba(0,0,0,0.4)" stroke-width="1.2" />`;
         });
 
-        // Use direct actual scores from vectors.actual
-        const actualAxes = vectors.vectors?.actual || {};
-        const idealAxes = vectors.vectors?.ideal || {};
+        const actualAxes = vectorsData.vectors?.actual || vectorsData.vectors?.vectors?.actual || {};
+        const idealAxes = vectorsData.vectors?.ideal || vectorsData.vectors?.vectors?.ideal || {};
 
         let idealArrow = '';
         let idealDir = null;
-        for (const [k, v] of Object.entries(idealAxes)) { if ((v as number) >= 80) { idealDir = k; break; } }
+        for (const [k, v] of Object.entries(idealAxes)) {
+            if (typeof v === 'number' && v >= 80) {
+                idealDir = k;
+                break;
+            }
+        }
         if (idealDir) {
             const idx = axes.findIndex(ax => ax.a === idealDir || ax.b === idealDir);
             if (idx !== -1) {
@@ -229,8 +255,8 @@ const vpEngines = {
 
         let actualArrows = '';
         axes.forEach((ax, i) => {
-            const valA = actualAxes[ax.a] || 0;
-            const valB = actualAxes[ax.b] || 0;
+            const valA = Number(actualAxes[ax.a]) || 0;
+            const valB = Number(actualAxes[ax.b]) || 0;
             if (valA > 5 || valB > 5) {
                 const angle = (i * 45 - 90) * (Math.PI / 180);
                 const pA = (valA / 100) * radius, pB = -(valB / 100) * radius;
@@ -286,7 +312,7 @@ function VerifyContent() {
     fetchData();
   }, [job_id]);
 
-  if (!job_id) { setError("Идентификатор анализа не указан"); return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>Идентификатор анализа не указан</p><Link href="/" className="btn-primary">На главную</Link></div>; }
+  if (!job_id) { return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>Идентификатор анализа не указан</p><Link href="/" className="btn-primary">На главную</Link></div>; }
   if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
   if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><Link href="/" className="btn-primary">На главную</Link></div>;
   if (!data) return null;
@@ -296,9 +322,8 @@ function VerifyContent() {
   const timestamp = data.timestamp || new Date().toISOString();
   const analysisDate = new Date(timestamp).toLocaleDateString('ru-RU');
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
-  const sStr = analysis.vectors.strength || 0;
+  const sStr = Number(analysis.vectors.strength) || 0;
   
-  // Construct absolute image URL
   const productImageUrl = product.image_url.startsWith('http') 
     ? product.image_url 
     : `${BASE_URL}${product.image_url}`;
@@ -332,13 +357,13 @@ function VerifyContent() {
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>Карточка товара</h3>
-            <div className={styles.propsList}>{product.features.map((f, i) => <div key={i} className={styles.propItem}>{typeof f === 'string' ? f : <><span className={styles.propK}>{f.label || f.name || f.key}:</span>{f.value}</>}</div>)}</div>
+            <div className={styles.propsList}>{product.features?.map((f, i) => <div key={i} className={styles.propItem}>{typeof f === 'string' ? f : <><span className={styles.propK}>{f.label || f.name || f.key}:</span>{f.value}</>}</div>)}</div>
             <div className={styles.imgWrap}><img src={productImageUrl} alt="Product" /></div>
           </div>
           <div className={styles.moduleCard}>
             <h3 className={styles.moduleTitle}>РАДИКАЛЫ</h3>
             <div className={styles.radarContainer} dangerouslySetInnerHTML={{ __html: vpEngines.createRadar('radicals', analysis.ideal.radicals, analysis.actual.radicals) }} />
-            <div className={styles.evidenceBox}>{analysis.ideal.radicals.radical_evidence}</div>
+            <div className={styles.evidenceBox}>{analysis.ideal.radicals?.radical_evidence}</div>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
