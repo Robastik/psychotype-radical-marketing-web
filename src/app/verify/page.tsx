@@ -294,6 +294,7 @@ function VerifyContent() {
   const iccColor = vpEngines.icc.getColor(analysis.icc);
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
   const sStr = analysis.vectors.strength || 0;
+  const analysisDate = data.timestamp ? new Date(data.timestamp).toLocaleDateString('ru-RU') : 'Дата не указана';
   
   // Construct absolute image URL
   const productImageUrl = product.image_url.startsWith('http') 
@@ -309,7 +310,7 @@ function VerifyContent() {
             <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
           </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
-          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
+          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{analysisDate}</span></div>
         </div>
         <div className={styles.metaRow}><div className={styles.metaItem}><span className={styles.valueTech}>{product.platform}</span></div><div className={styles.metaItem}><span className={styles.valueTech}>{product.sku}</span></div></div>
         <h1 className={styles.productName}>{product.name}</h1>
