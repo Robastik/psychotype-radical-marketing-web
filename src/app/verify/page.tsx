@@ -8,6 +8,13 @@ import styles from "./passport.module.css";
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const BACKEND_URL = `${BASE_URL}/api/v1`;
 
+// Выносим за пределы компонента для соблюдения чистоты
+function formatAnalysisDate(timestamp?: string): string {
+  if (!timestamp) return '—';
+  const date = new Date(timestamp);
+  return isNaN(date.getTime()) ? '—' : date.toLocaleDateString('ru-RU');
+}
+
 interface AnalysisData {
   status: string;
   job_id: string;
@@ -309,7 +316,7 @@ function VerifyContent() {
             <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
           </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
-          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
+          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{formatAnalysisDate(data.timestamp)}</span></div>
         </div>
         <div className={styles.metaRow}><div className={styles.metaItem}><span className={styles.valueTech}>{product.platform}</span></div><div className={styles.metaItem}><span className={styles.valueTech}>{product.sku}</span></div></div>
         <h1 className={styles.productName}>{product.name}</h1>
