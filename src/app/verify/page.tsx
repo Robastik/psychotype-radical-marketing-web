@@ -272,7 +272,7 @@ function VerifyContent() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!job_id) { setError("Идентификатор анализа не указан"); setLoading(false); return; }
+    if (!job_id) { return; }
     async function fetchData() {
       try {
         const res = await fetch(`${BACKEND_URL}/analysis/public/${job_id}`);
@@ -286,12 +286,15 @@ function VerifyContent() {
     fetchData();
   }, [job_id]);
 
+  if (!job_id) { setError("Идентификатор анализа не указан"); return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>Идентификатор анализа не указан</p><Link href="/" className="btn-primary">На главную</Link></div>; }
   if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
   if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><Link href="/" className="btn-primary">На главную</Link></div>;
   if (!data) return null;
 
   const { product, analysis } = data;
   const iccColor = vpEngines.icc.getColor(analysis.icc);
+  const timestamp = data.timestamp || new Date().toISOString();
+  const analysisDate = new Date(timestamp).toLocaleDateString('ru-RU');
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
   const sStr = analysis.vectors.strength || 0;
   
@@ -309,7 +312,7 @@ function VerifyContent() {
             <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
           </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
-          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
+          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{analysisDate}</span></div>
         </div>
         <div className={styles.metaRow}><div className={styles.metaItem}><span className={styles.valueTech}>{product.platform}</span></div><div className={styles.metaItem}><span className={styles.valueTech}>{product.sku}</span></div></div>
         <h1 className={styles.productName}>{product.name}</h1>
