@@ -128,8 +128,8 @@ const vpEngines = {
 
             [270, 0, 90, 180].forEach((ang, idx) => {
                 const dist = radius * 1.08;
-                let lx = center + dist * Math.cos(ang * Math.PI / 180);
-                let ly = center + dist * Math.sin(ang * Math.PI / 180);
+                const lx = center + dist * Math.cos(ang * Math.PI / 180);
+                const ly = center + dist * Math.sin(ang * Math.PI / 180);
                 let rot = (ang === 0 || ang === 180) ? 90 : 0;
                 if (ang === 180) rot = 270;
                 
@@ -162,7 +162,7 @@ const vpEngines = {
         config.keys.forEach((key, i) => {
             const angle = (i * (360 / N) - 90) * (Math.PI / 180);
             let lx = center + (radius + 40) * Math.cos(angle);
-            let ly = center + (radius + 40) * Math.sin(angle);
+            const ly = center + (radius + 40) * Math.sin(angle);
             const label = (config.labels as Record<string, string>)[key];
             if (label === 'СЛАВНЫЙ МАЛЫЙ') {
                 labels += `<g><text x="${lx - 15}" y="${ly - 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">СЛАВНЫЙ</text><text x="${lx - 15}" y="${ly + 5}" text-anchor="middle" dominant-baseline="middle" style="font-size: 9px; font-weight: 800; fill: oklch(34.25% 0.057 252.12); text-transform: uppercase;">МАЛЫЙ</text></g>`;
