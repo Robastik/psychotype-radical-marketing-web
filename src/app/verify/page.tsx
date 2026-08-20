@@ -294,7 +294,7 @@ function VerifyContent() {
   const iccColor = vpEngines.icc.getColor(analysis.icc);
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
   const sStr = analysis.vectors.strength || 0;
-  const analysisDate = new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU');
+  const analysisDate = data.timestamp ? new Date(data.timestamp).toLocaleDateString('ru-RU') : 'Дата не указана';
   
   // Construct absolute image URL
   const productImageUrl = product.image_url.startsWith('http') 

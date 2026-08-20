@@ -1,12 +1,6 @@
-```gitignore
+```
 # Dependencies
 node_modules/
-
-# Build outputs
-dist/
-build/
-.next/
-out/
 
 # Python
 __pycache__/
@@ -18,7 +12,15 @@ env/
 venv/
 .venv/
 .ENV
-.python-version
+.ENV.*
+.venv/
+.venv.*
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.eggs/
 
 # Logs
 *.log
@@ -27,23 +29,31 @@ venv/
 .env
 .env.local
 .env.*
+!.env.example
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# OS generated files
+# OS
 .DS_Store
 Thumbs.db
 
-# Coverage reports
-coverage/
-htmlcov/
+# Coverage
 .coverage
+htmlcov/
+coverage/
 
-# Temporary files
-*.tmp
-*.temp
+# Testing
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+
+# Distribution / packaging
+.pybuild/
+.tox/
+.coverage*
 ```
