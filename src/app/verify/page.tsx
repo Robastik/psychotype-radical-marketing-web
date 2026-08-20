@@ -161,7 +161,7 @@ const vpEngines = {
         let labels = '';
         config.keys.forEach((key, i) => {
             const angle = (i * (360 / N) - 90) * (Math.PI / 180);
-            const lx = center + (radius + 40) * Math.cos(angle);
+            let lx = center + (radius + 40) * Math.cos(angle);
             const ly = center + (radius + 40) * Math.sin(angle);
             const label = (config.labels as Record<string, string>)[key];
             if (label === 'СЛАВНЫЙ МАЛЫЙ') {
