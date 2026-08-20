@@ -267,26 +267,56 @@ const vpEngines = {
 function VerifyContent() {
   const searchParams = useSearchParams();
   const job_id = searchParams.get("id");
+  
   const [data, setData] = useState<AnalysisData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(Boolean(job_id));
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  // Вычисляем ошибку: если нет job_id, сразу показываем её, иначе ошибку запроса
+  const error = !job_id ? "Идентификатор анализа не указан" : fetchError;
 
   useEffect(() => {
-    if (!job_id) { setError("Идентификатор анализа не указан"); setLoading(false); return; }
+    if (!job_id) return;
+
+    let isMounted = true;
+
     async function fetchData() {
+      setLoading(true);
+      setFetchError(null);
+      
       try {
         const res = await fetch(`${BACKEND_URL}/analysis/public/${job_id}`);
         if (!res.ok) throw new Error("Анализ не найден или произошла ошибка сервера");
         const json = await res.json();
-        if (json.status === "processing") setError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
-        else if (json.status === "completed") setData(json);
-        else setError(json.message || "Произошла ошибка при загрузке данных");
-      } catch (err: unknown) { setError((err as Error).message); } finally { setLoading(false); }
+        
+        if (!isMounted) return;
+
+        if (json.status === "processing") {
+          setFetchError("Анализ еще в процессе обработки. Попробуйте обновить страницу через минуту.");
+        } else if (json.status === "completed") {
+          setData(json);
+        } else {
+          setFetchError(json.message || "Произошла ошибка при загрузке данных");
+        }
+      } catch (err: unknown) {
+        if (isMounted) {
+          setFetchError((err as Error).message);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     }
+
     fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [job_id]);
 
-  if (loading) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
+  if (loading && !error) return <div className={styles.loading}>ИНИЦИАЛИЗАЦИЯ ТЕРМИНАЛА...</div>;
   if (error) return <div className={styles.error}><h2>ОШИБКА ДОСТУПА</h2><p>{error}</p><Link href="/" className="btn-primary">На главную</Link></div>;
   if (!data) return null;
 
@@ -294,6 +324,7 @@ function VerifyContent() {
   const iccColor = vpEngines.icc.getColor(analysis.icc);
   const vStyle = analysis.verdict.compliance === 1 ? { icon: '✅', label: 'СООТВЕТСТВУЕТ' } : analysis.verdict.compliance === -1 ? { icon: '❌', label: 'ПРОТИВОРЕЧИТ' } : { icon: '⚠️', label: 'ЧАСТИЧНО СООТВЕТСТВУЕТ' };
   const sStr = analysis.vectors.strength || 0;
+  const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleDateString('ru-RU') : '';
   
   // Construct absolute image URL
   const productImageUrl = product.image_url.startsWith('http') 
@@ -309,7 +340,7 @@ function VerifyContent() {
             <img src="/logo-vertical.png" className={styles.logoImg} alt="eyeCARD Logo" />
           </div>
           <div className={styles.titleBlock}><h2 className={styles.mainTitle}>СРАВНИТЕЛЬНЫЙ АНАЛИЗ</h2><p className={styles.mainSubtitle}>Целевой аудитории и Дизайна карточки</p></div>
-          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{new Date(data.timestamp || Date.now()).toLocaleDateString('ru-RU')}</span></div>
+          <div className={styles.dateBlock}><span className={styles.labelTech}>Дата анализа</span><br /><span className={styles.valueTech}>{timestamp}</span></div>
         </div>
         <div className={styles.metaRow}><div className={styles.metaItem}><span className={styles.valueTech}>{product.platform}</span></div><div className={styles.metaItem}><span className={styles.valueTech}>{product.sku}</span></div></div>
         <h1 className={styles.productName}>{product.name}</h1>
