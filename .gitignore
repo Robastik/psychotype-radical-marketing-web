@@ -1,1 +1,43 @@
-Nothing needs to be added to the .gitignore file based on the provided file changes, as only a source code file (`src/app/verify/page.tsx`) was modified and no build artifacts, dependencies, or temporary files were detected in the changes.
+```
+# Next.js build outputs
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env.local
+.env
+.env.*
+
+# Cache directories
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
+target/
+```
