@@ -8,6 +8,14 @@
     ],
     "rewrites": [
       {
+        "source": "/verify/**",
+        "destination": "/verify.html"
+      },
+      {
+        "source": "/verify",
+        "destination": "/verify.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
