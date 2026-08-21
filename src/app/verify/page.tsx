@@ -516,13 +516,13 @@ function VerifyContent() {
           <div className={styles.qrItem}>
             <div 
               className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru/gallery') }} 
+              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://t.me/eyeCARD_official') }} 
             />
-            <span className={styles.qrLabel}>Галерея</span>
+            <span className={styles.qrLabel}>Телеграм</span>
           </div>
         </div>
       </div>
-      <div className={styles.bottomBar}>WWW.EYECARD.RU                                    JOB_ID: {job_id?.toUpperCase()}</div>
+      <div className={styles.bottomBar}>WWW.EYECARD.RU  ©                  JOB_ID: {job_id?.toUpperCase()}</div>
     </div>
   );
 }
