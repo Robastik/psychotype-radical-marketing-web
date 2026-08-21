@@ -423,7 +423,7 @@ function VerifyContent() {
     : `https://eyecard.ru/verify?id=${job_id}`;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="passport-ready">
       <div className={styles.stripe}></div>
       <div className={styles.headerPanel}>
         <div className={styles.headerTop}>
