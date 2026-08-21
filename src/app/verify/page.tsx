@@ -522,7 +522,7 @@ function VerifyContent() {
           </div>
         </div>
       </div>
-      <div className={styles.bottomBar}>WWW.EYECARD.RU  ©                  JOB_ID: {job_id?.toUpperCase()}</div>
+      <div className={styles.bottomBar}>WWW.EYECARD.RU  ©  &emsp;&emsp;&emsp;&emsp;&emsp; ID: {job_id?.toUpperCase()}</div>
     </div>
   );
 }
