@@ -8,13 +8,16 @@
 # 1. Проверка кода
 npm run lint
 
-# 2. Запуск тестов
+# 2. Перегенерация данных справочника
+npm run build:guide
+
+# 3. Запуск тестов
 npm test
 
-# 3. Сборка для production
+# 4. Сборка для production
 npm run build
 
-# 4. Проверка выходных данных
+# 5. Проверка выходных данных
 ls -la out/
 ```
 
@@ -30,6 +33,7 @@ npm run build
 - ✓ Генерирует статические файлы в папку `out/`
 - ✓ Выполняет проверку ошибок TypeScript
 - ✓ Использует Turbopack для быстрой сборки
+- ✓ Генерирует данные методического справочника из Markdown (`build:guide`)
 
 ## 🔄 Автоматический workflow (GitHub Actions)
 
@@ -114,13 +118,61 @@ firebase functions:log
 firebase hosting:clone production staging
 ```
 
+## 🔥 Firebase Rewrites and Special Routes
+
+`firebase.json` contains the rewrites used by Firebase Hosting. The following rules are required for the site to work correctly:
+
+### `/verify?id=<uuid>` — Visual Passport public link
+
+Next.js static export (`output: "export"`) emits the `/verify` route as a single file:
+
+```text
+out/verify.html
+```
+
+Firebase Hosting does **not** automatically serve `verify.html` for the path `/verify`. Therefore `firebase.json` must contain:
+
+```json
+{
+  "source": "/verify/**",
+  "destination": "/verify.html"
+},
+{
+  "source": "/verify",
+  "destination": "/verify.html"
+}
+```
+
+This ensures that URLs like `https://eyecard.ru/verify?id=...` load the Visual Passport page and the query parameter is preserved for the client-side code (`useSearchParams`).
+
+### `/guide/<code>` — Methodical guide pages
+
+Guide pages are generated as static directory outputs:
+
+```text
+out/guide/<code>/index.html
+```
+
+Firebase Hosting serves these automatically by default, so no rewrite is needed for `/guide`. Do **not** add a catch-all rewrite like `"source": "**", "destination": "/index.html"`, because it would override `/guide/<code>` and always return the home page.
+
 ## 🚨 Troubleshooting
 
 ### Build fails
 ```bash
-npm run build  # Запустить локально и увидеть ошибку
-npm run lint:fix  # Исправить auto-fixable проблемы
+npm run build       # Запустить локально и увидеть ошибку
+npm run build:guide # Проверить генерацию данных справочника
+npm run lint:fix    # Исправить auto-fixable проблемы
 ```
+
+### Guide build fails
+```bash
+npm run build:guide # Перегенерировать данные справочника
+```
+
+Возможные причины:
+- Синтаксическая ошибка в Markdown-файле `docs/reference/Tasks/`
+- Дублирующийся или некорректный код документа
+- Отсутствующий файл в `.gitignore` для сгенерированных данных
 
 ### Deployment fails
 ```bash

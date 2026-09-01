@@ -70,7 +70,7 @@ export default function PrivacyPolicyEn() {
           </section>
 
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Children's Privacy</h2>
+            <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Children&apos;s Privacy</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
               The eyeCARD service is not intended for individuals under the age of 13. We do not knowingly collect personal data from children under 13. If we become aware that we have received such information, we will immediately delete it from our database.
             </p>

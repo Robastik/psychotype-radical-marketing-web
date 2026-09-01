@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function TermsOfService() {
   return (
@@ -12,9 +13,6 @@ export default function TermsOfService() {
           <Link href="/" style={{ fontSize: "14px", fontFamily: "var(--font-mono)", color: "var(--cobalt-primary)", fontWeight: "bold" }}>
             ← eyeCARD
           </Link>
-          <span style={{ fontSize: "12px", fontFamily: "var(--font-mono)", color: "var(--text-muted)" }}>
-            CONTRACT_OFFER: v1.0
-          </span>
         </div>
 
         <article className="card" style={{ padding: "40px", display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -67,18 +65,14 @@ export default function TermsOfService() {
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>6. Реквизиты и контакты Исполнителя</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6", fontFamily: "var(--font-mono)" }}>
-              Сервис: eyeCARD (Индивидуальный предприниматель / Организация)<br />
-              ИНН / ОГРН: [Укажите Ваши реквизиты]<br />
-              Служба поддержки: t.me/eyecard_support_bot<br />
+              ИП Мамаев Д.Л.<br />
+              ОГРНИП 306143519900087<br />
               Email: support@eyecard.ru
             </p>
           </section>
         </article>
 
-        {/* Footer info */}
-        <div style={{ marginTop: "24px", textAlign: "center", fontSize: "12px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          © {new Date().getFullYear()} eyeCARD. All rights reserved.
-        </div>
+      <Footer />
       </div>
     </div>
   );

@@ -1,0 +1,1 @@
+cd C:\Users\Salice\consumer-behavior\web & npx serve out

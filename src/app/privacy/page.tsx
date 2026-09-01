@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function PrivacyPolicy() {
   return (
@@ -12,9 +13,6 @@ export default function PrivacyPolicy() {
           <Link href="/" style={{ fontSize: "14px", fontFamily: "var(--font-mono)", color: "var(--cobalt-primary)", fontWeight: "bold" }}>
             ← eyeCARD
           </Link>
-          <span style={{ fontSize: "12px", fontFamily: "var(--font-mono)", color: "var(--text-muted)" }}>
-            STATUS: ACTIVE
-          </span>
         </div>
 
         <article className="card" style={{ padding: "40px", display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -91,10 +89,7 @@ export default function PrivacyPolicy() {
           </section>
         </article>
 
-        {/* Footer info */}
-        <div style={{ marginTop: "24px", textAlign: "center", fontSize: "12px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          © {new Date().getFullYear()} eyeCARD. All rights reserved.
-        </div>
+      <Footer />
       </div>
     </div>
   );

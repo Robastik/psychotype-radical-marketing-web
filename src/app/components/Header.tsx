@@ -23,9 +23,7 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <nav className="technical-data nav-menu desktop-nav">
-          <Link href="/methodology">Методология</Link>
-          <Link href="/terms">Оферта</Link>
-          <Link href="/privacy">Конфиденциальность</Link>
+          <Link href="/guide">Методический справочник</Link>
         </nav>
 
         {/* Hamburger Button - Mobile Only */}
@@ -47,9 +45,7 @@ export default function Header() {
       {/* Mobile Navigation Menu */}
       <div className={`mobile-nav-container ${isMenuOpen ? 'open' : ''}`}>
         <nav className="technical-data mobile-nav-menu">
-          <Link href="/methodology" onClick={() => setIsMenuOpen(false)}>Методология</Link>
-          <Link href="/terms" onClick={() => setIsMenuOpen(false)}>Оферта</Link>
-          <Link href="/privacy" onClick={() => setIsMenuOpen(false)}>Конфиденциальность</Link>
+          <Link href="/guide" onClick={() => setIsMenuOpen(false)}>Методический справочник</Link>
         </nav>
       </div>
     </header>
