@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -23,7 +24,7 @@ export default function Home() {
               
               <div className="hero-description">
                 <p className="hero-text">
-                  Автоматизированная AI-платформа нейромаркетингового и психографического аудита. eyeCARD измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
+                  Автоматизированная AI-платформа нейромаркетингового и психографического аудита. <span className="accent-text">eyeCARD</span> измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
                 </p>
                 <div className="technical-data platforms-badge">
                   ОЗОН <br />
@@ -129,6 +130,9 @@ export default function Home() {
                 <p className="visual-passport-description">
                   eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
                 </p>
+                <div className="technical-data platforms-badge">
+                  <Link href="/verify?id=69092927-46c8-4853-b9a9-812e1b65e497" style={{ color: "inherit", textDecoration: "none" }}>Пример</Link>
+                </div>
               </div>
 
               {/* Exact Replica of Archetype Radar from Preliminary Design with MOCK_DATA */}
@@ -273,7 +277,10 @@ export default function Home() {
 
             {/* Part 2: Chrome Extension Installation */}
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center" }}>
-              <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <h3 style={{ fontSize: "24px", fontWeight: "700", textAlign: "center" }}>Установка расширения Chrome</h3>
+                <span style={{ color: "lab(23.5045% -2.69441 -19.6482)", fontSize: "16px", fontWeight: "600" }}>на компьютер</span>
+              </div>
               <div className="installation-grid">
                 
                 {/* Step 01 Card */}

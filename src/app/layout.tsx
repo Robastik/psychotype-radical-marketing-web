@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import AnalyticsScripts from "@/app/components/AnalyticsScripts";
+import CookieConsent from "@/app/components/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AnalyticsScripts />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

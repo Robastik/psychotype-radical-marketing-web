@@ -488,7 +488,7 @@ function VerifyContent() {
           <div className={styles.qrItem}>
             <div 
               className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru/#methodology') }} 
+              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru/guide') }} 
             />
             <span className={styles.qrLabel}>Методика</span>
           </div>

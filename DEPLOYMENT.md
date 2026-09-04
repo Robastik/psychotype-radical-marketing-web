@@ -145,15 +145,40 @@ Firebase Hosting does **not** automatically serve `verify.html` for the path `/v
 
 This ensures that URLs like `https://eyecard.ru/verify?id=...` load the Visual Passport page and the query parameter is preserved for the client-side code (`useSearchParams`).
 
-### `/guide/<code>` — Methodical guide pages
+### `cleanUrls` — обязательная настройка для всех маршрутов
 
-Guide pages are generated as static directory outputs:
+Next.js static export (`output: "export"`, без `trailingSlash`) генерирует **плоские `.html` файлы**:
 
 ```text
-out/guide/<code>/index.html
+out/guide.html
+out/methodology.html
+out/privacy.html
+out/terms.html
+out/en/privacy.html
+out/guide/<code>.html      # ~99 динамических страниц
 ```
 
-Firebase Hosting serves these automatically by default, so no rewrite is needed for `/guide`. Do **not** add a catch-all rewrite like `"source": "**", "destination": "/index.html"`, because it would override `/guide/<code>` and always return the home page.
+Одноимённые директории (`out/guide/`, `out/verify/` и т.д.) содержат только внутренние `.txt`-метаданные Next.js — **без `index.html`**.
+
+Firebase Hosting по умолчанию для URL `/guide` ищет файл `out/guide`, затем `out/guide/index.html` — ни того, ни другого нет → **404 при прямом открытии страницы или при обновлении (F5)**.
+
+Поэтому в `firebase.json` обязательно должна быть настройка:
+
+```json
+{
+  "hosting": {
+    "cleanUrls": true
+  }
+}
+```
+
+С `cleanUrls: true` Firebase для URL без расширения отдаёт одноимённый `.html`-файл: `/guide` → `guide.html`, `/guide/I.1.1` → `guide/I.1.1.html`, `/en/privacy` → `en/privacy.html`.
+
+Do **not** add a catch-all rewrite like `"source": "**", "destination": "/index.html"`, because it would override all routes and always return the home page.
+
+### `/guide/<code>` — Methodical guide pages
+
+См. секцию `cleanUrls` выше: страницы генерируются как `out/guide/<code>.html` и отдаются автоматически благодаря `cleanUrls: true`. Rewrites для `/guide` не нужны.
 
 ## 🚨 Troubleshooting
 

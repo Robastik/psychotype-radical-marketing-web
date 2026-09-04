@@ -10,8 +10,14 @@ export default function Footer() {
             <span className="footer-tagline">Нейромаркетинговая AI-лаборатория для бизнеса.</span>
           </div>
           <nav className="technical-data footer-nav" aria-label="Дополнительная навигация">
-            <Link href="/terms" className="footer-link">Оферта</Link>
-            <Link href="/privacy" className="footer-link">Конфиденциальность</Link>
+            <div className="footer-nav-group">
+              <span className="footer-nav-title">О нас</span>
+              <div className="footer-nav-links">
+                <Link href="/terms" className="footer-link">Пользовательское соглашение</Link>
+                <Link href="/privacy" className="footer-link">Политика конфиденциальности</Link>
+                <Link href="/consent" className="footer-link">Согласие на обработку персональных данных</Link>
+              </div>
+            </div>
           </nav>
         </div>
         <div className="footer-bottom">

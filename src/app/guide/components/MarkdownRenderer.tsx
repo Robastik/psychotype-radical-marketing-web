@@ -117,8 +117,8 @@ function TableBlock({
   header,
   rows,
 }: {
-  header: string[];
-  rows: string[][];
+  header: InlineSegment[][];
+  rows: InlineSegment[][][];
 }) {
   return (
     <div className={styles.tableWrapper}>
@@ -126,7 +126,9 @@ function TableBlock({
         <thead>
           <tr>
             {header.map((cell, index) => (
-              <th key={index}>{cell}</th>
+              <th key={index}>
+                <InlineRenderer segments={cell} />
+              </th>
             ))}
           </tr>
         </thead>
@@ -134,7 +136,9 @@ function TableBlock({
           {rows.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
+                <td key={cellIndex}>
+                  <InlineRenderer segments={cell} />
+                </td>
               ))}
             </tr>
           ))}

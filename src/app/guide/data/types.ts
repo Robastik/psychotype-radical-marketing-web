@@ -63,8 +63,8 @@ export interface GuideCode {
 
 export interface GuideTable {
   type: "table";
-  header: string[];
-  rows: string[][];
+  header: InlineSegment[][];
+  rows: InlineSegment[][][];
 }
 
 export interface GuideBlockquote {

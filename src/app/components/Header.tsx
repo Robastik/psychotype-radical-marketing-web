@@ -14,12 +14,12 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container header-content">
-        <div className="logo-section">
+        <Link href="https://eyecard.ru" target="_blank" rel="noopener noreferrer" className="logo-section">
           <Image src="/logo.png" alt="eyeCARD Logo" height={32} width={32} priority className="logo-image" />
           <span className="technical-data logo-text">
             eyeCARD
           </span>
-        </div>
+        </Link>
         
         {/* Desktop Navigation */}
         <nav className="technical-data nav-menu desktop-nav">

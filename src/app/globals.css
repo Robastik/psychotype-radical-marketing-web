@@ -886,6 +886,24 @@ a:hover {
   font-size: 13px;
 }
 
+.footer-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-nav-title {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.footer-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .footer-link {
   color: var(--text-primary);
   font-weight: 600;

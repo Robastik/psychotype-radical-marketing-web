@@ -1,0 +1,82 @@
+@keyframes cookieConsentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+  animation: cookieConsentFadeIn 0.3s ease-out;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text {
+  margin: 0;
+  color: var(--text-primary, oklch(20% 0.01 252));
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.link {
+  color: var(--primary, oklch(34.25% 0.057 252.12));
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover,
+.link:focus {
+  opacity: 0.8;
+}
+
+.confirmBtn {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  background-color: var(--primary, oklch(34.25% 0.057 252.12));
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.confirmBtn:hover,
+.confirmBtn:focus {
+  opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .text {
+    flex: 1;
+  }
+}

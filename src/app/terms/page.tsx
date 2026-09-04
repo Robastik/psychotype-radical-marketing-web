@@ -17,7 +17,7 @@ export default function TermsOfService() {
 
         <article className="card" style={{ padding: "40px", display: "flex", flexDirection: "column", gap: "24px" }}>
           <h1 style={{ fontSize: "28px", fontWeight: "700", borderBottom: "1px solid var(--border-color)", paddingBottom: "16px" }}>
-            Публичная оферта (Пользовательское соглашение)
+            Пользовательское соглашение
           </h1>
 
           <p style={{ fontSize: "14px", color: "var(--text-muted)", fontFamily: "var(--font-mono)", marginTop: "-12px" }}>

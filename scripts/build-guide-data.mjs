@@ -233,8 +233,11 @@ function parseBody(bodyLines, validCodes) {
         i++;
       }
       const allRows = parseTableRows(tableLines);
-      const header = allRows[0] || [];
-      const rows = allRows.slice(2).filter((row) => row.some((c) => c.trim()));
+      const header = (allRows[0] || []).map((cell) => parseInlineSegments(cell, validCodes));
+      const rows = allRows
+        .slice(2)
+        .filter((row) => row.some((c) => c.trim()))
+        .map((row) => row.map((cell) => parseInlineSegments(cell, validCodes)));
       blocks.push({ type: "table", header, rows });
       continue;
     }
@@ -277,7 +280,7 @@ function parseBody(bodyLines, validCodes) {
   return blocks;
 }
 
-function extractSpecialBlocks(blocks) {
+function extractSpecialBlocks(blocks, validCodes) {
   const result = [];
   let currentEssence = null;
   let currentMyth = null;
@@ -298,8 +301,8 @@ function extractSpecialBlocks(blocks) {
       const nextItem = currentMythBuffer[k + 1];
       if (item.type === "myth-statement" && nextItem && nextItem.type === "myth-truth") {
         currentMyth.items.push({
-          statement: inlineToPlain(item.segments),
-          truth: inlineToPlain(nextItem.segments),
+          statement: stripMythMarker(inlineToPlain(item.segments)),
+          truth: stripMythMarker(inlineToPlain(nextItem.segments)),
         });
         k++;
       }
@@ -355,10 +358,9 @@ function extractSpecialBlocks(blocks) {
       continue;
     }
 
-    // 2. Divider terminates special blocks
+    // 2. Divider terminates special blocks (the <hr> itself is not rendered)
     if (block.type === "divider") {
       flushAll();
-      result.push(block);
       continue;
     }
 
@@ -377,14 +379,18 @@ function extractSpecialBlocks(blocks) {
       // plus scan text/strong segments for bracketed codes that weren't converted.
       for (const seg of block.content) {
         if (seg.type === "crossLink") {
-          links.push({ code: seg.code, label: seg.label || seg.code });
+          if (validCodes.has(seg.code)) {
+            links.push({ code: seg.code, label: seg.label || seg.code });
+          }
         } else if (seg.type === "text" || seg.type === "strong") {
           let match;
           const crossRegex = new RegExp(CROSS_LINK_REGEX.source, "g");
           while ((match = crossRegex.exec(seg.content)) !== null) {
             const label = match[1] ? match[1].replace(/[\s→>]+$/, "").trim() : undefined;
             const code = match[2];
-            links.push({ code, label: label || code });
+            if (validCodes.has(code)) {
+              links.push({ code, label: label || code });
+            }
           }
         }
       }
@@ -415,8 +421,8 @@ function extractSpecialBlocks(blocks) {
           const item = block.items[k];
           const nextItem = block.items[k + 1];
           currentMyth.items.push({
-            statement: inlineToPlain(item),
-            truth: nextItem ? inlineToPlain(nextItem) : "",
+            statement: stripMythMarker(inlineToPlain(item)),
+            truth: nextItem ? stripMythMarker(inlineToPlain(nextItem)) : "",
           });
         }
       }
@@ -439,6 +445,10 @@ function extractSpecialBlocks(blocks) {
   flushAll();
 
   return result;
+}
+
+function stripMythMarker(text) {
+  return text.replace(/^[❌✅]\s*/, "");
 }
 
 function inlineToPlain(segments) {
@@ -479,7 +489,7 @@ function parseDocFile(content, validCodes) {
   const bodyLines = lines.slice(bodyStart);
 
   const blocks = parseBody(bodyLines, validCodes);
-  const specialBlocks = extractSpecialBlocks(blocks);
+  const specialBlocks = extractSpecialBlocks(blocks, validCodes);
 
   const essenceBlock = specialBlocks.find((b) => b.type === "essence");
   let essence = "";
