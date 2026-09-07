@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useSyncExternalStore } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './CookieConsent.module.css';
 
 const CONSENT_KEY = 'cookie-consent';
@@ -29,6 +30,7 @@ function subscribe(callback: () => void) {
 }
 
 export default function CookieConsent() {
+  const pathname = usePathname();
   const storedConsent = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [accepted, setAccepted] = useState(false);
 
@@ -40,6 +42,10 @@ export default function CookieConsent() {
     }
     setAccepted(true);
   };
+
+  if (pathname && pathname.startsWith('/verify')) {
+    return null;
+  }
 
   if (accepted || storedConsent === 'accepted') {
     return null;
