@@ -131,7 +131,7 @@ export default function Home() {
                   eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
                 </p>
                 <div className="technical-data platforms-badge">
-                  <Link href="/verify?id=69092927-46c8-4853-b9a9-812e1b65e497" style={{ color: "inherit", textDecoration: "none" }}>Пример</Link>
+                  <Link href="/verify?id=de7bfdf2-1e0c-4855-b617-a52767acf080" style={{ color: "inherit", textDecoration: "none" }}>Пример</Link>
                 </div>
               </div>
 
