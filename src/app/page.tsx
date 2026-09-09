@@ -24,7 +24,7 @@ export default function Home() {
               
               <div className="hero-description">
                 <p className="hero-text">
-                  ИИ-эксперт поможет создавать дизайн с <span className="accent-text">высоким CTR</span> благодаря точному определению <span className="accent-text">целевой аудитории</span> товара и <span className="accent-text">особенностям психологии</span> его покупателей.
+                  ИИ-эксперт поможет создавать дизайн с <span className="accent-text">высоким CTR</span> благодаря точному определению <span className="accent-text">целевой аудитории</span> товара и <span className="accent-text">особенностям психологии</span> его покупателей
                 </p>
                 <div className="technical-data platforms-badge">
                   ОЗОН <br />
@@ -72,7 +72,7 @@ export default function Home() {
                       Расшифровка визуального кода
                     </h3>
                     <p className="step-description">
-                      Алгоритм раскладывает изображение товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
+                      Алгоритм раскладывает обложку карточки товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
                     </p>
                   </div>
                   <div className="step-image-container">
