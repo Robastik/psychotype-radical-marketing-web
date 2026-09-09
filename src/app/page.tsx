@@ -19,12 +19,12 @@ export default function Home() {
             {/* Value Proposition */}
             <div className="hero-content">
               <h1 className="hero-title">
-                Дешифровка <br /> <span className="accent-text">визуального кода</span> <br /> карточек товаров
+                Продающий <br /> <span className="accent-text">визуальный код</span> <br /> карточек товаров
               </h1>
               
               <div className="hero-description">
                 <p className="hero-text">
-                  Автоматизированная AI-платформа нейромаркетингового и психографического аудита. <span className="accent-text">eyeCARD</span> измеряет профиль вашего дизайна и сопоставляет его с ожиданиями целевой аудитории.
+                  ИИ-эксперт поможет создавать дизайн с <span className="accent-text">высоким CTR</span> благодаря точному определению <span className="accent-text">целевой аудитории</span> товара и <span className="accent-text">особенностям психологии</span> его покупателей.
                 </p>
                 <div className="technical-data platforms-badge">
                   ОЗОН <br />
