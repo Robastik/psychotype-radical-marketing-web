@@ -34,15 +34,24 @@ export default function ExtensionPrivacyPolicy() {
 
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>1. Account &amp; Authentication Data</h2>
+            <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
+              Authentication is performed using your <strong>Telegram username</strong> as a login and a password that you set. The following data is processed:
+            </p>
             <ul style={{ paddingLeft: "20px", fontSize: "15px", lineHeight: "1.6", display: "flex", flexDirection: "column", gap: "8px" }}>
               <li>
-                <strong>Telegram ID</strong>: Your Telegram user identifier, used to link your extension session to your account.
+                <strong>Telegram username (login)</strong>: Your Telegram username, used as the unique account identifier. We do not collect email addresses or phone numbers.
+              </li>
+              <li>
+                <strong>Password hash</strong>: Your password is stored on the backend only as a bcrypt hash. The plain-text password is never retained.
+              </li>
+              <li>
+                <strong>Telegram ID</strong>: Your Telegram user identifier, used to link your extension session to your account and deliver reports via the Telegram bot.
               </li>
               <li>
                 <strong>JWT token</strong>: A session token stored locally in your browser (<code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", backgroundColor: "var(--bg-primary)", padding: "2px 4px", borderRadius: "3px" }}>chrome.storage.local</code>) to authenticate API requests.
               </li>
               <li>
-                <strong>Coin balance</strong>: The number of eyeCARD coins in your account, cached locally for 30 days.
+                <strong>Coin balance</strong>: The number of eyeCARD coins in your account, cached locally for performance.
               </li>
             </ul>
           </section>
@@ -78,7 +87,7 @@ export default function ExtensionPrivacyPolicy() {
                 <strong>Usage events</strong>: Events like <code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", backgroundColor: "var(--bg-primary)", padding: "2px 4px", borderRadius: "3px" }}>extension_opened</code>, <code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", backgroundColor: "var(--bg-primary)", padding: "2px 4px", borderRadius: "3px" }}>analysis_clicked</code>, with parameters (marketplace, SKU, timestamp).
               </li>
               <li>
-                <strong>No personal data</strong>: Telemetry does not include your name, email, Telegram ID, or any identifiable information.
+                <strong>No personal data</strong>: Telemetry does not include your Telegram username, Telegram ID, or any identifiable information.
               </li>
             </ul>
           </section>
@@ -99,7 +108,7 @@ export default function ExtensionPrivacyPolicy() {
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>5. How We Use Your Data</h2>
             <ul style={{ paddingLeft: "20px", fontSize: "15px", lineHeight: "1.6", display: "flex", flexDirection: "column", gap: "8px" }}>
               <li>
-                <strong>Telegram ID &amp; JWT</strong>: To authenticate you, track your coin balance, and deliver reports to your Telegram account.
+                <strong>Telegram username, Telegram ID &amp; JWT</strong>: To authenticate you, track your coin balance, and deliver reports to your Telegram account.
               </li>
               <li>
                 <strong>Product images &amp; text</strong>: Solely for the purpose of psychological analysis (the single purpose of the extension). Data is processed on our backend and not stored permanently.
@@ -153,7 +162,7 @@ export default function ExtensionPrivacyPolicy() {
                 <strong>Access</strong>: Request a copy of the data we hold about you (contact us via the email below).
               </li>
               <li>
-                <strong>Deletion</strong>: Request deletion of your Telegram ID and associated account data by logging out of the extension and contacting support.
+                <strong>Deletion</strong>: Request deletion of your account and associated data (Telegram username, Telegram ID, analysis history, and balance) by logging out of the extension and contacting support.
               </li>
               <li>
                 <strong>Opt-out of telemetry</strong>: Telemetry can be disabled in the extension settings (menu → preferences).
@@ -165,8 +174,8 @@ export default function ExtensionPrivacyPolicy() {
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>9. Data Security</h2>
             <ul style={{ paddingLeft: "20px", fontSize: "15px", lineHeight: "1.6", display: "flex", flexDirection: "column", gap: "8px" }}>
               <li>All API communication uses HTTPS encryption.</li>
+              <li>Passwords are stored as bcrypt hashes; plain-text passwords are never retained.</li>
               <li>JWT tokens are stored in Chrome&apos;s secure local storage.</li>
-              <li>We do not log or store your Telegram password or authentication credentials (authentication is handled by Telegram&apos;s official OAuth flow).</li>
             </ul>
           </section>
 
