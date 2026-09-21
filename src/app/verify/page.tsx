@@ -509,7 +509,7 @@ function VerifyContent() {
           <div className={styles.qrItem}>
             <div 
               className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru/extension') }} 
+              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp') }} 
             />
             <span className={styles.qrLabel}>Расширение</span>
           </div>

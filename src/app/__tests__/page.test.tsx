@@ -19,26 +19,26 @@ describe('Home Page Component', () => {
 
     it('renders navigation menu with all links', () => {
       render(<Home />);
-      const methodologyLinks = screen.queryAllByText('Методология');
-      const offertaLinks = screen.queryAllByText('Оферта');
-      const privacyLinks = screen.queryAllByText('Конфиденциальность');
-      
-      expect(methodologyLinks.length).toBeGreaterThan(0);
-      expect(offertaLinks.length).toBeGreaterThan(0);
+      const guideLinks = screen.getAllByText('Методический справочник');
+      const termsLinks = screen.getAllByText('Пользовательское соглашение');
+      const privacyLinks = screen.getAllByText('Политика конфиденциальности');
+
+      expect(guideLinks.length).toBeGreaterThan(0);
+      expect(termsLinks.length).toBeGreaterThan(0);
       expect(privacyLinks.length).toBeGreaterThan(0);
     });
 
     it('navigation links have correct hrefs', () => {
       render(<Home />);
       const allLinks = screen.getAllByRole('link');
-      
+
       // Find navigation links by their href
-      const methodologyLink = allLinks.find(link => link.getAttribute('href') === '/methodology');
-      const offertaLink = allLinks.find(link => link.getAttribute('href') === '/terms');
+      const guideLink = allLinks.find(link => link.getAttribute('href') === '/guide');
+      const termsLink = allLinks.find(link => link.getAttribute('href') === '/terms');
       const privacyLink = allLinks.find(link => link.getAttribute('href') === '/privacy');
 
-      expect(methodologyLink).toBeInTheDocument();
-      expect(offertaLink).toBeInTheDocument();
+      expect(guideLink).toBeInTheDocument();
+      expect(termsLink).toBeInTheDocument();
       expect(privacyLink).toBeInTheDocument();
     });
   });
@@ -52,10 +52,9 @@ describe('Home Page Component', () => {
 
     it('displays main headline', () => {
       render(<Home />);
-      expect(screen.getByText(/Дешифровка/)).toBeInTheDocument();
-      const headlines = screen.getAllByText(/визуального кода/);
-      expect(headlines.length).toBeGreaterThan(0);
-      expect(headlines[0]).toBeInTheDocument();
+      expect(screen.getByText(/Продающий/)).toBeInTheDocument();
+      expect(screen.getByText(/визуальный код/)).toBeInTheDocument();
+      expect(screen.getByText(/карточек товаров/)).toBeInTheDocument();
     });
 
     it('displays call-to-action button', () => {
@@ -69,7 +68,7 @@ describe('Home Page Component', () => {
       render(<Home />);
       const buttons = screen.getAllByText('Установить расширение');
       const chromeButton = buttons[0].closest('a');
-      expect(chromeButton).toHaveAttribute('href', 'https://chrome.google.com/webstore');
+      expect(chromeButton).toHaveAttribute('href', 'https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp');
     });
   });
 

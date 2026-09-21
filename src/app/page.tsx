@@ -30,7 +30,7 @@ export default function Home() {
                   ОЗОН <br />
                   ВАЙЛДБЕРРИЗ
                 </div>
-                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <a href="https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp" target="_blank" rel="noopener noreferrer" className="btn-primary">
                   Установить расширение
                 </a>
               </div>
@@ -320,7 +320,7 @@ export default function Home() {
               </div>
 
               <div style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}>
-                <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 48px" }}>
+                <a href="https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 48px" }}>
                   Установить расширение
                 </a>
               </div>
