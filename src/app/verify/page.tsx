@@ -380,6 +380,23 @@ const vpEngines = {
     }
 };
 
+const QRItem = ({ url, label }: { url: string; label: string }) => (
+  <div className={styles.qrItem}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.qrLink}
+    >
+      <div
+        className={styles.qrBox}
+        dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG(url) }}
+      />
+      <span className={styles.qrLabel}>{label}</span>
+    </a>
+  </div>
+);
+
 function VerifyContent() {
   const searchParams = useSearchParams();
   const job_id = searchParams.get("id");
@@ -485,41 +502,12 @@ function VerifyContent() {
 
       <div className={styles.footer}>
         <div className={styles.qrRow}>
-          <div className={styles.qrItem}>
-            <div 
-              className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru/guide') }} 
-            />
-            <span className={styles.qrLabel}>Методика</span>
-          </div>
-          <div className={styles.qrItem}>
-            <div 
-              className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG(verifyUrl) }} 
-            />
-            <span className={styles.qrLabel}>Проверить</span>
-          </div>
-          <div className={styles.qrItem}>
-            <div 
-              className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://eyecard.ru') }} 
-            />
-            <span className={styles.qrLabel}>Сайт</span>
-          </div>
-          <div className={styles.qrItem}>
-            <div 
-              className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp') }} 
-            />
-            <span className={styles.qrLabel}>Расширение</span>
-          </div>
-          <div className={styles.qrItem}>
-            <div 
-              className={styles.qrBox} 
-              dangerouslySetInnerHTML={{ __html: vpEngines.createQRCodeSVG('https://t.me/eyeCARD_official') }} 
-            />
-            <span className={styles.qrLabel}>Телеграм</span>
-          </div>
+          <QRItem url="https://eyecard.ru/guide" label="Методика" />
+          <QRItem url={verifyUrl} label="Проверить" />
+          <QRItem url="https://eyecard.ru" label="Сайт" />
+          <QRItem url="https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp" label="Расширение" />
+          <QRItem url="https://t.me/eyeCARD_official" label="Телеграм" />
+          <QRItem url="https://eyecard.ru/support" label="Поддержка" />
         </div>
       </div>
       <div className={styles.bottomBar}>WWW.EYECARD.RU  ©  &emsp;&emsp;&emsp;&emsp;&emsp; ID: {job_id?.toUpperCase()}</div>
