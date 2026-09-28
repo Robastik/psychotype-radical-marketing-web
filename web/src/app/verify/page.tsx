@@ -401,19 +401,15 @@ const QRItem = ({ url, label }: { url: string; label: string }) => (
 function VerifyContent() {
   const searchParams = useSearchParams();
   const job_id = searchParams.get("id");
+  const ref_param = searchParams.get("ref");
   const [data, setData] = useState<AnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Capture referral cookie when user arrives via ?ref={chat_id}
   useEffect(() => {
-    const ref = searchParams.get("ref");
-    if (ref) {
-      captureReferralCookie(ref);
-    }
-  }, [searchParams]);
+    // Захват реферального cookie при переходе по ссылке с ?ref={chat_id}
+    captureReferralCookie(ref_param);
 
-  useEffect(() => {
     if (!job_id) { return; }
     async function fetchData() {
       try {
