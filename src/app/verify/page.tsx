@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import styles from "./passport.module.css";
 import QRCode from "qrcode";
+import { captureReferralCookie } from "@/lib/referral";
 
 const BASE_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const BACKEND_URL = `${BASE_URL}/api/v1`;
@@ -400,11 +401,15 @@ const QRItem = ({ url, label }: { url: string; label: string }) => (
 function VerifyContent() {
   const searchParams = useSearchParams();
   const job_id = searchParams.get("id");
+  const ref_param = searchParams.get("ref");
   const [data, setData] = useState<AnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Захват реферального cookie при переходе по ссылке с ?ref={chat_id}
+    captureReferralCookie(ref_param);
+
     if (!job_id) { return; }
     async function fetchData() {
       try {
