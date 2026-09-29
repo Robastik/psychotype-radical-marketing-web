@@ -5,17 +5,33 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "verify.html"
     ],
     "rewrites": [
       {
         "source": "/verify/**",
-        "destination": "/verify.html"
+        "function": {
+          "functionId": "ssrVerifyPage"
+        }
       },
       {
         "source": "/verify",
-        "destination": "/verify.html"
+        "function": {
+          "functionId": "ssrVerifyPage"
+        }
       }
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "*.log"
+      ]
+    }
+  ]
 }
