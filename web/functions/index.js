@@ -17,16 +17,14 @@
  * Клиентская гидрация SPA не затрагивается: инъекция добавляет только <meta>-теги в <head>.
  */
 
-const fs = require("fs");
-const path = require("path");
-const { onRequest } = require("firebase-functions/v2/https");
+import fs from "fs";
+import path from "path";
+import { onRequest } from "firebase-functions/v2/https";
 
 const BACKEND_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const VERIFY_ORIGIN = "https://eyecard.ru";
 const INJECTION_ANCHOR = '<meta name="next-size-adjust" content=""/>';
 const API_TIMEOUT_MS = 5000;
-
-const VERDICT_LABELS = { "1": "СООТВЕТСТВУЕТ", "-1": "ПРОТИВОРЕЧИТ", "0": "ЧАСТИЧНО" };
 
 // verify_base.html читается один раз на инстанс (cold start), дальше — из памяти.
 let verifyBaseHtml = null;
