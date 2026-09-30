@@ -5,21 +5,16 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "verify.html"
+      "**/node_modules/**"
     ],
     "rewrites": [
       {
         "source": "/verify/**",
-        "function": {
-          "functionId": "ssrVerifyPage"
-        }
+        "destination": "/verify.html"
       },
       {
         "source": "/verify",
-        "function": {
-          "functionId": "ssrVerifyPage"
-        }
+        "destination": "/verify.html"
       }
     ]
   }
