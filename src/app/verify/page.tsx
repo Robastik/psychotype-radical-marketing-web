@@ -406,10 +406,18 @@ function VerifyContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Захват реферального cookie — отдельный эффект, потому что он зависит
+  // только от ref_param. Держать его в эффекте загрузки данных нельзя: при
+  // клиентской навигации ?id=X&ref=A → ?id=X&ref=B job_id не меняется, эффект
+  // не перезапускается и cookie остаётся со старым ref.
+  //
+  // Обратное тоже неверно — добавлять ref_param в зависимости эффекта ниже
+  // нельзя: это повторно вызвало бы fetchData() и перезапросило анализ.
   useEffect(() => {
-    // Захват реферального cookie при переходе по ссылке с ?ref={chat_id}
     captureReferralCookie(ref_param);
+  }, [ref_param]);
 
+  useEffect(() => {
     if (!job_id) { return; }
     async function fetchData() {
       try {
