@@ -71,6 +71,51 @@ jobs:
           NODE_ENV: production
           NEXT_PUBLIC_BACKEND_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_URL }}
 
+      # verify_base.html — build-артефакт, а не исходник: он не коммитится
+      # (см. functions/.gitignore) и копируется из out/ ЗДЕСЬ, в том же
+      # прогоне, что и деплой. Next.js хэширует имена чанков и шрифтов на
+      # каждую сборку, поэтому закоммиченный снапшот неизбежно устаревает.
+      # Именно это сломало авто-доставку отчётов 30.09.2026: функция отдавала
+      # копию от 7 сентября, 10 из 22 её ассетов /_next/static/* были 404,
+      # гидрация не проходила, маркер #passport-report не появлялся, и
+      # ShareService возвращал монеты, не отправив сообщение в Telegram.
+      #
+      # Две проверки ниже — защита от повторения. Если Next.js уберёт якорь
+      # инъекции из вывода, сборка упадёт ЗДЕСЬ, а не в проде на трёх
+      # попытках Playwright по 30 секунд каждая.
+      - name: Sync verify_base.html from build
+        run: |
+          mkdir -p functions
+          cp out/verify.html functions/verify_base.html
+          test "$(stat -c%s functions/verify_base.html)" -gt 1000
+          grep -q '<meta name="next-size-adjust" content=""/>' functions/verify_base.html
+          echo "verify_base.html: $(stat -c%s functions/verify_base.html) bytes, injection anchor present"
+
+      # Зависимости ставятся не только для облачной сборки: firebase CLI
+      # загружает functions/index.js ЛОКАЛЬНО, чтобы прочитать __endpoint и
+      # определить region. Без firebase-functions в functions/node_modules
+      # деплой упадёт ещё до обращения к GCP.
+      - name: Install functions dependencies
+        working-directory: functions
+        run: npm ci --no-audit --no-fund
+
+      # Порядок ОБЯЗАТЕЛЬНО functions -> hosting.
+      #
+      # Функция деплоится со свежей базой ДО того, как hosting начнёт
+      # направлять на неё /verify, поэтому окна со сломанной страницей не
+      # возникает. Если этот шаг упадёт (например, не хватит прав на Cloud
+      # Functions / Cloud Build / Artifact Registry), job прервётся и hosting
+      # не задеплоится вовсе — прод останется на предыдущей рабочей версии.
+      # Безопасно по построению, но блокирует последующие деплои web до
+      # починки, поэтому откатывать нужно именно этот шаг.
+      - name: Deploy functions
+        if: steps.firebase_check.outputs.missing == 'false'
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions --project consumer-behavior-card
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONSUMER_BEHAVIOR_CARD }}
+
       - name: Deploy to Firebase
         if: steps.firebase_check.outputs.missing == 'false'
         uses: w9jds/firebase-action@master
