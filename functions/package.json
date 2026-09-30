@@ -1,6 +1,6 @@
 {
   "name": "functions",
-  "description": "SSR OG-тегов для /verify (OG-MIGRATION, этап 2). verify_base.html генерируется в CI из out/verify.html.",
+  "description": "SSR OG-тегов для /verify (OG-MIGRATION, этап 2). verify_base.html генерируется build-хуком build:og-base из out/verify.html.",
   "version": "1.0.0",
   "private": true,
   "type": "module",
