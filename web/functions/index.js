@@ -19,7 +19,11 @@
 
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import { onRequest } from "firebase-functions/v2/https";
+
+// ESM-эквивалент __dirname (в модулях с "type": "module" глобального __dirname нет).
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BACKEND_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const VERIFY_ORIGIN = "https://eyecard.ru";
@@ -109,7 +113,7 @@ async function fetchAnalysis(id) {
   }
 }
 
-exports.ssrVerifyPage = onRequest(
+export const ssrVerifyPage = onRequest(
   { region: "us-central1", memory: "256Mi", maxInstances: 10 },
   async (req, res) => {
     const id = (req.query.id || "").toString().trim();
