@@ -72,24 +72,36 @@ jobs:
           NEXT_PUBLIC_BACKEND_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_URL }}
 
       # verify_base.html — build-артефакт, а не исходник: он не коммитится
-      # (см. functions/.gitignore) и копируется из out/ ЗДЕСЬ, в том же
-      # прогоне, что и деплой. Next.js хэширует имена чанков и шрифтов на
-      # каждую сборку, поэтому закоммиченный снапшот неизбежно устаревает.
-      # Именно это сломало авто-доставку отчётов 30.09.2026: функция отдавала
-      # копию от 7 сентября, 10 из 22 её ассетов /_next/static/* были 404,
-      # гидрация не проходила, маркер #passport-report не появлялся, и
-      # ShareService возвращал монеты, не отправив сообщение в Telegram.
+      # (см. functions/.gitignore) и создаётся build-хуком
+      # scripts/prepare-og-base.mjs, который вызывается из `npm run build`
+      # (package.json -> build:og-base), то есть шагом «Build production» выше.
       #
-      # Две проверки ниже — защита от повторения. Если Next.js уберёт якорь
-      # инъекции из вывода, сборка упадёт ЗДЕСЬ, а не в проде на трёх
-      # попытках Playwright по 30 секунд каждая.
-      - name: Sync verify_base.html from build
+      # Этот шаг намеренно ПРОВЕРЯЕТ, а не копирует. Если бы он копировал сам,
+      # отвязавшийся от npm run build хук остался бы незамеченным: CI каждый
+      # раз молча делал бы работу за него, и дефект всплыл бы только в проде.
+      # Хук в build покрывает ещё и локальные сборки, поэтому локальный
+      # `firebase deploy --only functions` тоже не сможет задеплоить мусор.
+      #
+      # Сравнение с out/verify.html через cmp — самая сильная из проверок:
+      # она доказывает, что база получена ИМЕННО ИЗ ЭТОЙ сборки, а не
+      # осталась от предыдущей. Именно устаревшая копия сломала авто-доставку
+      # отчётов 30.09.2026 (job 728cdf6e): функция отдавала снапшот от
+      # 7 сентября, часть его ассетов /_next/static/* была 404, гидрация не
+      # проходила, маркер #passport-report не появлялся, и ShareService
+      # возвращал монеты, не отправив сообщение в Telegram.
+      - name: Verify verify_base.html came from this build
         run: |
-          mkdir -p functions
-          cp out/verify.html functions/verify_base.html
+          if [ ! -f functions/verify_base.html ]; then
+            echo "::error::functions/verify_base.html отсутствует — build-хук build:og-base не отработал"
+            exit 1
+          fi
+          if ! cmp -s out/verify.html functions/verify_base.html; then
+            echo "::error::verify_base.html не совпадает с out/verify.html — база не из этой сборки"
+            exit 1
+          fi
           test "$(stat -c%s functions/verify_base.html)" -gt 1000
           grep -q '<meta name="next-size-adjust" content=""/>' functions/verify_base.html
-          echo "verify_base.html: $(stat -c%s functions/verify_base.html) bytes, injection anchor present"
+          echo "verify_base.html: $(stat -c%s functions/verify_base.html) bytes, identical to out/verify.html, injection anchor present"
 
       # Зависимости ставятся не только для облачной сборки: firebase CLI
       # загружает functions/index.js ЛОКАЛЬНО, чтобы прочитать __endpoint и
