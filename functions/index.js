@@ -8,11 +8,16 @@
  *     → читает verify_base.html (копия out/verify.html, build-артефакт)
  *     → фетчит BACKEND_URL/api/v1/analysis/public/{id}
  *     → инъекция OG-тегов ПЕРЕД <meta name="next-size-adjust" content=""/>
- *     → HTML + Cache-Control: public, max-age=0, s-maxage=86400
+ *     → HTML + Cache-Control:
+ *         реальные данные   → public, max-age=0, s-maxage=86400
+ *         деградация        → no-store (см. правило 3 ниже)
  *
  * Fallback-и:
  *   - API недоступен / id невалиден / статус != completed → дефолтные OG-теги (брендинг)
  *   - og_image_url отсутствует в Firestore → og:image = прокси-URL фото товара с бэкенда
+ *
+ * Отличить ветку по ответу: реальные данные дают 8 тегов og: и 4 twitter:
+ * включая og:image; fallback — 5 og: и 1 twitter: без og:image вовсе.
  *
  * Клиентская гидрация SPA не затрагивается: инъекция добавляет только <meta>-теги в <head>.
  *
@@ -47,9 +52,21 @@
  *      стеком в логах. Быстрый и громкий провал здесь строго лучше
  *      тихого.
  *
- * Оба сценария отсекаются до деплоя в CI: шаг «Sync verify_base.html from
- * build» проверяет наличие якоря и размер файла. Поэтому в норме ни одна из
- * этих веток не достигается, а их поведение существует ради наблюдаемости.
+ *   3. Деградированный ответ НИКОГДА не кэшируется — Cache-Control: no-store.
+ *      s-maxage=86400 на fallback означает, что один холодный старт отравляет
+ *      CDN на сутки: все последующие обращения к этому URL, включая краулера
+ *      Telegram, получат ссылку БЕЗ КАРТИНКИ, хотя данные уже доступны.
+ *      Это не гипотеза: 2026-10-01 в 00:27:25, через две минуты после
+ *      DEPLOYMENT_ROLLOUT, функция на холодном старте не дождалась холодного
+ *      бэкенда за 5 с («This operation was aborted»), ушла в fallback — и он
+ *      лёг в кэш на сутки. Отсюда же API_TIMEOUT_MS = 10000 и один повтор.
+ *
+ * Сценарии правил 1 и 2 отсекаются до деплоя в CI: шаг «Verify verify_base.html
+ * came from this build» сверяет базу с out/verify.html через cmp, проверяет
+ * наличие якоря и размер файла. Поэтому в норме ни одна из этих веток не
+ * достигается, а их поведение существует ради наблюдаемости.
+ * Правило 3, наоборот, достигается в штатной эксплуатации — на холодных
+ * стартах и при недоступности бэкенда.
  *
  * verify_base.html намеренно НЕ коммитится (см. functions/.gitignore): это
  * build-артефакт, который создаёт хук `npm run build:og-base`
@@ -72,7 +89,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND_URL = "https://eyecard-api-634368981577.us-central1.run.app";
 const VERIFY_ORIGIN = "https://eyecard.ru";
 const INJECTION_ANCHOR = '<meta name="next-size-adjust" content=""/>';
-const API_TIMEOUT_MS = 5000;
+// 10 с, а не 5: 2026-10-01 в 00:27:25 сразу после DEPLOYMENT_ROLLOUT функция
+// на холодном старте не дождалась холодного бэкенда за 5 с, сработал
+// AbortController («This operation was aborted»), ушёл fallback — и CDN
+// закэшировал его на сутки. Тёплый бэкенд отвечает за ~0.87 с, так что запас
+// нужен именно на холодный старт Cloud Run.
+//
+// Верхняя граница безопасна: этот же URL грузит Playwright в report_service.py,
+// где PAGE_LOAD_TIMEOUT = 60000 мс. Худший случай здесь — две попытки по 10 с
+// плюс задержка повтора, ~21 с, что оставляет запас на MARKER_TIMEOUT = 30000.
+const API_TIMEOUT_MS = 10000;
+
+// Пауза перед единственным повтором. Первый запрос как раз поднимает инстанс
+// бэкенда, поэтому повтор обычно попадает уже в тёплый.
+const API_RETRY_DELAY_MS = 750;
 
 // verify_base.html читается один раз на инстанс (cold start), дальше — из памяти.
 // null — «ещё не читали», false — «прочитать не удалось».
@@ -159,7 +189,8 @@ function buildOgTags(id, data) {
     .join("\n    ");
 }
 
-async function fetchAnalysis(id) {
+/** Одна попытка запроса к бэкенду, с собственным таймаутом. */
+async function fetchAnalysisOnce(id) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
   try {
@@ -167,10 +198,39 @@ async function fetchAnalysis(id) {
       `${BACKEND_URL}/api/v1/analysis/public/${encodeURIComponent(id)}`,
       { signal: controller.signal, headers: { Accept: "application/json" } }
     );
+    // !res.ok — ОПРЕДЕЛЁННЫЙ ответ бэкенда (анализа нет или он не completed),
+    // повтор не поможет, поэтому возвращаем null без ретрая.
     if (!res.ok) return null;
     return await res.json();
   } finally {
     clearTimeout(timer);
+  }
+}
+
+/**
+ * Запрос с одним повтором на транзиентный сбой.
+ *
+ * Повторяем только брошенное исключение: холодный старт бэкенда выглядит именно
+ * так (таймаут/сеть), и первый запрос как раз поднимает инстанс, поэтому второй
+ * обычно попадает в тёплый. Определённый ответ (null) не повторяем — смысла нет,
+ * а лишняя задержка легла бы на путь Playwright в report_service.py.
+ *
+ * Худший случай: API_TIMEOUT_MS + API_RETRY_DELAY_MS + API_TIMEOUT_MS ≈ 21 с,
+ * что укладывается в PAGE_LOAD_TIMEOUT = 60000 мс.
+ */
+async function fetchAnalysis(id) {
+  try {
+    return await fetchAnalysisOnce(id);
+  } catch (firstErr) {
+    await new Promise((resolve) => setTimeout(resolve, API_RETRY_DELAY_MS));
+    try {
+      return await fetchAnalysisOnce(id);
+    } catch (secondErr) {
+      // Бросаем наружу: вызывающий код логирует причину и уходит в fallback.
+      throw new Error(
+        `${firstErr.message}; повтор через ${API_RETRY_DELAY_MS}ms тоже не удался: ${secondErr.message}`
+      );
+    }
   }
 }
 
@@ -204,16 +264,27 @@ export const ssrVerifyPage = onRequest(
     const id = (req.query.id || "").toString().trim();
 
     let ogTags = "";
+    // fromBackend отличает полноценный ответ от деградированного. Кэшировать
+    // разрешено только полноценный — см. Cache-Control ниже.
+    let fromBackend = false;
     if (canInject) {
       try {
         const data = id ? await fetchAnalysis(id) : null;
-        ogTags =
-          data && data.status === "completed"
-            ? buildOgTags(id, data)
-            : buildFallbackTags(id);
+        if (data && data.status === "completed") {
+          ogTags = buildOgTags(id, data);
+          fromBackend = true;
+        } else {
+          console.warn(
+            `[ssrVerifyPage] нет completed-анализа для id=${id || "<пусто>"} ` +
+              `(status=${data ? data.status : "null"}) — отдаю fallback OG-теги, ` +
+              "ответ НЕ кэшируется"
+          );
+          ogTags = buildFallbackTags(id);
+        }
       } catch (err) {
         console.warn(
-          `[ssrVerifyPage] backend fetch failed for id=${id}: ${err.message}`
+          `[ssrVerifyPage] backend fetch failed for id=${id}: ${err.message} — ` +
+            "отдаю fallback OG-теги, ответ НЕ кэшируется"
         );
         ogTags = buildFallbackTags(id);
       }
@@ -223,8 +294,22 @@ export const ssrVerifyPage = onRequest(
       ? baseHtml.replace(INJECTION_ANCHOR, `${ogTags}\n    ${INJECTION_ANCHOR}`)
       : baseHtml;
 
-    // CDN-кэш сутки: Telegram-краулер и повторные шары не долбят функцию.
-    res.set("Cache-Control", "public, max-age=0, s-maxage=86400");
+    // Кэшируем ТОЛЬКО ответ с реальными данными.
+    //
+    // Деградированный ответ (fallback без og:image, либо база без якоря) обязан
+    // идти с no-store. Иначе один холодный старт отравляет CDN на сутки:
+    // s-maxage=86400 закрепляет fallback, и все последующие обращения к этому
+    // URL — включая краулера Telegram — получают ссылку БЕЗ КАРТИНКИ, хотя
+    // данные уже давно доступны. Ровно это и случилось 2026-10-01 в 00:27:25.
+    //
+    // Цена no-store — повторные походы в функцию и бэкенд для тех URL, которые
+    // действительно не отдают completed-анализ. Приемлемо: таких URL мало, а
+    // maxInstances=10 ограничивает нагрузку.
+    const degraded = !canInject || !fromBackend;
+    res.set(
+      "Cache-Control",
+      degraded ? "no-store" : "public, max-age=0, s-maxage=86400"
+    );
     res.set("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(html);
   }
