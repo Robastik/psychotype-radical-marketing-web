@@ -1,6 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Header from "../../components/Header";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — eyeCARD",
+  description: "Privacy policy for eyeCARD — AI-powered product card analysis for Wildberries and Ozon marketplaces.",
+  alternates: {
+    canonical: "https://eyecard.ru/en/privacy",
+    languages: {
+      "en-US": "/en/privacy",
+      "ru-RU": "/privacy",
+    },
+  },
+};
 
 export default function PrivacyPolicyEn() {
   return (
@@ -29,7 +42,7 @@ export default function PrivacyPolicyEn() {
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>1. Introduction</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
-              This Privacy Policy defines the procedure for processing information by the <strong>eyeCARD</strong> service (hereinafter referred to as the Service). The Service is designed to conduct neuromarketing audits of product cards and provide analysis results to users.
+              This Privacy Policy defines the procedure for processing information by the <strong>eyeCARD</strong> service (hereinafter referred to as the Service). The Service is designed to conduct AI-powered analysis of product cards on marketplaces (Wildberries, Ozon) and provide analysis results to users.
             </p>
           </section>
 

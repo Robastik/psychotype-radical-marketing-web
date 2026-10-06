@@ -1,6 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Header from "../components/Header";
+
+export const metadata: Metadata = {
+  title: "Поддержка — eyeCARD",
+  description: "Служба поддержки сервиса ИИ-анализа карточек товаров eyeCARD: контакты и время ответа.",
+};
 
 export default function Support() {
   return (

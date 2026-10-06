@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <span className="technical-data footer-logo">eyeCARD</span>
-            <span className="footer-tagline">Нейромаркетинговая AI-лаборатория для бизнеса.</span>
+            <span className="footer-tagline">ИИ-аналитика карточек товаров для продавцов маркетплейсов.</span>
           </div>
           <nav className="technical-data footer-nav" aria-label="Дополнительная навигация">
             <div className="footer-nav-group">

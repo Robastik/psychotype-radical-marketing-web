@@ -46,15 +46,16 @@ describe('Home Page Component', () => {
   describe('Hero Section', () => {
     it('renders hero image', () => {
       render(<Home />);
-      const heroImage = screen.getByAltText('eyeCARD Neural Deconstruction');
+      const heroImage = screen.getByAltText('ИИ-анализ карточек товаров Wildberries Ozon — eyeCARD');
       expect(heroImage).toBeInTheDocument();
     });
 
     it('displays main headline', () => {
       render(<Home />);
-      expect(screen.getByText(/Продающий/)).toBeInTheDocument();
-      expect(screen.getByText(/визуальный код/)).toBeInTheDocument();
-      expect(screen.getByText(/карточек товаров/)).toBeInTheDocument();
+      const h1 = screen.getByRole('heading', { level: 1 });
+      expect(h1).toHaveTextContent(/ИИ-анализ/);
+      expect(h1).toHaveTextContent(/карточек товаров/);
+      expect(h1).toHaveTextContent(/Wildberries и Ozon/);
     });
 
     it('displays call-to-action button', () => {
@@ -75,7 +76,7 @@ describe('Home Page Component', () => {
   describe('Methodology Section', () => {
     it('renders methodology title', () => {
       render(<Home />);
-      expect(screen.getByText('Научный метод')).toBeInTheDocument();
+      expect(screen.getByText(/Научный метод анализа карточек товаров/)).toBeInTheDocument();
     });
 
     it('renders step 1 - ФАКТ', () => {
@@ -85,7 +86,7 @@ describe('Home Page Component', () => {
 
     it('displays analysis description', () => {
       render(<Home />);
-      expect(screen.getByText(/Расшифровка визуального кода/)).toBeInTheDocument();
+      expect(screen.getByText(/Анализ визуальных элементов карточки/)).toBeInTheDocument();
     });
   });
 

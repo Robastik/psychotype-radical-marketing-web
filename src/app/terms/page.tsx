@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "Пользовательское соглашение — eyeCARD",
+  description: "Условия использования сервиса ИИ-анализа карточек товаров Wildberries и Ozon eyeCARD.",
+};
 
 export default function TermsOfService() {
   return (
@@ -27,7 +33,7 @@ export default function TermsOfService() {
           <section style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ fontSize: "18px", fontWeight: "600" }}>1. Предмет соглашения</h2>
             <p style={{ fontSize: "15px", lineHeight: "1.6" }}>
-              Настоящее Соглашение является публичной офертой сервиса <strong>eyeCARD</strong> (далее — Исполнитель). Исполнитель предоставляет пользователю (далее — Заказчик) доступ к автоматизированной AI-платформе нейромаркетингового аудита карточек товаров на маркетплейсах.
+              Настоящее Соглашение является публичной офертой сервиса <strong>eyeCARD</strong> (далее — Исполнитель). Исполнитель предоставляет пользователю (далее — Заказчик) доступ к автоматизированной платформе ИИ-анализа карточек товаров на маркетплейсах Wildberries и Ozon.
             </p>
           </section>
 

@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { SoftwareApplicationJsonLd } from "./components/JsonLd";
 
 export default function Home() {
   return (
     <div className="page-wrapper">
-      
+      <SoftwareApplicationJsonLd />
+
       {/* HEADER */}
       <Header />
 
@@ -19,12 +21,12 @@ export default function Home() {
             {/* Value Proposition */}
             <div className="hero-content">
               <h1 className="hero-title">
-                Продающий <br /> <span className="accent-text">визуальный код</span> <br /> карточек товаров
+                ИИ-анализ <br /> <span className="accent-text">карточек товаров</span> <br /> Wildberries и Ozon
               </h1>
               
               <div className="hero-description">
                 <p className="hero-text">
-                  ИИ-эксперт поможет создавать дизайн с <span className="accent-text">высоким CTR</span> благодаря точному определению <span className="accent-text">целевой аудитории</span> товара и <span className="accent-text">особенностям психологии</span> его покупателей
+                  ИИ-аналитика для продавцов маркетплейсов: <span className="accent-text">повышение CTR</span> карточек через научный анализ дизайна и <span className="accent-text">психологии покупателей</span> на <span className="accent-text">Wildberries и Ozon</span>
                 </p>
                 <div className="technical-data platforms-badge">
                   ОЗОН <br />
@@ -39,7 +41,7 @@ export default function Home() {
             {/* Neural Deconstruction Illustration */}
             <div className="hero-image-wrapper">
               <div className="image-frame">
-                <Image src="/hero.png" alt="eyeCARD Neural Deconstruction" width={420} height={420} priority className="hero-image" />
+                <Image src="/hero.png" alt="ИИ-анализ карточек товаров Wildberries Ozon — eyeCARD" width={420} height={420} priority className="hero-image" />
               </div>
             </div>
 
@@ -52,10 +54,10 @@ export default function Home() {
           <section className="methodology-pipeline">
             <div className="section-header">
               <h2 className="section-title">
-                Научный метод
+                Научный метод анализа карточек товаров
               </h2>
               <p className="section-subtitle">
-                Анализ психологии покупателя и выявление отклонений в дизайне карточек
+                ИИ-аналитика дизайна карточек товаров: выявляем проблемы, снижающие CTR
               </p>
             </div>
 
@@ -69,7 +71,7 @@ export default function Home() {
                 <div className="card-body step-grid">
                   <div>
                     <h3 className="step-title">
-                      Расшифровка визуального кода
+                      Анализ визуальных элементов карточки
                     </h3>
                     <p className="step-description">
                       Алгоритм раскладывает обложку карточки товара на 6 базовых слоев: цвета, формы, шрифты, композицию, графику и сюжет (например, лица людей). ИИ анализирует каждый элемент и переводит его на язык психологии эмоций.
@@ -89,7 +91,7 @@ export default function Home() {
                 <div className="card-body step-grid">
                   <div>
                     <h3 className="step-title">
-                      Профиль идеальной целевой аудитории
+                      Психологический портрет целевой аудитории
                     </h3>
                     <p className="step-description">
                       ИИ изучает категорию товара, его цену и описание, а затем воссоздает «ожидания» мозга покупателя. Мы рассчитываем идеальный визуальный ритм, который подсознательно привлечет именно вашего клиента.
@@ -108,7 +110,7 @@ export default function Home() {
                 </div>
                 <div className="card-body">
                   <h3 className="step-title">
-                    Анализ соответствия
+                    Сравнение с идеалом и рекомендации
                   </h3>
                   <p className="step-description step-description-wide">
                     Финальное сопоставление &quot;Факта&quot; и &quot;Идеала&quot; для выявления и оценки расхождений. Интегральный показатель <strong>ICC (Индекс Когнитивного Комфорта)</strong> выявляет зоны визуального шума. Получаем четкий вектор для доработки CTR.
@@ -125,10 +127,10 @@ export default function Home() {
               
               <div className="visual-passport-content">
                 <h2 className="visual-passport-title">
-                  Визуальный Паспорт
+                  Отчёт анализа карточки товара
                 </h2>
                 <p className="visual-passport-description">
-                  eyeCARD визуализирует сложные данные через систему инструментальных графиков: от семантических осей смысла до детального разбора психотипов и радикалов. Вы получаете не просто вердикт «красиво/некрасиво», а точную геометрию маркетингового сообщения с развернутыми формулировками профиля идеальной целевой аудитории.
+                  Визуальный Паспорт eyeCARD — это не просто вердикт «красиво/некрасиво», а детальный отчёт анализа карточки товара: разбор визуальных элементов, психологический портрет целевой аудитории и конкретные рекомендации по повышению CTR для Wildberries и Ozon.
                 </p>
                 <div className="technical-data platforms-badge">
                   <Link href="/verify?id=68fab7a4-dc47-4d02-8b37-976eec92dc0d" style={{ color: "inherit", textDecoration: "none" }}>Пример</Link>

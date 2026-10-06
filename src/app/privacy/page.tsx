@@ -1,7 +1,20 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "Политика конфиденциальности — eyeCARD",
+  description: "Политика конфиденциальности и обработки персональных данных сервиса ИИ-анализа карточек товаров eyeCARD.",
+  alternates: {
+    canonical: "https://eyecard.ru/privacy",
+    languages: {
+      "ru-RU": "/privacy",
+      "en-US": "/en/privacy",
+    },
+  },
+};
 
 export default function PrivacyPolicy() {
   return (

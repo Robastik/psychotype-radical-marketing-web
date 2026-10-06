@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
 export const metadata = {
-  title: "Методический справочник — eyeCARD",
+  title: "Методический справочник по анализу карточек товаров — eyeCARD",
   description:
-    "Полное руководство по методу eyeCARD: радикалы, архетипы, ICC, практика, мифы и справочный аппарат.",
+    "Руководство по ИИ-анализу карточек товаров Wildberries и Ozon: методика, психология покупателей, метрика ICC, повышение CTR и разбор мифов.",
 };
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
