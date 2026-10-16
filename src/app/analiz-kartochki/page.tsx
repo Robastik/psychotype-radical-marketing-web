@@ -15,6 +15,7 @@ export default function AnalizKartochkiPage() {
   return (
     <CommercialPageTemplate
       heroTitle={<>Анализ <span className="accent-text">карточки товара</span></>}
+      heroAlt="Анализ карточки товара с AI — eyeCARD"
       heroDescription="Проверьте карточку товара с помощью AI: найдите <span className='accent-text'>визуальные ошибки</span>, оцените соответствие целевой аудитории и получите рекомендации по повышению <span className='accent-text'>CTR</span>. Работает для Wildberries и Ozon."
       benefits={[
         {

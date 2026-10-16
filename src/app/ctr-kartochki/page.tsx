@@ -10,6 +10,7 @@ export default function CtrKartochkiPage() {
   return (
     <CommercialPageTemplate
       heroTitle={<>Увеличение <span className="accent-text">CTR карточки</span></>}
+      heroAlt="Увеличение CTR карточки товара с AI — eyeCARD"
       heroDescription="Увеличьте <span className='accent-text'>CTR карточки товара</span> с помощью AI-анализа: советы по повышению кликабельности на <span className='accent-text'>Wildberries и Ozon</span>."
       benefits={[
         { icon: "📈", title: "Рост CTR", description: "Средний рост CTR после внедрения рекомендаций eyeCARD — 15-25% за счёт улучшения визуала." },

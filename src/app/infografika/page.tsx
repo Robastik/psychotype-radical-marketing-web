@@ -10,6 +10,7 @@ export default function InfografikaPage() {
   return (
     <CommercialPageTemplate
       heroTitle={<>Анализ <span className="accent-text">инфографики</span></>}
+      heroAlt="Анализ инфографики карточки товара — eyeCARD"
       heroDescription="Проанализируйте <span className='accent-text'>инфографику карточки товара</span>: ошибки визуала, рекомендации по улучшению, повышение <span className='accent-text'>CTR</span>."
       benefits={[
         { icon: "🖼️", title: "Разбор инфографики", description: "Детальный анализ каждого слайда: композиция, текст, цвета, читабельность." },

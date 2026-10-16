@@ -10,6 +10,7 @@ export default function VizualnyAuditPage() {
   return (
     <CommercialPageTemplate
       heroTitle={<>Визуальный <span className="accent-text">аудит</span></>}
+      heroAlt="Визуальный аудит карточки товара — AI-проверка | eyeCARD"
       heroDescription="Визуальный аудит карточки товара с помощью <span className='accent-text'>AI</span>: проверка дизайна, цветов, композиции, соответствие <span className='accent-text'>целевой аудитории</span>."
       benefits={[
         { icon: "👁️", title: "Комплексная проверка", description: "Аудит всех визуальных элементов: цвета, формы, шрифты, композиция, графика, сюжет." },

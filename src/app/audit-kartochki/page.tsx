@@ -10,6 +10,7 @@ export default function AuditKartochkiPage() {
   return (
     <CommercialPageTemplate
       heroTitle={<>Аудит <span className="accent-text">карточки товара</span></>}
+      heroAlt="Аудит карточки товара с AI — eyeCARD"
       heroDescription="Найдите <span className='accent-text'>ошибки дизайна</span> карточки товара с помощью AI: визуальный аудит, анализ целевой аудитории, рекомендации по улучшению <span className='accent-text'>CTR</span>."
       benefits={[
         { icon: "🔍", title: "Поиск ошибок", description: "Автоматический поиск визуальных ошибок: перегруз, несоответствие ЦА, слабый контраст, проблемы с типографикой." },

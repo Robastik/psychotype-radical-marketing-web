@@ -30,6 +30,7 @@ interface RelatedArticle {
 
 interface CommercialPageTemplateProps {
   heroTitle: React.ReactNode;
+  heroAlt: string;
   heroDescription: string;
   heroImage?: string;
   benefits: Benefit[];
@@ -42,6 +43,7 @@ interface CommercialPageTemplateProps {
 
 export default function CommercialPageTemplate({
   heroTitle,
+  heroAlt,
   heroDescription,
   heroImage = "/hero.png",
   benefits,
@@ -72,7 +74,7 @@ export default function CommercialPageTemplate({
             </div>
             <div className="hero-image-wrapper">
               <div className="image-frame">
-                <Image src={heroImage} alt={heroTitle} width={420} height={420} priority className="hero-image" />
+                <Image src={heroImage} alt={heroAlt} width={420} height={420} priority className="hero-image" />
               </div>
             </div>
           </div>
