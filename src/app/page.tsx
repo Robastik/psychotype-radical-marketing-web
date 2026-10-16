@@ -28,10 +28,6 @@ export default function Home() {
                 <p className="hero-text">
                   ИИ-аналитика для продавцов маркетплейсов: <span className="accent-text">повышение CTR</span> карточек через научный анализ дизайна и <span className="accent-text">психологии покупателей</span> на <span className="accent-text">Wildberries и Ozon</span>
                 </p>
-                <div className="technical-data platforms-badge">
-                  ОЗОН <br />
-                  ВАЙЛДБЕРРИЗ
-                </div>
                 <a href="https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp" target="_blank" rel="noopener noreferrer" className="btn-primary">
                   Установить расширение
                 </a>
