@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function WildberriesPage() {
   return (
     <CommercialPageTemplate
-      heroTitle="Анализ карточки Wildberries"
-      heroDescription="ИИ-анализ карточек товаров на Wildberries: найдите визуальные ошибки, оцените соответствие целевой аудитории и получите рекомендации по повышению CTR. Научный подход на основе психологии покупателей."
+      heroTitle={<>Анализ карточки <span className="accent-text">Wildberries</span></>}
+      heroDescription="ИИ-анализ карточек товаров на Wildberries: найдите <span className='accent-text'>визуальные ошибки</span>, оцените соответствие целевой аудитории и получите рекомендации по повышению <span className='accent-text'>CTR</span>. Научный подход на основе психологии покупателей."
       benefits={[
         {
           icon: "🎯",

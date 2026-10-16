@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -13,6 +14,7 @@ interface Step {
   number: number;
   title: string;
   description: string;
+  image?: string;
 }
 
 interface FAQItem {
@@ -27,8 +29,9 @@ interface RelatedArticle {
 }
 
 interface CommercialPageTemplateProps {
-  heroTitle: string;
+  heroTitle: React.ReactNode;
   heroDescription: string;
+  heroImage?: string;
   benefits: Benefit[];
   steps: Step[];
   faq: FAQItem[];
@@ -40,6 +43,7 @@ interface CommercialPageTemplateProps {
 export default function CommercialPageTemplate({
   heroTitle,
   heroDescription,
+  heroImage = "/hero.png",
   benefits,
   steps,
   faq,
@@ -52,55 +56,70 @@ export default function CommercialPageTemplate({
       <Header />
 
       <main className="main-content">
-        {/* Hero Section */}
+        {/* Hero Section — как на главной */}
         <section className="expert-terminal hero-section">
-          <div className="container">
-            <h1 className="hero-title" style={{ fontSize: "48px", fontWeight: "800", marginBottom: "24px" }}>
-              {heroTitle}
-            </h1>
-            <p className="hero-description" style={{ fontSize: "18px", lineHeight: "1.6", maxWidth: "800px", marginBottom: "32px" }}>
-              {heroDescription}
-            </p>
-            <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              {ctaText}
-            </a>
+          <div className="container hero-grid">
+            <div className="hero-content">
+              <h1 className="hero-title">
+                {heroTitle}
+              </h1>
+              <div className="hero-description">
+                <p className="hero-text" dangerouslySetInnerHTML={{ __html: heroDescription }} />
+                <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                  {ctaText}
+                </a>
+              </div>
+            </div>
+            <div className="hero-image-wrapper">
+              <div className="image-frame">
+                <Image src={heroImage} alt={heroTitle} width={420} height={420} priority className="hero-image" />
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="container" style={{ padding: "80px 20px" }}>
-          <h2 style={{ fontSize: "36px", fontWeight: "700", textAlign: "center", marginBottom: "48px" }}>
-            Преимущества
-          </h2>
-          <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "32px" }}>
+        <section className="container methodology-section" style={{ padding: "80px 24px" }}>
+          <div className="section-header">
+            <h2 className="section-title">Преимущества</h2>
+            <p className="section-subtitle">Почему селлеры выбирают eyeCARD</p>
+          </div>
+          <div className="steps-grid">
             {benefits.map((benefit, index) => (
-              <div key={index} className="card" style={{ padding: "32px" }}>
-                <div style={{ fontSize: "48px", marginBottom: "16px" }}>{benefit.icon}</div>
-                <h3 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "12px" }}>{benefit.title}</h3>
-                <p style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                  {benefit.description}
-                </p>
+              <div key={index} className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[{String(index + 1).padStart(2, "0")}]: {benefit.icon}</span>
+                </div>
+                <div className="card-body">
+                  <h3 className="step-title">{benefit.title}</h3>
+                  <p className="step-description">{benefit.description}</p>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="container" style={{ padding: "80px 20px", backgroundColor: "var(--bg-secondary)" }}>
-          <h2 style={{ fontSize: "36px", fontWeight: "700", textAlign: "center", marginBottom: "48px" }}>
-            Как это работает
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "800px", margin: "0 auto" }}>
+        {/* How It Works Section — с изображениями как на главной */}
+        <section className="container" style={{ padding: "80px 24px" }}>
+          <div className="section-header">
+            <h2 className="section-title">Как это работает</h2>
+            <p className="section-subtitle">Три простых шага к улучшению карточки</p>
+          </div>
+          <div className="steps-grid">
             {steps.map((step) => (
-              <div key={step.number} className="card" style={{ padding: "32px", display: "flex", gap: "24px" }}>
-                <div style={{ fontSize: "48px", fontWeight: "800", color: "var(--cobalt-primary)", opacity: "0.2" }}>
-                  {String(step.number).padStart(2, "0")}
+              <div key={step.number} className="card step-card">
+                <div className="card-header">
+                  <span className="technical-data">[{String(step.number).padStart(2, "0")}]: {step.title}</span>
                 </div>
-                <div>
-                  <h3 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "8px" }}>{step.title}</h3>
-                  <p style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                    {step.description}
-                  </p>
+                <div className="card-body step-grid">
+                  <div>
+                    <p className="step-description">{step.description}</p>
+                  </div>
+                  {step.image && (
+                    <div className="step-image-container">
+                      <div className="step-image" style={{ backgroundImage: `url('${step.image}')` }}></div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -108,47 +127,51 @@ export default function CommercialPageTemplate({
         </section>
 
         {/* FAQ Section */}
-        <section className="container" style={{ padding: "80px 20px" }}>
-          <h2 style={{ fontSize: "36px", fontWeight: "700", textAlign: "center", marginBottom: "48px" }}>
-            Частые вопросы
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
-            {faq.map((item, index) => (
-              <details key={index} className="card" style={{ padding: "24px" }}>
-                <summary style={{ fontSize: "18px", fontWeight: "600", cursor: "pointer", marginBottom: "12px" }}>
-                  {item.question}
-                </summary>
-                <p style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--text-muted)", marginTop: "12px" }}>
-                  {item.answer}
-                </p>
-              </details>
-            ))}
+        <section style={{ backgroundColor: "var(--surface-low)", padding: "80px 0" }}>
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">Частые вопросы</h2>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "800px", margin: "0 auto" }}>
+              {faq.map((item, index) => (
+                <details key={index} className="card" style={{ padding: "24px" }}>
+                  <summary style={{ fontSize: "18px", fontWeight: "600", cursor: "pointer", listStyle: "none", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    {item.question}
+                    <span style={{ color: "var(--accent)", fontSize: "24px" }}>+</span>
+                  </summary>
+                  <p style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--text-muted)", marginTop: "12px" }}>
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Related Articles Section */}
-        <section className="container" style={{ padding: "80px 20px", backgroundColor: "var(--bg-secondary)" }}>
-          <h2 style={{ fontSize: "36px", fontWeight: "700", textAlign: "center", marginBottom: "48px" }}>
-            Читайте также
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+        <section className="container" style={{ padding: "80px 24px" }}>
+          <div className="section-header">
+            <h2 className="section-title">Читайте также</h2>
+            <p className="section-subtitle">Углубите знания по методологии</p>
+          </div>
+          <div className="steps-grid">
             {relatedArticles.map((article, index) => (
-              <Link key={index} href={article.url} className="card" style={{ padding: "24px", textDecoration: "none", color: "inherit" }}>
-                <h3 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "8px" }}>{article.title}</h3>
-                <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--text-muted)" }}>
-                  {article.description}
-                </p>
+              <Link key={index} href={article.url} className="card step-card" style={{ textDecoration: "none", color: "inherit" }}>
+                <div className="card-body">
+                  <h3 className="step-title">{article.title}</h3>
+                  <p className="step-description">{article.description}</p>
+                </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="expert-terminal container" style={{ padding: "80px 20px", textAlign: "center" }}>
-          <h2 style={{ fontSize: "36px", fontWeight: "700", marginBottom: "24px" }}>
-            Готовы улучшить свои карточки?
+        {/* Final CTA — как на главной */}
+        <section className="expert-terminal container" style={{ padding: "60px 32px", textAlign: "center", marginTop: "40px", marginBottom: "40px" }}>
+          <h2 className="section-title" style={{ color: "#fff", marginBottom: "16px" }}>
+            Готовы <span className="accent-text">улучшить</span> свои карточки?
           </h2>
-          <p style={{ fontSize: "18px", marginBottom: "32px", color: "var(--text-muted)" }}>
+          <p style={{ fontSize: "18px", marginBottom: "32px", color: "rgba(255,255,255,0.7)", maxWidth: "600px", margin: "0 auto 32px" }}>
             Установите расширение eyeCARD и начните анализ прямо сейчас
           </p>
           <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "16px 48px" }}>
