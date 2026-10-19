@@ -67,14 +67,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                     style={{
                       color: "var(--cobalt-primary)",
                       textDecoration: "none",
-                      transition: "color 0.2s",
                     }}
-                    onMouseOver={(e) =>
-                      (e.currentTarget.style.color = "var(--accent)")
-                    }
-                    onMouseOut={(e) =>
-                      (e.currentTarget.style.color = "var(--cobalt-primary)")
-                    }
                   >
                     {item.label}
                   </Link>
