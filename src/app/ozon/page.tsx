@@ -17,6 +17,10 @@ export default function OzonPage() {
       heroTitle={<>Анализ карточки <span className="accent-text">Ozon</span></>}
       heroAlt="Анализ карточки Ozon — eyeCARD"
       heroDescription="ИИ-анализ карточек товаров на Ozon: найдите <span className='accent-text'>визуальные ошибки</span>, оцените соответствие целевой аудитории и получите рекомендации по повышению <span className='accent-text'>CTR</span>. Научный подход на основе психологии покупателей."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Анализ карточки Ozon" },
+      ]}
       benefits={[
         {
           icon: "🎯",

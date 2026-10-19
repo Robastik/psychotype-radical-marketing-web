@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { guideData } from "@/app/guide/data/guide-data";
 import GuideSidebar from "@/app/guide/components/GuideSidebar";
 import styles from "./guide.module.css";
@@ -14,6 +15,10 @@ export default function GuideIndexPage() {
   return (
     <div className={styles.guidePage}>
       <Header />
+      <Breadcrumbs items={[
+        { label: "Главная", href: "/" },
+        { label: "Методический справочник" },
+      ]} />
       <div className={styles.guideContainer}>
         <GuideSidebar />
         <main className={styles.guideMain}>

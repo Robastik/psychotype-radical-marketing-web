@@ -12,6 +12,10 @@ export default function VizualnyAuditPage() {
       heroTitle={<>Визуальный <span className="accent-text">аудит</span></>}
       heroAlt="Визуальный аудит карточки товара — AI-проверка | eyeCARD"
       heroDescription="Визуальный аудит карточки товара с помощью <span className='accent-text'>AI</span>: проверка дизайна, цветов, композиции, соответствие <span className='accent-text'>целевой аудитории</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Визуальный аудит" },
+      ]}
       benefits={[
         { icon: "👁️", title: "Комплексная проверка", description: "Аудит всех визуальных элементов: цвета, формы, шрифты, композиция, графика, сюжет." },
         { icon: "📊", title: "Объективная оценка", description: "Количественная метрика ICC вместо субъективных мнений. Цифры, которым можно доверять." },

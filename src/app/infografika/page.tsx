@@ -12,6 +12,10 @@ export default function InfografikaPage() {
       heroTitle={<>Анализ <span className="accent-text">инфографики</span></>}
       heroAlt="Анализ инфографики карточки товара — eyeCARD"
       heroDescription="Проанализируйте <span className='accent-text'>инфографику карточки товара</span>: ошибки визуала, рекомендации по улучшению, повышение <span className='accent-text'>CTR</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Анализ инфографики" },
+      ]}
       benefits={[
         { icon: "🖼️", title: "Разбор инфографики", description: "Детальный анализ каждого слайда: композиция, текст, цвета, читабельность." },
         { icon: "📝", title: "Проверка текста", description: "Оценка текста на слайдах: читабельность, иерархия, соответствие ЦА." },

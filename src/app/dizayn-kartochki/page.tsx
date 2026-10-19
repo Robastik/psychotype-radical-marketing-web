@@ -12,6 +12,10 @@ export default function DizaynKartochkiPage() {
       heroTitle={<>Дизайн <span className="accent-text">карточки товара</span></>}
       heroAlt="Дизайн карточки товара — улучшение визуала | eyeCARD"
       heroDescription="Улучшите дизайн карточки товара на основе <span className='accent-text'>AI-анализа</span>: рекомендации по визуалу, цветам, композиции для повышения <span className='accent-text'>CTR</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Дизайн карточки товара" },
+      ]}
       benefits={[
         { icon: "🎨", title: "Научный подход", description: "Дизайн на основе когнитивной психологии и нейромаркетинга, а не субъективных мнений." },
         { icon: "📐", title: "6 визуальных слоёв", description: "Анализ цветов, форм, шрифтов, композиции, графики и сюжета — каждый элемент оптимизирован." },

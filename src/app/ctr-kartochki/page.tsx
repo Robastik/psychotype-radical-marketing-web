@@ -12,6 +12,10 @@ export default function CtrKartochkiPage() {
       heroTitle={<>Увеличение <span className="accent-text">CTR карточки</span></>}
       heroAlt="Увеличение CTR карточки товара с AI — eyeCARD"
       heroDescription="Увеличьте <span className='accent-text'>CTR карточки товара</span> с помощью AI-анализа: советы по повышению кликабельности на <span className='accent-text'>Wildberries и Ozon</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Увеличение CTR карточки" },
+      ]}
       benefits={[
         { icon: "📈", title: "Рост CTR", description: "Средний рост CTR после внедрения рекомендаций eyeCARD — 15-25% за счёт улучшения визуала." },
         { icon: "🎯", title: "Точное попадание", description: "Дизайн, который выделяется в выдаче и привлекает внимание именно вашей целевой аудитории." },

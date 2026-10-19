@@ -5,6 +5,7 @@ import styles from "../guide.module.css";
 import type { GuideDoc } from "@/app/guide/data/types";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 import GuideSidebar from "./GuideSidebar";
 import GuideHeader from "./GuideHeader";
 import TableOfContents from "./TableOfContents";
@@ -20,6 +21,11 @@ export default function GuideLayout({ doc }: GuideLayoutProps) {
   return (
     <div className={styles.guidePage}>
       <Header />
+      <Breadcrumbs items={[
+        { label: "Главная", href: "/" },
+        { label: "Справочник", href: "/guide" },
+        { label: doc.title },
+      ]} />
       <div className={styles.guideContainer}>
         <GuideSidebar currentCode={doc.code} />
         <main className={styles.guideMain}>

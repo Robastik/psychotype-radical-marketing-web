@@ -12,6 +12,10 @@ export default function AnalizKonkurentovPage() {
       heroTitle={<>Анализ <span className="accent-text">конкурентов</span></>}
       heroAlt="Анализ конкурентов — сравнение карточек товаров | eyeCARD"
       heroDescription="Сравните карточки товаров с <span className='accent-text'>конкурентами</span>: найдите сильные и слабые стороны, выявите <span className='accent-text'>незанятые ниши</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Анализ конкурентов" },
+      ]}
       benefits={[
         { icon: "🔍", title: "Сравнение карточек", description: "Проанализируйте 10-15 карточек конкурентов и сравните их ICC." },
         { icon: "📊", title: "Психотипическая карта", description: "Узнайте, какие радикалы доминируют в выдаче, а какие — незаняты." },

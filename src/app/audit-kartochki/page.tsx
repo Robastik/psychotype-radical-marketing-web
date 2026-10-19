@@ -12,6 +12,10 @@ export default function AuditKartochkiPage() {
       heroTitle={<>Аудит <span className="accent-text">карточки товара</span></>}
       heroAlt="Аудит карточки товара с AI — eyeCARD"
       heroDescription="Найдите <span className='accent-text'>ошибки дизайна</span> карточки товара с помощью AI: визуальный аудит, анализ целевой аудитории, рекомендации по улучшению <span className='accent-text'>CTR</span>."
+      breadcrumbs={[
+        { label: "Главная", href: "/" },
+        { label: "Аудит карточки товара" },
+      ]}
       benefits={[
         { icon: "🔍", title: "Поиск ошибок", description: "Автоматический поиск визуальных ошибок: перегруз, несоответствие ЦА, слабый контраст, проблемы с типографикой." },
         { icon: "📊", title: "Оценка ICC", description: "Количественная оценка качества дизайна по метрике ICC (Индекс Когнитивного Комфорта) от 0 до 100." },

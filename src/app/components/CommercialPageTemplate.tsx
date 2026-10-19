@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "./Header";
 import Footer from "./Footer";
+import Breadcrumbs from "./Breadcrumbs";
 
 interface Benefit {
   icon: string;
@@ -28,6 +29,11 @@ interface RelatedArticle {
   description: string;
 }
 
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
 interface CommercialPageTemplateProps {
   heroTitle: React.ReactNode;
   heroAlt: string;
@@ -39,6 +45,7 @@ interface CommercialPageTemplateProps {
   relatedArticles: RelatedArticle[];
   ctaText?: string;
   ctaLink?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 export default function CommercialPageTemplate({
@@ -52,10 +59,13 @@ export default function CommercialPageTemplate({
   relatedArticles,
   ctaText = "Установить расширение",
   ctaLink = "https://chromewebstore.google.com/detail/eyecard/fdmglgodmnjklcbkdjmnlbphccjcppdp",
+  breadcrumbs,
 }: CommercialPageTemplateProps) {
   return (
     <div className="page-wrapper">
       <Header />
+
+      {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
 
       <main className="main-content">
         {/* Hero Section — как на главной */}
