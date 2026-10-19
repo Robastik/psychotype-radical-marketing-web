@@ -3,7 +3,7 @@ import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
 
 export const metadata: Metadata = {
   title: "Визуальный аудит карточки товара — AI-проверка | eyeCARD",
-  description: "Визуальный аудит карточки товара с помощью AI: проверка дизайна, цветов, композиции, соответствие целевой аудитории.",
+  description: "Визуальный аудит карточки товара с помощью AI: проверка дизайна, цветов, композиции, соответствие целевой аудитории. Получите рекомендации по улучшению.",
 };
 
 export default function VizualnyAuditPage() {

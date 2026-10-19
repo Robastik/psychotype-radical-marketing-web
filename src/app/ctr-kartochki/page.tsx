@@ -3,7 +3,7 @@ import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
 
 export const metadata: Metadata = {
   title: "Как увеличить CTR карточки товара — советы AI | eyeCARD",
-  description: "Увеличьте CTR карточки товара с помощью AI-анализа: советы по повышению кликабельности на Wildberries и Ozon.",
+  description: "Увеличьте CTR карточки товара с помощью AI-анализа: советы по повышению кликабельности, улучшению визуала и дизайна для роста продаж на Wildberries и Ozon.",
 };
 
 export default function CtrKartochkiPage() {

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
 
 export const metadata: Metadata = {
-  title: "Анализ инфографики карточки товара | eyeCARD",
-  description: "Проанализируйте инфографику карточки товара: ошибки визуала, рекомендации по улучшению, повышение CTR.",
+  title: "Анализ инфографики карточки товара — AI-проверка | eyeCARD",
+  description: "Проанализируйте инфографику карточки товара с помощью AI: найдите ошибки визуала, получите рекомендации по улучшению дизайна и повышению CTR.",
 };
 
 export default function InfografikaPage() {

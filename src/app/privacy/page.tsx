@@ -5,8 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности — eyeCARD",
-  description: "Политика конфиденциальности и обработки персональных данных сервиса ИИ-анализа карточек товаров eyeCARD.",
+  title: "Политика конфиденциальности — обработка данных | eyeCARD",
+  description: "Политика конфиденциальности и обработки персональных данных сервиса ИИ-анализа карточек товаров eyeCARD: какие данные собираем, как используем и защищаем.",
   alternates: {
     canonical: "https://eyecard.ru/privacy",
     languages: {

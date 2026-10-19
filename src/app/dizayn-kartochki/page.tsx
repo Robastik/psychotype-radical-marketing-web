@@ -3,7 +3,7 @@ import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
 
 export const metadata: Metadata = {
   title: "Дизайн карточки товара — улучшение визуала | eyeCARD",
-  description: "Улучшите дизайн карточки товара на основе AI-анализа: рекомендации по визуалу, цветам, композиции для повышения CTR.",
+  description: "Улучшите дизайн карточки товара на основе AI-анализа: рекомендации по визуалу, цветам, композиции, типографике для повышения CTR и продаж на Wildberries и Ozon.",
 };
 
 export default function DizaynKartochkiPage() {

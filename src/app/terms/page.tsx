@@ -5,8 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Пользовательское соглашение — eyeCARD",
-  description: "Условия использования сервиса ИИ-анализа карточек товаров Wildberries и Ozon eyeCARD.",
+  title: "Пользовательское соглашение — условия | eyeCARD",
+  description: "Условия использования сервиса ИИ-анализа карточек товаров Wildberries и Ozon eyeCARD: права, обязанности, ответственность сторон и порядок оказания услуг.",
 };
 
 export default function TermsOfService() {

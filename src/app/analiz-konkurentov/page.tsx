@@ -3,7 +3,7 @@ import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
 
 export const metadata: Metadata = {
   title: "Анализ конкурентов — сравнение карточек товаров | eyeCARD",
-  description: "Сравните карточки товаров с конкурентами: найдите сильные и слабые стороны, выявите незанятые ниши.",
+  description: "Сравните карточки товаров с конкурентами на Wildberries и Ozon: найдите сильные и слабые стороны, выявите незанятые ниши и постройте стратегию выхода на рынок.",
 };
 
 export default function AnalizKonkurentovPage() {

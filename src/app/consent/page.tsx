@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Согласие на обработку персональных данных — eyeCARD",
-  description: "Форма согласия на обработку персональных данных пользователей сервиса eyeCARD.",
+  description: "Форма согласия на обработку персональных данных пользователей сервиса ИИ-анализа карточек товаров eyeCARD: условия, цели обработки и права пользователей.",
 };
 
 export default function ConsentPage() {

@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
-  title: "Поддержка — eyeCARD",
-  description: "Служба поддержки сервиса ИИ-анализа карточек товаров eyeCARD: контакты и время ответа.",
+  title: "Служба поддержки — контакты и помощь пользователям | eyeCARD",
+  description: "Служба поддержки сервиса ИИ-анализа карточек товаров eyeCARD: свяжитесь с нами для получения помощи, ответов на вопросы и решения технических проблем.",
 };
 
 export default function Support() {
