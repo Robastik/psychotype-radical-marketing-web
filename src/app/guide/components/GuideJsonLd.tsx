@@ -1,13 +1,33 @@
 import JsonLd from "@/app/components/JsonLd";
 
 // Article schema for guide [code] pages
-export function ArticleJsonLd({ title, description, url }: { title: string; description: string; url: string }) {
+export function ArticleJsonLd({
+  title,
+  description,
+  url,
+  author,
+  publishedAt,
+  updatedAt,
+}: {
+  title: string;
+  description: string;
+  url: string;
+  author?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+}) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description,
     url: url.startsWith('http') ? url : `https://eyecard.ru${url}`,
+    author: {
+      '@type': 'Organization',
+      name: author || 'eyeCARD',
+    },
+    ...(publishedAt && { datePublished: publishedAt }),
+    ...(updatedAt && { dateModified: updatedAt }),
     publisher: {
       '@type': 'Organization',
       name: 'eyeCARD',

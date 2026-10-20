@@ -118,6 +118,18 @@ export interface GuideDoc {
   shortTitle: string;
   essence: string;
   blocks: GuideBlock[];
+  // SEO поля (генерируются автоматически)
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+  // Метаданные для E-E-A-T
+  author?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  // FAQ для структурированных данных
+  faq?: Array<{ question: string; answer: string }>;
 }
 
 export interface GuideSubsection {

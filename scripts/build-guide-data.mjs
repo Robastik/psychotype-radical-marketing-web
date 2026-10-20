@@ -509,6 +509,22 @@ function parseDocFile(content, validCodes) {
     shortTitle,
     essence,
     blocks: specialBlocks,
+    // SEO поля (генерируются автоматически)
+    seo: {
+      title: `${title} — Методика eyeCARD`,
+      description: essence || `${shortTitle}. Научная методология анализа карточек товаров от команды eyeCARD.`,
+      keywords: [
+        shortTitle.toLowerCase(),
+        "анализ карточки товара",
+        "методология eyeCARD",
+        "психология покупателя",
+        section.toLowerCase(),
+      ].filter((k, i, arr) => arr.indexOf(k) === i), // уникальные
+    },
+    // Метаданные для E-E-A-T
+    author: "Команда eyeCARD",
+    publishedAt: "2026-10-15",
+    updatedAt: new Date().toISOString().split("T")[0],
   };
 }
 

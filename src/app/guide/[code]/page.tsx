@@ -13,13 +13,23 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   if (!doc) {
     return { title: "Документ не найден — Справочник eyeCARD" };
   }
+
+  // Используем SEO поля, если они есть, иначе fallback на старые значения
+  const seoTitle = doc.seo?.title || `${doc.title} — Справочник eyeCARD`;
+  const seoDescription = doc.seo?.description || doc.essence;
+
   return {
-    title: `${doc.title} — Справочник eyeCARD`,
-    description: doc.essence,
+    title: seoTitle,
+    description: seoDescription,
+    keywords: doc.seo?.keywords?.join(", "),
+    authors: [{ name: doc.author || "Команда eyeCARD" }],
     openGraph: {
-      title: `${doc.title} — Справочник eyeCARD`,
-      description: doc.essence,
+      title: seoTitle,
+      description: seoDescription,
       type: "article",
+      publishedTime: doc.publishedAt,
+      modifiedTime: doc.updatedAt,
+      authors: [doc.author || "Команда eyeCARD"],
       images: [
         {
           url: `/guide/${code}/opengraph-image`,
@@ -31,8 +41,8 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
     },
     twitter: {
       card: "summary_large_image",
-      title: `${doc.title} — Справочник eyeCARD`,
-      description: doc.essence,
+      title: seoTitle,
+      description: seoDescription,
     },
   };
 }
@@ -47,8 +57,11 @@ export default async function GuideDocPage({ params }: { params: Promise<{ code:
     <>
       <ArticleJsonLd
         title={doc.title}
-        description={doc.essence}
+        description={doc.seo?.description || doc.essence}
         url={`/guide/${code}`}
+        author={doc.author}
+        publishedAt={doc.publishedAt}
+        updatedAt={doc.updatedAt}
       />
       <BreadcrumbJsonLd
         items={[
