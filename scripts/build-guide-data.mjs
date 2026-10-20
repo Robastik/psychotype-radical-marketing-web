@@ -466,6 +466,79 @@ function inlineToPlain(segments) {
     .join("");
 }
 
+function cleanMythStatement(statement) {
+  let s = statement.trim();
+  // Убираем служебный префикс
+  s = s.replace(/^Популярное искажение:\s*/i, "");
+  // Снимаем внешние кавычки «...»
+  const quoted = s.match(/^«([\s\S]+)»\.?$/);
+  if (quoted) s = quoted[1];
+  // Убираем точку в конце
+  s = s.replace(/\.$/, "").trim();
+  return s;
+}
+
+function cleanMythTruth(truth) {
+  return truth.trim().replace(/^Правильно:\s*/i, "").trim();
+}
+
+// Генерация FAQ из структурированных блоков статьи (essence / myth / action)
+function buildFaq(specialBlocks, shortTitle, essence) {
+  const faq = [];
+
+  // 1. Вопрос о сути статьи
+  if (essence && essence.length >= 40) {
+    faq.push({
+      question: `О чём статья «${shortTitle}»?`,
+      answer: essence,
+    });
+  }
+
+  // 2. Вопросы из мифов (не более 2)
+  const mythBlock = specialBlocks.find((b) => b.type === "myth");
+  if (mythBlock) {
+    for (const item of mythBlock.items.slice(0, 2)) {
+      const claim = cleanMythStatement(item.statement);
+      const truth = cleanMythTruth(item.truth);
+      if (!claim || !truth) continue;
+      let question;
+      if (claim.endsWith("?")) {
+        // Утверждение уже в форме вопроса
+        question = claim;
+      } else {
+        // Форма «{утверждение} — правда или миф?» сохраняет регистр
+        // и корректна для любых утверждений (в т.ч. начинающихся с «Чтобы…»)
+        let core = claim;
+        if (core.includes(". ")) {
+          // Многосоставное утверждение — берём первое предложение, если оно самодостаточное
+          const firstSentence = core.split(". ")[0].trim();
+          if (firstSentence.length >= 15) core = firstSentence;
+        }
+        question = `${core} — правда или миф?`;
+      }
+      faq.push({ question, answer: truth });
+    }
+  }
+
+  // 3. Вопрос о практическом применении
+  const actionBlock = specialBlocks.find((b) => b.type === "action");
+  if (actionBlock && actionBlock.items.length > 0) {
+    const steps = actionBlock.items
+      .slice(0, 3)
+      .map((segs, i) => `${i + 1}) ${inlineToPlain(segs)}`)
+      .join(" ");
+    if (steps.length > 40) {
+      faq.push({
+        question: "Как применить эти знания на практике?",
+        answer: steps,
+      });
+    }
+  }
+
+  // FAQ имеет смысл только из 2+ вопросов
+  return faq.length >= 2 ? faq : [];
+}
+
 function parseDocFile(content, validCodes) {
   const lines = content.split(/\r?\n/);
   const titleLine = lines.find((l) => l.trim().startsWith("# "));
@@ -525,6 +598,8 @@ function parseDocFile(content, validCodes) {
     author: "Команда eyeCARD",
     publishedAt: "2026-10-15",
     updatedAt: new Date().toISOString().split("T")[0],
+    // FAQ для структурированных данных (генерируется из essence / myth / action блоков)
+    faq: buildFaq(specialBlocks, shortTitle, essence),
   };
 }
 

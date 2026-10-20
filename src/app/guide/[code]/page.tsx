@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getGuideDoc, getAllGuideCodes } from "@/app/guide/data/guide-data";
 import GuideLayout from "@/app/guide/components/GuideLayout";
-import { ArticleJsonLd, BreadcrumbJsonLd } from "@/app/guide/components/GuideJsonLd";
+import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from "@/app/guide/components/GuideJsonLd";
 
 export function generateStaticParams() {
   return getAllGuideCodes().map((code) => ({ code }));
@@ -69,6 +69,7 @@ export default async function GuideDocPage({ params }: { params: Promise<{ code:
           { name: doc.title, url: `/guide/${code}` },
         ]}
       />
+      {doc.faq && doc.faq.length > 0 && <FaqJsonLd items={doc.faq} />}
       <GuideLayout doc={doc} />
     </>
   );

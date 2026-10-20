@@ -32,6 +32,21 @@ export default function GuideLayout({ doc }: GuideLayoutProps) {
           <article className={styles.guideContent}>
             <GuideHeader doc={doc} />
             <MarkdownRenderer blocks={doc.blocks} />
+            {doc.faq && doc.faq.length > 0 && (
+              <section className={styles.faq} aria-labelledby="guide-faq-heading">
+                <h2 className={styles.faqLabel} id="guide-faq-heading">
+                  Частые вопросы
+                </h2>
+                <div className={styles.faqList}>
+                  {doc.faq.map((item, index) => (
+                    <details key={index} className={styles.faqItem}>
+                      <summary className={styles.faqQuestion}>{item.question}</summary>
+                      <p className={styles.faqAnswer}>{item.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
           </article>
         </main>
         <aside className={styles.guideToc}>

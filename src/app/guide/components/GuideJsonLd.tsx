@@ -45,6 +45,24 @@ export function ArticleJsonLd({
   return <JsonLd data={data} />;
 }
 
+// FAQPage schema for guide [code] pages
+export function FaqJsonLd({ items }: { items: Array<{ question: string; answer: string }> }) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
+  return <JsonLd data={data} />;
+}
+
 // BreadcrumbList schema for guide pages
 export function BreadcrumbJsonLd({ items }: { items: Array<{ name: string; url: string }> }) {
   const data = {
