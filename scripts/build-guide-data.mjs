@@ -338,21 +338,26 @@ function extractSpecialBlocks(blocks, validCodes) {
   }
 
   for (const block of blocks) {
-    // 1. Heading starts a new special block → flush all active blocks first
-    if (block.type === "heading" && block.text.startsWith("Суть за 30 секунд")) {
+    // 1. Heading starts a new special block → flush all active blocks first.
+    // Только заголовки уровня ≤2: вложенные секции вроде «### Как на самом деле: ...»
+    // или «### Что делать при каждом уровне» — обычный контент, а не спец-блоки.
+    const isSpecialHeading =
+      block.type === "heading" && block.level <= 2;
+
+    if (isSpecialHeading && block.text.startsWith("Суть за 30 секунд")) {
       flushAll();
       currentEssence = { type: "essence", content: [] };
       continue;
     }
 
-    if (block.type === "heading" && block.text.startsWith("Как на самом деле")) {
+    if (isSpecialHeading && block.text.startsWith("Как на самом деле")) {
       flushAll();
       currentMyth = { type: "myth", items: [] };
       currentMythBuffer = [];
       continue;
     }
 
-    if (block.type === "heading" && isActionHeading(block.text)) {
+    if (isSpecialHeading && isActionHeading(block.text)) {
       flushAll();
       currentAction = { type: "action", items: [] };
       continue;
@@ -375,23 +380,55 @@ function extractSpecialBlocks(blocks, validCodes) {
     if (isReadMore(block)) {
       flushAll();
       const links = [];
-      // Extract cross-links from segments directly (crossLinks already parsed),
-      // plus scan text/strong segments for bracketed codes that weren't converted.
+      // Подписи в markdown пишутся СНАРУЖИ скобок: «анонс → [КОД] · анос → [КОД]».
+      // Накапливаем текст между ссылками и используем последний фрагмент (после «·»)
+      // как анонс очередной ссылки.
+      let pendingText = "";
+
+      const resolveCode = (rawCode) => {
+        if (validCodes.has(rawCode)) return rawCode;
+        // Диапазон вида III.1–III.7 → первый код диапазона, если он существует
+        const rangeMatch = rawCode.match(/^([A-Z0-9]+(?:\.[0-9]+)*)[–-]/);
+        if (rangeMatch && validCodes.has(rangeMatch[1])) return rangeMatch[1];
+        return null;
+      };
+
+      const takeLabel = () => {
+        let t = pendingText;
+        t = t.replace(/^\s*Читайте также:\s*/i, "");
+        const parts = t.split("·");
+        let label = parts[parts.length - 1].trim();
+        label = label.replace(/[\s→>]+$/, "").trim();
+        pendingText = "";
+        return label;
+      };
+
       for (const seg of block.content) {
         if (seg.type === "crossLink") {
-          if (validCodes.has(seg.code)) {
-            links.push({ code: seg.code, label: seg.label || seg.code });
+          const code = resolveCode(seg.code);
+          if (code) {
+            const label = seg.label || takeLabel();
+            links.push({ code, label: label || code });
+          } else {
+            pendingText = "";
           }
-        } else if (seg.type === "text" || seg.type === "strong") {
-          let match;
+        } else if (seg.type === "text" || seg.type === "strong" || seg.type === "em") {
+          // Скобочные коды, не превращённые в crossLink (диапазоны и т.п.), остаются в тексте
           const crossRegex = new RegExp(CROSS_LINK_REGEX.source, "g");
+          let match;
+          let lastIndex = 0;
           while ((match = crossRegex.exec(seg.content)) !== null) {
-            const label = match[1] ? match[1].replace(/[\s→>]+$/, "").trim() : undefined;
-            const code = match[2];
-            if (validCodes.has(code)) {
+            pendingText += seg.content.slice(lastIndex, match.index);
+            lastIndex = crossRegex.lastIndex;
+            const code = resolveCode(match[2]);
+            if (code) {
+              const label = match[1] ? match[1].replace(/[\s→>]+$/, "").trim() : takeLabel();
               links.push({ code, label: label || code });
             }
           }
+          pendingText += seg.content.slice(lastIndex);
+        } else {
+          pendingText = "";
         }
       }
       result.push({ type: "readMore", links });
@@ -674,6 +711,38 @@ function compareCodes(a, b) {
   return 0;
 }
 
+// Дополнение коротких анонсов «Читайте также» заголовком целевой статьи.
+// Правила: анонс уже содержит заголовок цели (или сильно с ним пересекается) →
+// заменяем на полный заголовок; иначе склеиваем «анонс — заголовок».
+function enrichReadMoreLabels(docs) {
+  const titleByCode = new Map(docs.map((d) => [d.code, d.shortTitle]));
+  const norm = (s) => s.toLowerCase().replace(/[«»"'!?,;]/g, "").trim();
+
+  for (const doc of docs) {
+    for (const block of doc.blocks) {
+      if (block.type !== "readMore") continue;
+      block.links = block.links.map((link) => {
+        const target = titleByCode.get(link.code);
+        if (!target) return link;
+        const label = link.label;
+        // Анонса нет (fallback на код) → заголовок целевой статьи
+        if (label === link.code) return { ...link, label: target };
+        if (label.length >= 25) return link;
+        const labelNorm = norm(label);
+        const targetNorm = norm(target);
+        if (targetNorm.includes(labelNorm)) return { ...link, label: target };
+        // Совпадение ≥50% значимых слов → заголовок цели без дублирования
+        const labelWords = labelNorm.split(/\s+/).filter((w) => w.length > 3);
+        const overlap = labelWords.filter((w) => targetNorm.includes(w)).length;
+        if (labelWords.length > 0 && overlap / labelWords.length >= 0.5) {
+          return { ...link, label: target };
+        }
+        return { ...link, label: `${label} — ${target}` };
+      });
+    }
+  }
+}
+
 async function main() {
 
   const files = await fs.readdir(DOCS_DIR);
@@ -689,6 +758,7 @@ async function main() {
 
   const docs = rawDocs.map((d) => parseDocFile(d.content, validCodes));
   docs.sort((a, b) => compareCodes(a.code, b.code));
+  enrichReadMoreLabels(docs);
 
   const { sections, byCode } = buildSectionTree(docs);
 

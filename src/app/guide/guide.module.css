@@ -475,6 +475,14 @@
   color: var(--signal-silver);
 }
 
+.readMoreCode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
 /* TOC */
 .toc {
   border-left: 1px solid var(--border-color);

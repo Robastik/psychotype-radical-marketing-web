@@ -217,9 +217,10 @@ function ReadMoreBlock({
     <div className={styles.readMore}>
       <span className={styles.readMoreLabel}>Читайте также:</span>{" "}
       {links.map((link, index) => (
-        <span key={link.code}>
+        <span key={`${link.code}-${index}`}>
           <Link href={`/guide/${link.code}`} className={styles.inlineLink}>
             {link.label}
+            <span className={styles.readMoreCode}>[{link.code}]</span>
           </Link>
           {index < links.length - 1 && (
             <span className={styles.readMoreSeparator}>·</span>
