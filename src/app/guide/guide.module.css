@@ -134,6 +134,8 @@
 
 .guideMeta {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
   margin-top: 16px;
 }
@@ -160,6 +162,15 @@
   border: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   color: var(--text-muted);
+}
+
+.guideDate {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .guideTitle {

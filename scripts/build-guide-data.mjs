@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,56 @@ async function docsDir() {
 const DOCS_DIR = await docsDir();
 const OUT_DIR = path.resolve(ROOT, "src", "app", "guide", "data");
 const OUT_FILE = path.join(OUT_DIR, "guide-data.ts");
+
+// Даты документа из git-истории (E-E-A-T: честные publishedAt/updatedAt).
+// publishedAt = дата ПЕРВОГО коммита файла (--follow учитывает переименования),
+// updatedAt = дата ПОСЛЕДНЕГО коммита. В shallow-клоне (CI без fetch-depth: 0)
+// история неполна и даты фиктивны — тогда откат на фиксированную дату.
+const FALLBACK_PUBLISHED = "2026-10-15";
+const gitDatesCache = new Map();
+let shallowRepo = null;
+
+function isShallowRepo(cwd) {
+  if (shallowRepo === null) {
+    try {
+      shallowRepo =
+        execFileSync("git", ["rev-parse", "--is-shallow-repository"], {
+          cwd,
+          encoding: "utf8",
+        }).trim() === "true";
+    } catch {
+      shallowRepo = true; // git недоступен — считаем историю недостоверной
+    }
+  }
+  return shallowRepo;
+}
+
+function gitFileDates(filePath) {
+  const fallback = { first: FALLBACK_PUBLISHED, last: FALLBACK_PUBLISHED };
+  if (!filePath) return fallback;
+  if (gitDatesCache.has(filePath)) return gitDatesCache.get(filePath);
+
+  let dates = fallback;
+  try {
+    const cwd = path.dirname(filePath);
+    if (!isShallowRepo(cwd)) {
+      // %as = author date в формате YYYY-MM-DD; вывод git log — от новых к старым
+      const log = execFileSync(
+        "git",
+        ["log", "--follow", "--format=%as", "--", filePath],
+        { cwd, encoding: "utf8" }
+      );
+      const list = log.trim().split("\n").filter(Boolean);
+      if (list.length > 0) {
+        dates = { first: list[list.length - 1], last: list[0] };
+      }
+    }
+  } catch {
+    // файл вне git или ошибка git — остаётся fallback
+  }
+  gitDatesCache.set(filePath, dates);
+  return dates;
+}
 
 const CROSS_LINK_REGEX = /\[((?:[^\]\n→]+?)\s*[→>]\s*)?([A-Z0-9]+(?:\.[0-9]+)*(?:[-–][A-Z0-9]+(?:\.[0-9]+)*)?)\]/;
 function parseInline(text, validCodes = new Set()) {
@@ -576,7 +627,8 @@ function buildFaq(specialBlocks, shortTitle, essence) {
   return faq.length >= 2 ? faq : [];
 }
 
-function parseDocFile(content, validCodes) {
+function parseDocFile(content, validCodes, filePath) {
+  const docDates = gitFileDates(filePath);
   const lines = content.split(/\r?\n/);
   const titleLine = lines.find((l) => l.trim().startsWith("# "));
   const rawTitle = titleLine ? titleLine.replace(/^#\s*/, "").trim() : "";
@@ -631,10 +683,12 @@ function parseDocFile(content, validCodes) {
         section.toLowerCase(),
       ].filter((k, i, arr) => arr.indexOf(k) === i), // уникальные
     },
-    // Метаданные для E-E-A-T
+    // Метаданные для E-E-A-T: даты из git-истории файла (см. gitFileDates).
+    // updatedAt больше никогда не «сегодня»: раньше каждая пересборка
+    // обновляла дату всех 112 статей — для Google это манипуляция свежестью.
     author: "Команда eyeCARD",
-    publishedAt: "2026-10-15",
-    updatedAt: new Date().toISOString().split("T")[0],
+    publishedAt: docDates.first,
+    updatedAt: docDates.last,
     // FAQ для структурированных данных (генерируется из essence / myth / action блоков)
     faq: buildFaq(specialBlocks, shortTitle, essence),
   };
@@ -761,7 +815,9 @@ async function main() {
 
   const validCodes = new Set(rawDocs.map((d) => parseDocFile(d.content, new Set()).code));
 
-  const docs = rawDocs.map((d) => parseDocFile(d.content, validCodes));
+  const docs = rawDocs.map((d) =>
+    parseDocFile(d.content, validCodes, path.join(DOCS_DIR, d.file))
+  );
   docs.sort((a, b) => compareCodes(a.code, b.code));
   enrichReadMoreLabels(docs);
 

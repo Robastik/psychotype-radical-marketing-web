@@ -30,14 +30,9 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
       publishedTime: doc.publishedAt,
       modifiedTime: doc.updatedAt,
       authors: [doc.author || "Команда eyeCARD"],
-      images: [
-        {
-          url: `/guide/${code}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: doc.title,
-        },
-      ],
+      // og:image задаётся файловым соглашением ./opengraph-image.tsx — Next
+      // сам вставит абсолютный URL статического PNG. Ручной массив images
+      // здесь указывал на несуществующий файл и давал og:image → 404.
     },
     twitter: {
       card: "summary_large_image",
