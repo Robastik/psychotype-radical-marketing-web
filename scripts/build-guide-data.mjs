@@ -665,7 +665,12 @@ function buildSectionTree(docs) {
 
     const parts = doc.code.split(".");
     const subsectionCode = parts.slice(0, 2).join(".");
-    let subsection = section.subsections.find((s) => s.code === subsectionCode);
+    // Группировка подразделов: если в «Раздел:» объявлено название подраздела —
+    // группируем по нему (квадранты секции IV: «Независимость» и т.п. содержат
+    // документы с разными префиксами кодов IV.2–IV.4), иначе — по префиксу кода.
+    let subsection = sectionParts[1]
+      ? section.subsections.find((s) => s.title === subsectionTitle)
+      : section.subsections.find((s) => s.code === subsectionCode);
     if (!subsection) {
       subsection = {
         code: subsectionCode,
