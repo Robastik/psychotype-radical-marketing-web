@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getGuideDoc, getAllGuideCodes } from "@/app/guide/data/guide-data";
 import GuideLayout from "@/app/guide/components/GuideLayout";
 import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from "@/app/guide/components/GuideJsonLd";
+import { pageSeo } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getAllGuideCodes().map((code) => ({ code }));
@@ -18,26 +19,26 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   const seoTitle = doc.seo?.title || `${doc.title} — Справочник eyeCARD`;
   const seoDescription = doc.seo?.description || doc.essence;
 
-  return {
+  // ogImage: false — не объявлять images в metadata, чтобы работало файловое
+  // соглашение ./opengraph-image.tsx (112 PNG по одному на документ).
+  // Canonical здесь раньше приходил из корневого layout и был равен главной.
+  const seo = pageSeo({
+    path: `/guide/${code}`,
+    ogType: "article",
+    ogImage: false,
     title: seoTitle,
     description: seoDescription,
-    keywords: doc.seo?.keywords?.join(", "),
+    keywords: doc.seo?.keywords,
+  });
+
+  return {
+    ...seo,
     authors: [{ name: doc.author || "Команда eyeCARD" }],
     openGraph: {
-      title: seoTitle,
-      description: seoDescription,
-      type: "article",
+      ...seo.openGraph,
       publishedTime: doc.publishedAt,
       modifiedTime: doc.updatedAt,
       authors: [doc.author || "Команда eyeCARD"],
-      // og:image задаётся файловым соглашением ./opengraph-image.tsx — Next
-      // сам вставит абсолютный URL статического PNG. Ручной массив images
-      // здесь указывал на несуществующий файл и давал og:image → 404.
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: seoTitle,
-      description: seoDescription,
     },
   };
 }

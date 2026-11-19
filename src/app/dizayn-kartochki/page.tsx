@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/dizayn-kartochki",
   title: "Дизайн карточки товара — улучшение визуала | eyeCARD",
   description: "Улучшите дизайн карточки товара на основе AI-анализа: рекомендации по визуалу, цветам, композиции, типографике для повышения CTR и продаж на Wildberries и Ozon.",
-};
+});
 
 export default function DizaynKartochkiPage() {
   return (

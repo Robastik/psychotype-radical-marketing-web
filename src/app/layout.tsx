@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import AnalyticsScripts from "@/app/components/AnalyticsScripts";
 import CookieConsent from "@/app/components/CookieConsent";
 import { OrganizationJsonLd } from "@/app/components/JsonLd";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     description: "ИИ-аналитика для продавцов маркетплейсов: повышение CTR карточек через анализ дизайна Wildberries и Ozon.",
     images: [
       {
-        url: "/og-image.png",
+        url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "eyeCARD — ИИ-анализ карточек товаров",
@@ -39,14 +40,20 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "eyeCARD — ИИ-анализ карточек товаров Wildberries и Ozon",
     description: "ИИ-аналитика для продавцов маркетплейсов: повышение CTR карточек через анализ дизайна.",
-    images: ["/og-image.png"],
+    images: [DEFAULT_OG_IMAGE],
   },
   icons: {
     icon: "/favicon.png",
   },
-  alternates: {
-    canonical: "https://eyecard.ru",
-  },
+  // КАНОНИЧЕСКИЙ URL ЗАДАЁТ ТОЛЬКО `pageSeo()` В КОНКРЕТНОМ МАРШРУТЕ.
+  //
+  // Здесь его быть не может: Next наследует metadata дочерним сегментам,
+  // поэтому единственный canonical в корневом layout превращал 130 из 131
+  // страницы в объявление «я — дубль https://eyecard.ru». Яндекс directive
+  // выполнял буквально: в индексе была одна главная.
+  //
+  // OpenGraph-картинка сюда тоже не возвращается: `/og-image.png` не
+  // существует (og:image отдавал 404). Дефолт — DEFAULT_OG_IMAGE в seo.ts.
 };
 
 export const viewport: Viewport = {

@@ -3,11 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/consent",
   title: "Согласие на обработку персональных данных — eyeCARD",
   description: "Форма согласия на обработку персональных данных пользователей сервиса ИИ-анализа карточек товаров eyeCARD: условия, цели обработки и права пользователей.",
-};
+});
 
 export default function ConsentPage() {
   return (

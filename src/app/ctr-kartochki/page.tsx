@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/ctr-kartochki",
   title: "Как увеличить CTR карточки товара — советы AI | eyeCARD",
   description: "Увеличьте CTR карточки товара с помощью AI-анализа: советы по повышению кликабельности, улучшению визуала и дизайна для роста продаж на Wildberries и Ozon.",
-};
+});
 
 export default function CtrKartochkiPage() {
   return (

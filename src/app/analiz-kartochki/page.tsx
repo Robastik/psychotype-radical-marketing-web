@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/analiz-kartochki",
+  ogType: "article",
   title: "Анализ карточки товара с AI — проверка онлайн | eyeCARD",
   description: "Проверьте карточку товара с помощью AI: анализ дизайна, целевой аудитории, визуального шума, CTR. Получите рекомендации по улучшению и повышению продаж.",
-  openGraph: {
-    title: "Анализ карточки товара с AI — проверить карточку онлайн | eyeCARD",
-    description: "Проверьте карточку товара с помощью AI: анализ дизайна, целевой аудитории, визуального шума, CTR и рекомендации по улучшению.",
-    type: "article",
-  },
-};
+  ogTitle: "Анализ карточки товара с AI — проверить карточку онлайн | eyeCARD",
+  ogDescription: "Проверьте карточку товара с помощью AI: анализ дизайна, целевой аудитории, визуального шума, CTR и рекомендации по улучшению.",
+});
 
 export default function AnalizKartochkiPage() {
   return (

@@ -1,9 +1,20 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { SoftwareApplicationJsonLd } from "./components/JsonLd";
+import { pageSeo } from "@/lib/seo";
+
+// Главная объявляет свой canonical сама: раньше он приходил из корневого
+// layout и доставался всем остальным маршрутам.
+export const metadata: Metadata = pageSeo({
+  path: "/",
+  title: "eyeCARD — ИИ-анализ карточек товаров Wildberries и Ozon",
+  description: "ИИ-аналитика для продавцов маркетплейсов: повышение CTR карточек через анализ дизайна Wildberries и Ozon. Оптимизация карточек товаров с научным подходом.",
+  ogDescription: "ИИ-аналитика для продавцов маркетплейсов: повышение CTR карточек через анализ дизайна Wildberries и Ozon.",
+});
 
 export default function Home() {
   return (

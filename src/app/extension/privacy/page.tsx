@@ -2,11 +2,13 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Header from "../../components/Header";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/extension/privacy",
   title: "Chrome Extension Privacy Policy — eyeCARD",
   description: "Privacy policy for the eyeCARD Chrome extension: data collection, processing, and user rights.",
-};
+});
 
 export default function ExtensionPrivacyPolicy() {
   return (

@@ -2,18 +2,17 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Header from "../../components/Header";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/en/privacy",
   title: "Privacy Policy — eyeCARD",
   description: "Privacy policy for eyeCARD — AI-powered product card analysis for Wildberries and Ozon marketplaces.",
-  alternates: {
-    canonical: "https://eyecard.ru/en/privacy",
-    languages: {
-      "en-US": "/en/privacy",
-      "ru-RU": "/privacy",
-    },
+  languages: {
+    "en-US": "/en/privacy",
+    "ru-RU": "/privacy",
   },
-};
+});
 
 export default function PrivacyPolicyEn() {
   return (

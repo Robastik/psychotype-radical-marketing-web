@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/analiz-konkurentov",
   title: "Анализ конкурентов — сравнение карточек товаров | eyeCARD",
   description: "Сравните карточки товаров с конкурентами на Wildberries и Ozon: найдите сильные и слабые стороны, выявите незанятые ниши и постройте стратегию выхода на рынок.",
-};
+});
 
 export default function AnalizKonkurentovPage() {
   return (

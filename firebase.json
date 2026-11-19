@@ -8,6 +8,13 @@
       "**/node_modules/**",
       "verify.html"
     ],
+    "redirects": [
+      {
+        "source": "/methodology",
+        "destination": "/guide",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "/verify/**",

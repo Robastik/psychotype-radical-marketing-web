@@ -4,11 +4,13 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Footer from "../components/Footer";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/terms",
   title: "Пользовательское соглашение — условия | eyeCARD",
   description: "Условия использования сервиса ИИ-анализа карточек товаров Wildberries и Ozon eyeCARD: права, обязанности, ответственность сторон и порядок оказания услуг.",
-};
+});
 
 export default function TermsOfService() {
   return (
