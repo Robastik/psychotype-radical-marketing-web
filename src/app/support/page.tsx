@@ -3,11 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/support",
   title: "Служба поддержки — контакты и помощь пользователям | eyeCARD",
   description: "Служба поддержки сервиса ИИ-анализа карточек товаров eyeCARD: свяжитесь с нами для получения помощи, ответов на вопросы и решения технических проблем.",
-};
+});
 
 export default function Support() {
   return (

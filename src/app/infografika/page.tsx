@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/infografika",
   title: "Анализ инфографики карточки товара — AI-проверка | eyeCARD",
   description: "Проанализируйте инфографику карточки товара с помощью AI: найдите ошибки визуала, получите рекомендации по улучшению дизайна и повышению CTR.",
-};
+});
 
 export default function InfografikaPage() {
   return (

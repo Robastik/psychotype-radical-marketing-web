@@ -4,18 +4,17 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Footer from "../components/Footer";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/privacy",
   title: "Политика конфиденциальности — обработка данных | eyeCARD",
   description: "Политика конфиденциальности и обработки персональных данных сервиса ИИ-анализа карточек товаров eyeCARD: какие данные собираем, как используем и защищаем.",
-  alternates: {
-    canonical: "https://eyecard.ru/privacy",
-    languages: {
-      "ru-RU": "/privacy",
-      "en-US": "/en/privacy",
-    },
+  languages: {
+    "ru-RU": "/privacy",
+    "en-US": "/en/privacy",
   },
-};
+});
 
 export default function PrivacyPolicy() {
   return (

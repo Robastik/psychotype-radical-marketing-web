@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/audit-kartochki",
   title: "Аудит карточки товара — найти ошибки дизайна | eyeCARD",
   description: "Найдите ошибки дизайна карточки товара с помощью AI: визуальный аудит, анализ целевой аудитории, рекомендации по улучшению CTR.",
-};
+});
 
 export default function AuditKartochkiPage() {
   return (

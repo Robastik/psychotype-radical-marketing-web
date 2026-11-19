@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import CommercialPageTemplate from "@/app/components/CommercialPageTemplate";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageSeo({
+  path: "/wildberries",
+  ogType: "article",
   title: "Анализ карточки Wildberries с AI — аудит дизайна | eyeCARD",
   description: "Анализируйте карточки Wildberries с помощью AI: визуальный аудит, целевая аудитория, визуальный шум, CTR и рекомендации по улучшению.",
-  openGraph: {
-    title: "Анализ карточки Wildberries с AI — аудит дизайна | eyeCARD",
-    description: "Анализируйте карточки Wildberries с помощью AI: визуальный аудит, целевая аудитория, визуальный шум, CTR и рекомендации по улучшению.",
-    type: "article",
-  },
-};
+});
 
 export default function WildberriesPage() {
   return (
