@@ -182,7 +182,28 @@ describe("sitemap", () => {
       .map((e) => new Date(e.lastModified as Date).toISOString().slice(0, 10));
 
     expect(dates.length).toBeGreaterThan(10);
-    expect(new Set(dates).size).toBeGreaterThan(3);
+
+    // Проверяется именно дефект, а не красивая статистика: раньше всем URL
+    // писался один timestamp сборки. Порог «> 3 разных дат» оказался неверным —
+    // после рефакторинга, затронувшего много маршрутов одним коммитом, даты
+    // честным образом совпадают, и проверка падала именно на этом.
+    const unique = new Set(dates);
+    expect(unique.size).toBeGreaterThan(1);
+
+    // Главное же — происхождение даты: у статей lastmod обязан приходить из
+    // корпуса (git-история guide-data), а не из времени сборки sitemap.
+    const { guideData } = await import('../guide/data/guide-data');
+    const guideEntries = entries.filter((e) => String(e.url).includes("/guide/"));
+
+    expect(guideEntries.length).toBeGreaterThan(100);
+    for (const e of guideEntries) {
+      const code = String(e.url).split("/guide/")[1];
+      const expected = guideData.byCode[code]?.updatedAt;
+      const got = e.lastModified
+        ? new Date(e.lastModified as Date).toISOString().slice(0, 10)
+        : undefined;
+      expect(got).toEqual(expected);
+    }
   });
 
   it("статьи корпуса в sitemap на месте", async () => {
