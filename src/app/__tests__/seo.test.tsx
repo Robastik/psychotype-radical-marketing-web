@@ -166,15 +166,15 @@ describe("адреса статей", () => {
   // Слаг — единственный публичный адрес статьи; код корпуса (VI.1.2) остаётся
   // внутренним ключом. Пока в лендингах жили `/guide/vizualny-shum`, на проде
   // было 11 ссылок в никуда: их никто не ловил, потому что sitemap их не содержит.
-  it("в лендингах нет ссылок на несуществующие статьи", () => {
-    const fs = require("fs");
-    const path = require("path");
-    const { guideData } = require("../guide/data/guide-data");
+  it("в лендингах нет ссылок на несуществующие статьи", async () => {
+    const fs = await import("fs");
+    const path = await import("path");
+    const { guideData } = await import("../guide/data/guide-data");
     const appDir = path.join(__dirname, "..");
 
     const files: string[] = [];
     const walk = (dir: string) => {
-      for (const e of fs.readdirSync(dir, { withFileTypes: true }) as any[]) {
+      for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
         if (e.name.startsWith(".") || e.name === "node_modules" || e.name === "out") continue;
         const p = path.join(dir, e.name);
         if (e.isDirectory()) walk(p);
