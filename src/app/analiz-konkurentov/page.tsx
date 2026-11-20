@@ -39,9 +39,9 @@ export default function AnalizKonkurentovPage() {
         { question: "Можно ли анализировать конкурентов на разных площадках?", answer: "Да! Анализируйте конкурентов на Wildberries и Ozon отдельно — аудитория может различаться." },
       ]}
       relatedArticles={[
-        { title: "Конкурентный анализ", url: "/guide/konkurentny-analiz", description: "Методология анализа конкурентов." },
-        { title: "Психотипическая карта", url: "/guide/psikhotipicheskaya-karta", description: "Как построить карту выдачи." },
-        { title: "Голубой океан", url: "/guide/goluboy-okean", description: "Стратегия занятия незанятой ниши." },
+        { title: "Паспорт как инструмент аудита выдачи", url: "/guide/pasport-kak-instrument-audita-vydachi", description: "Как сравнивать карточки конкурентов по паспортным метрикам." },
+        { title: "Сводная матрица: радикал × элемент карточки", url: "/guide/svodnaya-matritsa-radikal-element-kartochki", description: "Какой радикал за какой элемент карточки отвечает." },
+        { title: "Четыре оси смысла", url: "/guide/chetyre-osi-smysla", description: "Где искать незанятую позицию: оси смысла в выдаче." },
       ]}
     />
   );

@@ -28,7 +28,7 @@ export const SITE_ORIGIN = "https://eyecard.ru";
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/opengraph-image`;
 
 export interface PageSeoInput {
-  /** Без домена: "/ozon", "/guide/I.1.1". "/" — главная. */
+  /** Без домена: "/ozon", "/guide/kak-chitat-vizualnyy-pasport". "/" — главная. */
   path: string;
   title: string;
   description: string;

@@ -162,17 +162,17 @@ export default function PromtyDlyaKartochkiPage() {
       relatedArticles={[
         {
           title: "Семь «линз»: знакомство с радикалами-покупателями",
-          url: "/guide/I.2.3",
+          url: "/guide/sem-linz-znakomstvo-s-radikalami-pokupatelyami",
           description: "Что вообще такое радикал-покупатель и почему их семь.",
         },
         {
           title: "Визуальные маркеры радикалов",
-          url: "/guide/II.3.3",
+          url: "/guide/vizualnye-markery-radikalov",
           description: "Какие элементы карточки какой тип считывает как свой.",
         },
         {
           title: "Экспресс-диагностика покупателя по отзывам",
-          url: "/guide/III.0.2",
+          url: "/guide/ekspress-diagnostika-pokupatelya-po-otzyvam",
           description: "Как определить доминирующий тип без долгого анализа ниши.",
         },
       ]}

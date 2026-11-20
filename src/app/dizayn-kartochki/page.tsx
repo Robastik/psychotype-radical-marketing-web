@@ -39,9 +39,9 @@ export default function DizaynKartochkiPage() {
         { question: "Подходит ли eyeCARD дизайнерам?", answer: "Да! Дизайнеры используют eyeCARD для объективной оценки своих работ и поиска точек роста." },
       ]}
       relatedArticles={[
-        { title: "Визуальные слои", url: "/guide/vizualnye-sloi", description: "6 базовых слоёв анализа дизайна карточки." },
-        { title: "Психология цвета", url: "/guide/psihologiya-tsveta", description: "Как цвета влияют на восприятие товара." },
-        { title: "Композиция карточки", url: "/guide/kompozitsiya", description: "Правила построения эффективной композиции." },
+        { title: "Анатомия карточки: 6 слоёв", url: "/guide/anatomiya-kartochki-6-sloev", description: "Как разбирать дизайн карточки по слоям, не путая их между собой." },
+        { title: "Цвет как кнопка продаж: что доказано на самом деле", url: "/guide/tsvet-kak-knopka-prodazh-chto-dokazano-na-samom-dele", description: "Как цвета влияют на восприятие — и где начинается миф." },
+        { title: "Гештальт и законы восприятия", url: "/guide/geshtalt-i-zakony-vospriyatiya", description: "Правила построения композиции карточки товара." },
       ]}
     />
   );

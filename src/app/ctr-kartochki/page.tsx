@@ -39,9 +39,9 @@ export default function CtrKartochkiPage() {
         { question: "Можно ли увеличить CTR без изменения товара?", answer: "Да! В 80% случаев рост CTR достигается только за счёт улучшения визуала — без изменения самого товара." },
       ]}
       relatedArticles={[
-        { title: "Кликабельность карточки", url: "/guide/klikabelnost", description: "Факторы, влияющие на CTR карточки товара." },
-        { title: "Визуальный шум", url: "/guide/vizualny-shum", description: "Как визуальный шум снижает кликабельность." },
-        { title: "Первое фото товара", url: "/guide/pervoe-foto", description: "Главный элемент, влияющий на CTR." },
+        { title: "Кликабельность — это психология, а не удача", url: "/guide/klikabelnost-eto-psihologiya-a-ne-udacha", description: "Что реально влияет на CTR карточки товара." },
+        { title: "Когнитивная нагрузка: почему карточка не читается", url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka", description: "Что такое визуальный шум и как он снижает CTR карточки товара." },
+        { title: "Визуальный тон: как карточка говорит без слов", url: "/guide/vizualnyy-ton-kak-kartochka-govorit-bez-slov", description: "Первое изображение задаёт тон ещё до прочтения текста." },
       ]}
     />
   );

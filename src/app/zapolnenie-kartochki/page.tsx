@@ -167,17 +167,17 @@ export default function ZapolnenieKartochkiPage() {
       relatedArticles={[
         {
           title: "Описание на языке психотипа",
-          url: "/guide/VI.3.1",
+          url: "/guide/freymvork-opisanie-na-yazyke-psihotipa",
           description: "Фреймворк переписывания текста под конкретный тип покупателя.",
         },
         {
           title: "Кейс: переписываем описание для Эпилептоида",
-          url: "/guide/VI.3.2",
+          url: "/guide/keys-perepisyvaem-opisanie-dlya-epileptoida",
           description: "Как тот же товар звучит для аудитории порядка — с примером правок.",
         },
         {
           title: "Чек-лист «бесшовности»: от объявления до карточки",
-          url: "/guide/VI.4.3",
+          url: "/guide/chek-list-besshovnosti-ot-obyavleniya-do-kartochki",
           description: "Где обычно рвётся обещание между рекламой, карточкой и доставкой.",
         },
       ]}

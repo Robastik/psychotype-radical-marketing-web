@@ -179,17 +179,17 @@ export default function RazmeryKartochkiPage() {
       relatedArticles={[
         {
           title: "Анатомия карточки: 6 слоёв",
-          url: "/guide/II.4.1",
+          url: "/guide/anatomiya-kartochki-6-sloev",
           description: "Какие слои кадра вы решаете, когда выбираете размер и композицию.",
         },
         {
           title: "Когнитивная нагрузка: почему перегруженная карточка не читается",
-          url: "/guide/II.5.1",
+          url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka",
           description: "Что происходит с восприятием, когда в кадре больше элементов, чем нужно.",
         },
         {
           title: "Сводная матрица: радикал × элемент карточки",
-          url: "/guide/III.8.2",
+          url: "/guide/svodnaya-matritsa-radikal-element-kartochki",
           description: "Как один и тот же элемент кадра работает на разные типы покупателя.",
         },
       ]}

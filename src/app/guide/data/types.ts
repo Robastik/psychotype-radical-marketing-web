@@ -111,6 +111,11 @@ export type GuideBlock =
 
 export interface GuideDoc {
   code: string;
+  /**
+   * Читаемый адрес статьи (`pokupatel-reshaet-ranshe-chem-dumaet`), детерминированно
+   * выведенный из shortTitle генератором. Код остаётся внутренним ключом корпуса.
+   */
+  slug: string;
   section: string;
   sectionCode: string;
   readingTime: string;
@@ -149,4 +154,5 @@ export interface GuideData {
   docs: GuideDoc[];
   sections: GuideSection[];
   byCode: Record<string, GuideDoc>;
+  bySlug: Record<string, GuideDoc>;
 }

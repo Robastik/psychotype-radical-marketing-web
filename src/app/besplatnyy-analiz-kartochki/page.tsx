@@ -147,17 +147,17 @@ export default function BesplatnyyAnalizPage() {
       relatedArticles={[
         {
           title: "Как читать Визуальный паспорт",
-          url: "/guide/V.1",
+          url: "/guide/kak-chitat-vizualnyy-pasport",
           description: "Назначение каждого блока отчёта — чтобы не спорить с документом.",
         },
         {
           title: "Когнитивный комфорт: как читать ICC",
-          url: "/guide/V.6.1",
+          url: "/guide/kognitivnyy-komfort-kak-chitat-icc",
           description: "Что означает цифра ICC и где её нельзя использовать как аргумент.",
         },
         {
           title: "Кейс: когда комфорт «хороший», а вердикт «противоречит»",
-          url: "/guide/V.9.1",
+          url: "/guide/keys-kogda-komfort-horoshiy-a-verdikt-protivorechit",
           description: "Самый частый источник недоверия к бесплатному разбору — разобран.",
         },
       ]}

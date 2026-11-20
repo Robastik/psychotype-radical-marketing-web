@@ -1,29 +1,29 @@
 import { notFound } from "next/navigation";
-import { getGuideDoc, getAllGuideCodes } from "@/app/guide/data/guide-data";
+import { getGuideDocBySlug, getAllGuideSlugs } from "@/app/guide/data/guide-data";
 import GuideLayout from "@/app/guide/components/GuideLayout";
 import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from "@/app/guide/components/GuideJsonLd";
 import { pageSeo } from "@/lib/seo";
 
 export function generateStaticParams() {
-  return getAllGuideCodes().map((code) => ({ code }));
+  return getAllGuideSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ code: string }> }) {
-  const { code } = await params;
-  const doc = getGuideDoc(code);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const doc = getGuideDocBySlug(slug);
   if (!doc) {
     return { title: "Документ не найден — Справочник eyeCARD" };
   }
 
   // Используем SEO поля, если они есть, иначе fallback на старые значения
-  const seoTitle = doc.seo?.title || `${doc.title} — Справочник eyeCARD`;
+  const seoTitle = doc.seo?.title || `${doc.shortTitle} — Справочник eyeCARD`;
   const seoDescription = doc.seo?.description || doc.essence;
 
   // ogImage: false — не объявлять images в metadata, чтобы работало файловое
   // соглашение ./opengraph-image.tsx (112 PNG по одному на документ).
   // Canonical здесь раньше приходил из корневого layout и был равен главной.
   const seo = pageSeo({
-    path: `/guide/${code}`,
+    path: `/guide/${doc.slug}`,
     ogType: "article",
     ogImage: false,
     title: seoTitle,
@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   };
 }
 
-export default async function GuideDocPage({ params }: { params: Promise<{ code: string }> }) {
-  const { code } = await params;
-  const doc = getGuideDoc(code);
+export default async function GuideDocPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const doc = getGuideDocBySlug(slug);
   if (!doc) {
     notFound();
   }
@@ -54,7 +54,7 @@ export default async function GuideDocPage({ params }: { params: Promise<{ code:
       <ArticleJsonLd
         title={doc.title}
         description={doc.seo?.description || doc.essence}
-        url={`/guide/${code}`}
+        url={`/guide/${doc.slug}`}
         author={doc.author}
         publishedAt={doc.publishedAt}
         updatedAt={doc.updatedAt}
@@ -62,7 +62,7 @@ export default async function GuideDocPage({ params }: { params: Promise<{ code:
       <BreadcrumbJsonLd
         items={[
           { name: "Справочник", url: "/guide" },
-          { name: doc.title, url: `/guide/${code}` },
+          { name: doc.title, url: `/guide/${doc.slug}` },
         ]}
       />
       {doc.faq && doc.faq.length > 0 && <FaqJsonLd items={doc.faq} />}

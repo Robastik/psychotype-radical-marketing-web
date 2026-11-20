@@ -47,7 +47,7 @@ export default function GuideIndexView() {
                           {subsection.docs.map((doc) => (
                             <li key={doc.code}>
                               <Link
-                                href={`/guide/${doc.code}`}
+                                href={`/guide/${doc.slug}`}
                                 className={styles.inlineLink}
                               >
                                 <span className={styles.indexDocCode}>{doc.code}</span>{" "}

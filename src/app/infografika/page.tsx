@@ -39,9 +39,9 @@ export default function InfografikaPage() {
         { question: "Как улучшить инфографику после анализа?", answer: "Следуйте рекомендациям из отчёта: упростите текст, улучшите контраст, добавьте иерархию." },
       ]}
       relatedArticles={[
-        { title: "Инфографика товара", url: "/guide/infografika", description: "Правила создания эффективной инфографики." },
-        { title: "Визуальный шум", url: "/guide/vizualny-shum", description: "Как перегруз снижает эффективность инфографики." },
-        { title: "Типографика", url: "/guide/tipografika", description: "Правила выбора шрифтов для карточки." },
+        { title: "Шаблон ТЗ дизайнеру на данных eyeCARD", url: "/guide/shablon-tz-dizayneru-na-dannyh-eyecard", description: "Как ставить задачу на инфографику по итогам анализа." },
+        { title: "Когнитивная нагрузка: почему карточка не читается", url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka", description: "Что такое визуальный шум и как он снижает CTR карточки товара." },
+        { title: "Признак = единица внимания", url: "/guide/priznak-edinitsa-vnimaniya", description: "Сколько текста выдерживает карточка и почему больше — хуже." },
       ]}
     />
   );

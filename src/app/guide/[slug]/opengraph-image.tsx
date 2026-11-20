@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
-import { getGuideDoc, getAllGuideCodes } from "@/app/guide/data/guide-data";
+import { getGuideDocBySlug, getAllGuideSlugs } from "@/app/guide/data/guide-data";
 
 // OG-изображение статьи (Neural Deck): satori рендерит PNG на этапе сборки,
-// по одному статическому файлу на код — файловое соглашение opengraph-image.
+// по одному статическому файлу на документ — файловое соглашение opengraph-image.
 // metadataBase из layout.tsx (https://eyecard.ru) даёт абсолютный og:image URL.
 export const alt = "Статья справочника eyeCARD";
 export const size = { width: 1200, height: 630 };
@@ -10,20 +10,20 @@ export const contentType = "image/png";
 export const dynamic = "force-static";
 
 export function generateStaticParams() {
-  return getAllGuideCodes().map((code) => ({ code }));
+  return getAllGuideSlugs().map((slug) => ({ slug }));
 }
 
 export default async function ArticleOgImage({
   params,
 }: {
-  params: Promise<{ code: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { code } = await params;
-  const doc = getGuideDoc(code);
+  const { slug } = await params;
+  const doc = getGuideDocBySlug(slug);
 
   // Заголовок без кодового префикса (код — в чипе внизу); очень длинные
   // обрезаем по границе слова, чтобы не вылезти за три строки.
-  let title = doc?.shortTitle || doc?.title || code;
+  let title = doc?.shortTitle || doc?.title || slug;
   if (title.length > 95) {
     title = `${title.slice(0, 92).replace(/\s+\S*$/, "")}…`;
   }
@@ -110,7 +110,7 @@ export default async function ArticleOgImage({
               padding: "8px 20px",
             }}
           >
-            {code}
+            {doc?.code ?? slug}
           </div>
         </div>
       </div>

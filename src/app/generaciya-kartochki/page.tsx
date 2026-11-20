@@ -160,17 +160,17 @@ export default function GeneraciyaKartochkiPage() {
       relatedArticles={[
         {
           title: "Анатомия карточки: 6 слоёв",
-          url: "/guide/II.4.1",
+          url: "/guide/anatomiya-kartochki-6-sloev",
           description: "Какие слои изображения вообще подлежат решению — и какие из них закрывает генератор.",
         },
         {
           title: "Когнитивная нагрузка: почему перегруженная карточка не читается",
-          url: "/guide/II.5.1",
+          url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka",
           description: "Механика, из-за которой «богатый» визуал генерации теряет покупателя.",
         },
         {
           title: "Кейс: снижаем визуальный шум",
-          url: "/guide/VI.1.2",
+          url: "/guide/keys-snizhaem-vizualnyy-shum-icc-plohaya-horoshaya",
           description: "Что происходит с ICC, когда из карточки убирают лишние элементы.",
         },
       ]}

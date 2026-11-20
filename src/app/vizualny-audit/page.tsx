@@ -39,9 +39,9 @@ export default function VizualnyAuditPage() {
         { question: "Что делать с результатами аудита?", answer: "Следуйте рекомендациям из отчёта, внедрите изменения и проведите повторный аудит." },
       ]}
       relatedArticles={[
-        { title: "Визуальные слои", url: "/guide/vizualnye-sloi", description: "6 базовых слоёв визуального анализа." },
-        { title: "Визуальный шум", url: "/guide/vizualny-shum", description: "Главный враг эффективной карточки." },
-        { title: "Когнитивный комфорт", url: "/guide/kogntivny-komfort", description: "ICC — метрика качества визуала." },
+        { title: "Анатомия карточки: 6 слоёв", url: "/guide/anatomiya-kartochki-6-sloev", description: "Как разбирать дизайн карточки по слоям, не путая их между собой." },
+        { title: "Когнитивная нагрузка: почему карточка не читается", url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka", description: "Что такое визуальный шум и как он снижает CTR карточки товара." },
+        { title: "Что такое ICC и как он считается", url: "/guide/chto-takoe-icc-i-kak-on-schitaetsya", description: "Индекс когнитивного комфорта — главная метрика качества дизайна." },
       ]}
     />
   );

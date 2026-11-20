@@ -20,7 +20,7 @@ export default function GuideSidebar({ currentCode }: GuideSidebarProps) {
               {subsection.docs.map((doc) => (
                 <Link
                   key={doc.code}
-                  href={`/guide/${doc.code}`}
+                  href={`/guide/${doc.slug}`}
                   className={`${styles.sidebarDoc} ${
                     doc.code === currentCode ? styles.sidebarDocActive : ""
                   }`}

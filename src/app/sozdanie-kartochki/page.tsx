@@ -153,17 +153,17 @@ export default function SozdanieKartochkiPage() {
       relatedArticles={[
         {
           title: "Шаблон ТЗ дизайнеру на данных eyeCARD",
-          url: "/guide/VI.5.1",
+          url: "/guide/shablon-tz-dizayneru-na-dannyh-eyecard",
           description: "Как превратить результат анализа в задание, которое дизайнер принимает без спора.",
         },
         {
           title: "ТЗ фотографу и сценарии съёмки по слоям",
-          url: "/guide/VI.5.2",
+          url: "/guide/tz-fotografu-i-stsenarii-semki-po-sloyam",
           description: "Что снимать, в каком свете и с какой композицией — под выбранный сегмент.",
         },
         {
           title: "Метод «Один товар — несколько лиц»",
-          url: "/guide/VI.2.1",
+          url: "/guide/metod-odin-tovar-neskolko-lits",
           description: "Как делать разные карточки под разные аудитории одной ниши.",
         },
       ]}

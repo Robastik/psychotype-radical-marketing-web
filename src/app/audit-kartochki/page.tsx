@@ -39,9 +39,9 @@ export default function AuditKartochkiPage() {
         { question: "Что делать после аудита?", answer: "Следуйте рекомендациям из отчёта. Внедрите изменения и проведите повторный аудит, чтобы оценить улучшение ICC." },
       ]}
       relatedArticles={[
-        { title: "Визуальный шум", url: "/guide/vizualny-shum", description: "Что такое визуальный шум и как он снижает CTR." },
-        { title: "Когнитивный комфорт", url: "/guide/kogntivny-komfort", description: "ICC — главная метрика качества дизайна." },
-        { title: "Архетипы бренда", url: "/guide/arhetipy", description: "12 архетипов и их влияние на восприятие карточки." },
+        { title: "Когнитивная нагрузка: почему карточка не читается", url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka", description: "Что такое визуальный шум и как он снижает CTR карточки товара." },
+        { title: "Что такое ICC и как он считается", url: "/guide/chto-takoe-icc-i-kak-on-schitaetsya", description: "Индекс когнитивного комфорта — главная метрика качества дизайна." },
+        { title: "Двенадцать ролей: зачем бренду архетип", url: "/guide/dvenadtsat-roley-zachem-brendu-arhetip", description: "Как архетип влияет на восприятие карточки и на отклик покупателя." },
       ]}
     />
   );

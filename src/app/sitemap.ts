@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { execSync } from 'child_process';
-import { getAllGuideCodes, guideData } from '@/app/guide/data/guide-data';
+import { guideData } from '@/app/guide/data/guide-data';
 
 export const dynamic = 'force-static';
 
@@ -98,10 +98,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // поэтому lastmod у каждой статьи собственный.
   let guidePages: MetadataRoute.Sitemap = [];
   try {
-    guidePages = getAllGuideCodes().map((code) => {
-      const doc = guideData.byCode[code];
-      return entry(`/guide/${code}`, doc?.updatedAt ?? null, 0.6, 'monthly');
-    });
+    guidePages = guideData.docs.map((doc) =>
+      entry(`/guide/${doc.slug}`, doc?.updatedAt ?? null, 0.6, 'monthly'),
+    );
   } catch {
     // Если данные корпуса недоступны (например, на этапе сборки), пропускаем.
   }

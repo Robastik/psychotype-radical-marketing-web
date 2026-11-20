@@ -6,6 +6,7 @@ import {
   type InlineSegment,
   type GuideBlock,
 } from "@/app/guide/data/types";
+import { guideDocUrl } from "@/app/guide/data/guide-data";
 import styles from "../guide.module.css";
 
 function slugify(text: string) {
@@ -37,7 +38,7 @@ function InlineRenderer({ segments }: { segments: InlineSegment[] }) {
             return (
               <Link
                 key={index}
-                href={`/guide/${segment.code}`}
+                href={guideDocUrl(segment.code)}
                 className={styles.inlineLink}
               >
                 {segment.label || segment.code}
@@ -218,7 +219,7 @@ function ReadMoreBlock({
       <span className={styles.readMoreLabel}>Читайте также:</span>{" "}
       {links.map((link, index) => (
         <span key={`${link.code}-${index}`}>
-          <Link href={`/guide/${link.code}`} className={styles.inlineLink}>
+          <Link href={guideDocUrl(link.code)} className={styles.inlineLink}>
             {link.label}
             <span className={styles.readMoreCode}>[{link.code}]</span>
           </Link>

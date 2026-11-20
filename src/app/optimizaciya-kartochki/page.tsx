@@ -147,17 +147,17 @@ export default function OptimizaciyaKartochkiPage() {
       relatedArticles={[
         {
           title: "Фреймворк «7 шагов редизайна по паспорту»",
-          url: "/guide/VI.1.1",
+          url: "/guide/freymvork-7-shagov-redizayna-po-pasportu",
           description: "Полная последовательность: от ФАКТ/ИДЕАЛ до закрепления результата.",
         },
         {
           title: "Кейс: снижаем визуальный шум",
-          url: "/guide/VI.1.2",
+          url: "/guide/keys-snizhaem-vizualnyy-shum-icc-plohaya-horoshaya",
           description: "Что происходит с ICC, когда из карточки убирают лишнее.",
         },
         {
           title: "Гипотезы из паспорта для A/B-тестов",
-          url: "/guide/VI.7.1",
+          url: "/guide/gipotezy-iz-pasporta-dlya-a-b-testov",
           description: "Как превратить рекомендации анализа в проверяемый эксперимент.",
         },
       ]}

@@ -133,18 +133,18 @@ describe("уникальность мета", () => {
 describe("метаданные статей справочника", () => {
   // Динамический маршрут подключается лениво: модуль тянет корпус 11 МБ.
   it("статья канонизируется на собственный URL", async () => {
-    const { generateMetadata } = await import('../guide/[code]/page');
+    const { generateMetadata } = await import('../guide/[slug]/page');
     const meta = (await generateMetadata({
-      params: Promise.resolve({ code: 'I.1.1' }),
+      params: Promise.resolve({ slug: 'pokupatel-reshaet-ranshe-chem-dumaet' }),
     })) as Metadata;
 
-    expect(canonicalOf(meta)).toBe(`${SITE_ORIGIN}/guide/I.1.1`);
+    expect(canonicalOf(meta)).toBe(`${SITE_ORIGIN}/guide/pokupatel-reshaet-ranshe-chem-dumaet`);
   });
 
   it("og:image статьи остаётся за файловым соглашением сегмента", async () => {
-    const { generateMetadata } = await import('../guide/[code]/page');
+    const { generateMetadata } = await import('../guide/[slug]/page');
     const meta = (await generateMetadata({
-      params: Promise.resolve({ code: 'I.1.1' }),
+      params: Promise.resolve({ slug: 'pokupatel-reshaet-ranshe-chem-dumaet' }),
     })) as Metadata;
 
     // Ручное объявление images давало og:image → 404 (этап 3.5), поэтому
@@ -152,13 +152,63 @@ describe("метаданные статей справочника", () => {
     expect(ogImages(meta)).toEqual([]);
   });
 
-  it("несуществующий код не притворяется главной", async () => {
-    const { generateMetadata } = await import('../guide/[code]/page');
+  it("несуществующий слаг не притворяется главной", async () => {
+    const { generateMetadata } = await import('../guide/[slug]/page');
     const meta = (await generateMetadata({
-      params: Promise.resolve({ code: 'NET.TAKOGO' }),
+      params: Promise.resolve({ slug: 'net-takogo-dokumenta' }),
     })) as Metadata;
 
     expect(canonicalOf(meta)).toBeUndefined();
+  });
+});
+
+describe("адреса статей", () => {
+  // Слаг — единственный публичный адрес статьи; код корпуса (VI.1.2) остаётся
+  // внутренним ключом. Пока в лендингах жили `/guide/vizualny-shum`, на проде
+  // было 11 ссылок в никуда: их никто не ловил, потому что sitemap их не содержит.
+  it("в лендингах нет ссылок на несуществующие статьи", () => {
+    const fs = require("fs");
+    const path = require("path");
+    const { guideData } = require("../guide/data/guide-data");
+    const appDir = path.join(__dirname, "..");
+
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const e of fs.readdirSync(dir, { withFileTypes: true }) as any[]) {
+        if (e.name.startsWith(".") || e.name === "node_modules" || e.name === "out") continue;
+        const p = path.join(dir, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (/\.(tsx|ts)$/.test(e.name) && !p.includes("guide-data.ts")) files.push(p);
+      }
+    };
+    walk(appDir);
+
+    const slugs = new Set(Object.keys(guideData.bySlug));
+    const bad: string[] = [];
+    for (const f of files) {
+      const text = fs.readFileSync(f, "utf8");
+      // Только абсолюты в кавычках: `'../guide/page'` — путь импорта, а не адрес.
+      for (const m of text.matchAll(/["']\/guide\/([A-Za-z0-9._-]+)["']/g)) {
+        if (!slugs.has(m[1])) bad.push(`${path.relative(appDir, f)} → /guide/${m[1]}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it("в sitemap только слаги, кодов корпуса больше нет", async () => {
+    const buildSitemap = (await import('../sitemap')).default;
+    const entries = await buildSitemap();
+    const { guideData } = await import('../guide/data/guide-data');
+
+    const tails = entries
+      .filter((e) => String(e.url).includes("/guide/"))
+      .map((e) => String(e.url).split("/guide/")[1]);
+
+    expect(tails.length).toBe(112);
+    for (const t of tails) {
+      expect(guideData.bySlug[t]).toBeDefined();
+      expect(t).not.toMatch(/^[IVX]+\./);
+    }
   });
 });
 
@@ -197,8 +247,8 @@ describe("sitemap", () => {
 
     expect(guideEntries.length).toBeGreaterThan(100);
     for (const e of guideEntries) {
-      const code = String(e.url).split("/guide/")[1];
-      const expected = guideData.byCode[code]?.updatedAt;
+      const slug = String(e.url).split("/guide/")[1];
+      const expected = guideData.bySlug[slug]?.updatedAt;
       const got = e.lastModified
         ? new Date(e.lastModified as Date).toISOString().slice(0, 10)
         : undefined;

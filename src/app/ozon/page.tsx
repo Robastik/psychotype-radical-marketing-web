@@ -92,19 +92,19 @@ export default function OzonPage() {
       ]}
       relatedArticles={[
         {
-          title: "Психология покупателя",
-          url: "/guide/psihologiya-pokupatelya",
-          description: "Как психология влияет на дизайн карточек и принятие решений о покупке.",
+          title: "Покупатель решает раньше, чем думает",
+          url: "/guide/pokupatel-reshaet-ranshe-chem-dumaet",
+          description: "Почему карточка конкурирует за доли секунды и что решает исход.",
         },
         {
-          title: "Визуальный шум",
-          url: "/guide/vizualny-shum",
+          title: "Когнитивная нагрузка: почему карточка не читается",
+          url: "/guide/kognitivnaya-nagruzka-pochemu-peregruzhennaya-kartochka",
           description: "Что такое визуальный шум и как он снижает CTR карточки товара.",
         },
         {
-          title: "Когнитивный комфорт",
-          url: "/guide/kogntivny-komfort",
-          description: "ICC — главная метрика качества дизайна карточки товара.",
+          title: "Что такое ICC и как он считается",
+          url: "/guide/chto-takoe-icc-i-kak-on-schitaetsya",
+          description: "Индекс когнитивного комфорта — главная метрика качества дизайна.",
         },
       ]}
     />
